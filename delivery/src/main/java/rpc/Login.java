@@ -36,8 +36,7 @@ public class Login extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		JSONObject input = RpcHelper.readJSONObject(request);
-		String userId = input.getString("user_id");
-		String password = input.getString("password");
+
 		
 		JSONObject obj = new JSONObject();
 		obj.put("token", "222222222");
