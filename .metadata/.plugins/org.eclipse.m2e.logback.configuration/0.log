@@ -1,0 +1,301 @@
+2020-07-02 17:21:29,098 [Worker-1: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
+2020-07-02 17:39:54,715 [Worker-28: Creating maven-archetype-webapp] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Collecting project info '/pom.xml' D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\pom.xml
+2020-07-02 17:39:58,487 [Worker-28: Creating maven-archetype-webapp] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.maven.ide.eclipse.wtp.WarLifecycleMapping lifecycle mapping for MavenProject: flagcampproject:delivery:0.0.1-SNAPSHOT @ D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\pom.xml.
+2020-07-02 17:40:01,617 [Worker-28: Creating maven-archetype-webapp] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /delivery/src/main/java
+2020-07-02 17:40:01,618 [Worker-28: Creating maven-archetype-webapp] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /delivery/src/test/java
+2020-07-02 17:40:04,625 [Worker-28: Creating maven-archetype-webapp] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Imported and configured 1 project(s) in 9 sec
+2020-07-02 17:40:05,439 [Worker-31: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-07-02 17:40:05,439 [Worker-31: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-02 17:40:05,443 [Worker-31: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-07-02 17:40:05,443 [Worker-31: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
+2020-07-02 17:43:00,702 [Worker-31: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-07-02 17:43:00,702 [Worker-31: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-02 17:43:00,703 [Worker-31: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-07-02 17:43:00,703 [Worker-31: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
+2020-07-02 17:45:24,376 [Worker-30: Building] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.maven.ide.eclipse.wtp.WarLifecycleMapping lifecycle mapping for MavenProject: flagcampproject:delivery:0.0.1-SNAPSHOT @ D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\pom.xml.
+2020-07-02 17:45:25,413 [Worker-30: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-02 17:45:25,416 [Worker-30: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-02 17:45:25,419 [Worker-30: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-02 17:45:25,421 [Worker-30: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
+2020-07-02 17:45:25,422 [Worker-30: Building] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Changed resources require a complete clean of filtered resources of delivery
+2020-07-02 17:45:25,423 [Worker-30: Building] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Executing resource filtering for delivery
+2020-07-02 17:45:25,430 [Worker-30: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-02 17:45:57,965 [Worker-30: Building] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.maven.ide.eclipse.wtp.WarLifecycleMapping lifecycle mapping for MavenProject: flagcampproject:delivery:0.0.1-SNAPSHOT @ D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\pom.xml.
+2020-07-02 17:46:00,279 [Worker-30: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-02 17:46:00,281 [Worker-30: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-02 17:46:00,283 [Worker-30: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-02 17:46:00,285 [Worker-30: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
+2020-07-02 17:46:00,285 [Worker-30: Building] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Changed resources require a complete clean of filtered resources of delivery
+2020-07-02 17:46:00,285 [Worker-30: Building] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Executing resource filtering for delivery
+2020-07-02 17:46:00,291 [Worker-30: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-02 17:46:00,776 [Worker-31: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-02 17:46:00,779 [Worker-31: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-02 17:46:00,782 [Worker-31: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-02 17:46:00,784 [Worker-31: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
+2020-07-02 17:46:15,687 [Worker-37: Launching Executing install in D__MySoftware_JavaProgramming_flagcamp_workspace_delivery] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery
+2020-07-02 17:46:15,687 [Worker-37: Launching Executing install in D__MySoftware_JavaProgramming_flagcamp_workspace_delivery] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2020-07-02 17:46:22,178 [Worker-37: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-02 17:46:22,179 [Worker-37: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-02 17:46:22,181 [Worker-37: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-02 17:46:22,184 [Worker-37: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
+2020-07-02 20:09:54,246 [Worker-57: Building] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.maven.ide.eclipse.wtp.WarLifecycleMapping lifecycle mapping for MavenProject: flagcampproject:delivery:0.0.1-SNAPSHOT @ D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\pom.xml.
+2020-07-02 20:09:58,822 [Worker-57: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-02 20:09:58,825 [Worker-57: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-02 20:09:58,830 [Worker-57: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-02 20:09:58,832 [Worker-57: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
+2020-07-02 20:09:58,833 [Worker-57: Building] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Changed resources require a complete clean of filtered resources of delivery
+2020-07-02 20:09:58,833 [Worker-57: Building] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Executing resource filtering for delivery
+2020-07-02 20:09:58,839 [Worker-57: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-02 20:10:01,044 [Worker-59: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-02 20:10:01,156 [Worker-59: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-02 20:10:01,159 [Worker-59: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-02 20:10:01,172 [Worker-59: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
+2020-07-02 21:36:30,765 [Worker-70: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-02 21:36:30,776 [Worker-70: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-02 21:36:30,778 [Worker-70: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-02 21:36:30,784 [Worker-70: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
+2020-07-02 21:36:31,865 [Worker-72: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-02 21:36:31,871 [Worker-72: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-02 21:36:31,874 [Worker-72: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-02 21:36:31,879 [Worker-72: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
+2020-07-02 21:43:49,426 [Worker-71: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-02 21:43:49,561 [Worker-71: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-02 21:43:49,563 [Worker-71: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-02 21:43:49,588 [Worker-71: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
+2020-07-02 21:44:05,708 [Worker-71: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-02 21:44:05,712 [Worker-71: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-02 21:44:05,714 [Worker-71: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-02 21:44:05,716 [Worker-71: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
+2020-07-02 21:44:24,175 [Worker-71: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-02 21:44:24,177 [Worker-71: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-02 21:44:24,178 [Worker-71: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-02 21:44:24,179 [Worker-71: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
+2020-07-02 21:48:52,512 [Worker-71: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-02 21:48:52,514 [Worker-71: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-02 21:48:52,515 [Worker-71: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-02 21:48:52,516 [Worker-71: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
+2020-07-02 21:50:31,060 [Worker-82: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-02 21:50:31,070 [Worker-82: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-02 21:50:31,073 [Worker-82: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-02 21:50:31,076 [Worker-82: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
+2020-07-02 21:51:00,188 [Worker-80: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-02 21:51:00,195 [Worker-80: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-02 21:51:00,198 [Worker-80: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-02 21:51:00,201 [Worker-80: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
+2020-07-02 21:51:09,763 [Worker-80: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-02 21:51:09,764 [Worker-80: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-02 21:51:09,766 [Worker-80: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-02 21:51:09,767 [Worker-80: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
+2020-07-02 21:52:19,513 [Worker-81: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-02 21:52:19,519 [Worker-81: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-02 21:52:19,520 [Worker-81: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-02 21:52:19,522 [Worker-81: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
+2020-07-02 21:53:17,145 [Worker-83: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-02 21:53:17,146 [Worker-83: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-02 21:53:17,149 [Worker-83: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-02 21:53:17,149 [Worker-83: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
+2020-07-02 21:55:50,947 [Worker-82: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-02 21:55:50,948 [Worker-82: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-02 21:55:50,950 [Worker-82: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-02 21:55:50,951 [Worker-82: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
+2020-07-03 00:25:07,056 [Worker-122: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 00:25:07,067 [Worker-122: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-03 00:25:07,068 [Worker-122: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 00:25:07,070 [Worker-122: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
+2020-07-03 00:25:27,447 [Worker-85: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 00:25:27,448 [Worker-85: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-03 00:25:27,452 [Worker-85: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 00:25:27,455 [Worker-85: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
+2020-07-03 00:26:23,031 [Worker-123: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 00:26:23,033 [Worker-123: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-03 00:26:23,036 [Worker-123: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 00:26:23,038 [Worker-123: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
+2020-07-03 15:30:27,099 [Worker-206: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 15:30:27,110 [Worker-206: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-03 15:30:27,114 [Worker-206: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 15:30:27,116 [Worker-206: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
+2020-07-03 15:31:34,587 [Worker-206: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 15:31:34,590 [Worker-206: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-03 15:31:34,593 [Worker-206: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 15:31:34,595 [Worker-206: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
+2020-07-03 15:32:23,982 [Worker-211: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 15:32:23,983 [Worker-211: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-03 15:32:23,985 [Worker-211: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 15:32:23,987 [Worker-211: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
+2020-07-03 15:33:08,530 [Worker-211: Building] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.maven.ide.eclipse.wtp.WarLifecycleMapping lifecycle mapping for MavenProject: flagcampproject:delivery:0.0.1-SNAPSHOT @ D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\pom.xml.
+2020-07-03 15:33:09,770 [Worker-211: Building] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/org/slf4j/slf4j-simple/1.7.25/slf4j-simple-1.7.25.pom
+2020-07-03 15:33:09,932 [Worker-211: Building] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/slf4j/slf4j-simple/1.7.25/slf4j-simple-1.7.25.pom
+2020-07-03 15:33:11,733 [Worker-211: Building] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Changed resources require a complete clean of filtered resources of delivery
+2020-07-03 15:33:11,734 [Worker-211: Building] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Executing resource filtering for delivery
+2020-07-03 15:33:12,513 [Worker-209: Launching Executing install in D__MySoftware_JavaProgramming_flagcamp_workspace_delivery] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery
+2020-07-03 15:33:12,514 [Worker-209: Launching Executing install in D__MySoftware_JavaProgramming_flagcamp_workspace_delivery] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2020-07-03 15:33:12,611 [Worker-210: Download sources and javadoc] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/org/slf4j/slf4j-simple/1.7.25/slf4j-simple-1.7.25-sources.jar
+2020-07-03 15:33:12,915 [Worker-210: Download sources and javadoc] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/slf4j/slf4j-simple/1.7.25/slf4j-simple-1.7.25-sources.jar
+2020-07-03 15:33:13,077 [Worker-210: Download sources and javadoc] INFO  o.e.m.j.internal.DownloadSourcesJob - Downloaded sources for org.slf4j:slf4j-simple:1.7.25
+2020-07-03 15:33:24,187 [Worker-213: Launching Executing install in D__MySoftware_JavaProgramming_flagcamp_workspace_delivery] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery
+2020-07-03 15:33:24,187 [Worker-213: Launching Executing install in D__MySoftware_JavaProgramming_flagcamp_workspace_delivery] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2020-07-03 16:43:00,920 [Worker-231: Building] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.maven.ide.eclipse.wtp.WarLifecycleMapping lifecycle mapping for MavenProject: flagcampproject:delivery:0.0.1-SNAPSHOT @ D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\pom.xml.
+2020-07-03 16:43:01,258 [Worker-231: Building] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/com/google/maps/google-maps-services/0.14.0/google-maps-services-0.14.0.pom
+2020-07-03 16:43:01,325 [Worker-231: Building] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/com/google/maps/google-maps-services/0.14.0/google-maps-services-0.14.0.pom
+2020-07-03 16:43:01,373 [Worker-231: Building] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/com/squareup/okhttp3/okhttp/3.14.4/okhttp-3.14.4.pom
+2020-07-03 16:43:01,421 [Worker-231: Building] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/com/squareup/okhttp3/okhttp/3.14.4/okhttp-3.14.4.pom
+2020-07-03 16:43:01,462 [Worker-231: Building] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/com/squareup/okhttp3/parent/3.14.4/parent-3.14.4.pom
+2020-07-03 16:43:01,539 [Worker-231: Building] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/com/squareup/okhttp3/parent/3.14.4/parent-3.14.4.pom
+2020-07-03 16:43:01,608 [Worker-231: Building] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/com/squareup/okio/okio/1.17.2/okio-1.17.2.pom
+2020-07-03 16:43:01,671 [Worker-231: Building] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/com/squareup/okio/okio/1.17.2/okio-1.17.2.pom
+2020-07-03 16:43:01,719 [Worker-231: Building] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/com/squareup/okio/okio-parent/1.17.2/okio-parent-1.17.2.pom
+2020-07-03 16:43:01,779 [Worker-231: Building] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/com/squareup/okio/okio-parent/1.17.2/okio-parent-1.17.2.pom
+2020-07-03 16:43:01,825 [Worker-231: Building] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/com/google/code/gson/gson/2.8.5/gson-2.8.5.pom
+2020-07-03 16:43:01,886 [Worker-231: Building] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/com/google/code/gson/gson/2.8.5/gson-2.8.5.pom
+2020-07-03 16:43:01,932 [Worker-231: Building] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/com/google/code/gson/gson-parent/2.8.5/gson-parent-2.8.5.pom
+2020-07-03 16:43:01,996 [Worker-231: Building] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/com/google/code/gson/gson-parent/2.8.5/gson-parent-2.8.5.pom
+2020-07-03 16:43:02,045 [Worker-231: Building] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/io/opencensus/opencensus-api/0.25.0/opencensus-api-0.25.0.pom
+2020-07-03 16:43:02,170 [Worker-231: Building] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/io/opencensus/opencensus-api/0.25.0/opencensus-api-0.25.0.pom
+2020-07-03 16:43:02,216 [Worker-231: Building] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/io/grpc/grpc-context/1.25.0/grpc-context-1.25.0.pom
+2020-07-03 16:43:02,277 [Worker-231: Building] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/io/grpc/grpc-context/1.25.0/grpc-context-1.25.0.pom
+2020-07-03 16:43:02,323 [Worker-231: Building] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/1.7.26/slf4j-api-1.7.26.pom
+2020-07-03 16:43:02,379 [Worker-231: Building] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/1.7.26/slf4j-api-1.7.26.pom
+2020-07-03 16:43:02,425 [Worker-231: Building] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/org/slf4j/slf4j-parent/1.7.26/slf4j-parent-1.7.26.pom
+2020-07-03 16:43:02,502 [Worker-231: Building] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/slf4j/slf4j-parent/1.7.26/slf4j-parent-1.7.26.pom
+2020-07-03 16:43:02,580 [AetherRepositoryConnector-repo.maven.apache.org-0-0] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/com/google/maps/google-maps-services/0.14.0/google-maps-services-0.14.0.jar
+2020-07-03 16:43:02,857 [AetherRepositoryConnector-repo.maven.apache.org-0-1] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/com/squareup/okhttp3/okhttp/3.14.4/okhttp-3.14.4.jar
+2020-07-03 16:43:02,891 [AetherRepositoryConnector-repo.maven.apache.org-0-2] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/com/squareup/okio/okio/1.17.2/okio-1.17.2.jar
+2020-07-03 16:43:02,896 [AetherRepositoryConnector-repo.maven.apache.org-0-3] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/com/google/code/gson/gson/2.8.5/gson-2.8.5.jar
+2020-07-03 16:43:02,904 [AetherRepositoryConnector-repo.maven.apache.org-0-4] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/io/opencensus/opencensus-api/0.25.0/opencensus-api-0.25.0.jar
+2020-07-03 16:43:03,027 [AetherRepositoryConnector-repo.maven.apache.org-0-0] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/com/google/maps/google-maps-services/0.14.0/google-maps-services-0.14.0.jar
+2020-07-03 16:43:03,365 [AetherRepositoryConnector-repo.maven.apache.org-0-0] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/io/grpc/grpc-context/1.25.0/grpc-context-1.25.0.jar
+2020-07-03 16:43:03,482 [AetherRepositoryConnector-repo.maven.apache.org-0-2] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/com/squareup/okio/okio/1.17.2/okio-1.17.2.jar
+2020-07-03 16:43:03,625 [AetherRepositoryConnector-repo.maven.apache.org-0-2] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/1.7.26/slf4j-api-1.7.26.jar
+2020-07-03 16:43:03,721 [AetherRepositoryConnector-repo.maven.apache.org-0-0] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/io/grpc/grpc-context/1.25.0/grpc-context-1.25.0.jar
+2020-07-03 16:43:03,801 [AetherRepositoryConnector-repo.maven.apache.org-0-0] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/org/slf4j/slf4j-simple/1.7.25/slf4j-simple-1.7.25.jar
+2020-07-03 16:43:03,831 [AetherRepositoryConnector-repo.maven.apache.org-0-3] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/com/google/code/gson/gson/2.8.5/gson-2.8.5.jar
+2020-07-03 16:43:03,969 [AetherRepositoryConnector-repo.maven.apache.org-0-2] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/1.7.26/slf4j-api-1.7.26.jar
+2020-07-03 16:43:03,969 [AetherRepositoryConnector-repo.maven.apache.org-0-0] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/slf4j/slf4j-simple/1.7.25/slf4j-simple-1.7.25.jar
+2020-07-03 16:43:03,992 [AetherRepositoryConnector-repo.maven.apache.org-0-1] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/com/squareup/okhttp3/okhttp/3.14.4/okhttp-3.14.4.jar
+2020-07-03 16:43:04,011 [AetherRepositoryConnector-repo.maven.apache.org-0-4] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/io/opencensus/opencensus-api/0.25.0/opencensus-api-0.25.0.jar
+2020-07-03 16:43:07,465 [Worker-234: Download sources and javadoc] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/com/google/maps/google-maps-services/0.14.0/google-maps-services-0.14.0-sources.jar
+2020-07-03 16:43:07,708 [Worker-234: Download sources and javadoc] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/com/google/maps/google-maps-services/0.14.0/google-maps-services-0.14.0-sources.jar
+2020-07-03 16:43:07,768 [Worker-234: Download sources and javadoc] INFO  o.e.m.j.internal.DownloadSourcesJob - Downloaded sources for com.google.maps:google-maps-services:0.14.0
+2020-07-03 16:43:07,941 [Worker-234: Download sources and javadoc] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/com/squareup/okhttp3/okhttp/3.14.4/okhttp-3.14.4-sources.jar
+2020-07-03 16:43:08,213 [Worker-234: Download sources and javadoc] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/com/squareup/okhttp3/okhttp/3.14.4/okhttp-3.14.4-sources.jar
+2020-07-03 16:43:08,262 [Worker-234: Download sources and javadoc] INFO  o.e.m.j.internal.DownloadSourcesJob - Downloaded sources for com.squareup.okhttp3:okhttp:3.14.4
+2020-07-03 16:43:08,397 [Worker-231: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 16:43:08,398 [Worker-231: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-03 16:43:08,400 [Worker-231: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 16:43:08,401 [Worker-231: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
+2020-07-03 16:43:08,401 [Worker-231: Building] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Changed resources require a complete clean of filtered resources of delivery
+2020-07-03 16:43:08,401 [Worker-231: Building] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Executing resource filtering for delivery
+2020-07-03 16:43:08,405 [Worker-231: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 16:43:08,420 [Worker-234: Download sources and javadoc] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/com/squareup/okio/okio/1.17.2/okio-1.17.2-sources.jar
+2020-07-03 16:43:08,548 [Worker-234: Download sources and javadoc] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/com/squareup/okio/okio/1.17.2/okio-1.17.2-sources.jar
+2020-07-03 16:43:08,600 [Worker-234: Download sources and javadoc] INFO  o.e.m.j.internal.DownloadSourcesJob - Downloaded sources for com.squareup.okio:okio:1.17.2
+2020-07-03 16:43:08,759 [Worker-234: Download sources and javadoc] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/com/google/code/gson/gson/2.8.5/gson-2.8.5-sources.jar
+2020-07-03 16:43:08,944 [Worker-234: Download sources and javadoc] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/com/google/code/gson/gson/2.8.5/gson-2.8.5-sources.jar
+2020-07-03 16:43:09,023 [Worker-234: Download sources and javadoc] INFO  o.e.m.j.internal.DownloadSourcesJob - Downloaded sources for com.google.code.gson:gson:2.8.5
+2020-07-03 16:43:09,174 [Worker-234: Download sources and javadoc] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/io/opencensus/opencensus-api/0.25.0/opencensus-api-0.25.0-sources.jar
+2020-07-03 16:43:09,244 [Worker-230: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 16:43:09,245 [Worker-230: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-03 16:43:09,246 [Worker-230: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 16:43:09,247 [Worker-230: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
+2020-07-03 16:43:09,422 [Worker-234: Download sources and javadoc] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/io/opencensus/opencensus-api/0.25.0/opencensus-api-0.25.0-sources.jar
+2020-07-03 16:43:09,706 [Worker-234: Download sources and javadoc] INFO  o.e.m.j.internal.DownloadSourcesJob - Downloaded sources for io.opencensus:opencensus-api:0.25.0
+2020-07-03 16:43:09,926 [Worker-234: Download sources and javadoc] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/io/grpc/grpc-context/1.25.0/grpc-context-1.25.0-sources.jar
+2020-07-03 16:43:10,197 [Worker-234: Download sources and javadoc] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/io/grpc/grpc-context/1.25.0/grpc-context-1.25.0-sources.jar
+2020-07-03 16:43:10,292 [Worker-234: Download sources and javadoc] INFO  o.e.m.j.internal.DownloadSourcesJob - Downloaded sources for io.grpc:grpc-context:1.25.0
+2020-07-03 16:43:10,372 [Worker-230: Launching Executing install in D__MySoftware_JavaProgramming_flagcamp_workspace_delivery] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery
+2020-07-03 16:43:10,373 [Worker-230: Launching Executing install in D__MySoftware_JavaProgramming_flagcamp_workspace_delivery] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2020-07-03 16:43:10,474 [Worker-234: Download sources and javadoc] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/1.7.26/slf4j-api-1.7.26-sources.jar
+2020-07-03 16:43:10,881 [Worker-234: Download sources and javadoc] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/1.7.26/slf4j-api-1.7.26-sources.jar
+2020-07-03 16:43:10,948 [Worker-234: Download sources and javadoc] INFO  o.e.m.j.internal.DownloadSourcesJob - Downloaded sources for org.slf4j:slf4j-api:1.7.26
+2020-07-03 16:43:11,346 [Worker-231: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 16:43:11,347 [Worker-231: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-03 16:43:11,349 [Worker-231: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 16:43:11,351 [Worker-231: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
+2020-07-03 16:43:15,411 [Worker-231: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 16:43:15,412 [Worker-231: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-03 16:43:15,414 [Worker-231: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 16:43:15,415 [Worker-231: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
+2020-07-03 16:43:27,596 [Worker-235: Launching Executing install in D__MySoftware_JavaProgramming_flagcamp_workspace_delivery] INFO  o.e.m.i.launch.MavenLaunchDelegate - D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery
+2020-07-03 16:43:27,597 [Worker-235: Launching Executing install in D__MySoftware_JavaProgramming_flagcamp_workspace_delivery] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B install
+2020-07-03 16:43:33,620 [Worker-234: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 16:43:33,620 [Worker-234: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-03 16:43:33,621 [Worker-234: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 16:43:33,622 [Worker-234: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
+2020-07-03 16:44:23,318 [Worker-234: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 16:44:23,319 [Worker-234: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-03 16:44:23,321 [Worker-234: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 16:44:23,323 [Worker-234: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
+2020-07-03 16:45:23,425 [Worker-231: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 16:45:23,426 [Worker-231: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-03 16:45:23,427 [Worker-231: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 16:45:23,428 [Worker-231: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
+2020-07-03 16:46:16,023 [Worker-235: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 16:46:16,024 [Worker-235: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-03 16:46:16,025 [Worker-235: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 16:46:16,026 [Worker-235: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
+2020-07-03 16:46:19,680 [Worker-233: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 16:46:19,681 [Worker-233: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-03 16:46:19,682 [Worker-233: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 16:46:19,683 [Worker-233: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
+2020-07-03 16:46:57,481 [Worker-233: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 16:46:57,482 [Worker-233: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-03 16:46:57,483 [Worker-233: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 16:46:57,484 [Worker-233: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
+2020-07-03 16:52:22,502 [Worker-233: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 16:52:22,505 [Worker-233: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-03 16:52:22,507 [Worker-233: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 16:52:22,508 [Worker-233: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
+2020-07-03 16:52:26,875 [Worker-239: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 16:52:26,876 [Worker-239: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-03 16:52:26,877 [Worker-239: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 16:52:26,878 [Worker-239: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
+2020-07-03 16:52:38,612 [Worker-240: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 16:52:38,614 [Worker-240: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-03 16:52:38,614 [Worker-240: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 16:52:38,615 [Worker-240: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
+2020-07-03 16:52:42,864 [Worker-239: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 16:52:42,865 [Worker-239: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-03 16:52:42,866 [Worker-239: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 16:52:42,867 [Worker-239: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
+2020-07-03 16:53:00,595 [Worker-240: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 16:53:00,596 [Worker-240: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-03 16:53:00,598 [Worker-240: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 16:53:00,599 [Worker-240: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
+2020-07-03 16:53:37,318 [Worker-240: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 16:53:37,319 [Worker-240: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-03 16:53:37,321 [Worker-240: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 16:53:37,322 [Worker-240: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
+2020-07-03 17:02:11,111 [Worker-237: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 17:02:11,112 [Worker-237: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-03 17:02:11,113 [Worker-237: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 17:02:11,114 [Worker-237: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
+2020-07-03 17:02:23,841 [Worker-241: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 17:02:23,843 [Worker-241: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-03 17:02:23,844 [Worker-241: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 17:02:23,845 [Worker-241: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
+2020-07-03 17:02:47,972 [Worker-238: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 17:02:47,973 [Worker-238: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-03 17:02:47,974 [Worker-238: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 17:02:47,975 [Worker-238: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
+2020-07-03 17:03:06,972 [Worker-242: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 17:03:06,973 [Worker-242: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-03 17:03:06,975 [Worker-242: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 17:03:06,976 [Worker-242: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
+2020-07-03 17:03:39,619 [Worker-242: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 17:03:39,624 [Worker-242: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-03 17:03:39,625 [Worker-242: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-03 17:03:39,629 [Worker-242: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
+2020-07-04 03:29:03,926 [Worker-0: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
+2020-07-04 03:29:15,030 [Worker-3: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-04 03:29:15,032 [Worker-3: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-04 03:29:15,037 [Worker-3: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-04 03:29:15,039 [Worker-3: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
+2020-07-04 03:29:29,673 [Worker-8: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-04 03:29:29,674 [Worker-8: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-04 03:29:29,676 [Worker-8: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-04 03:29:29,679 [Worker-8: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
+2020-07-04 03:37:52,804 [Worker-1: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2020-07-04 03:37:56,888 [Worker-0: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-04 03:37:56,890 [Worker-0: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\main\resources
+2020-07-04 03:37:56,892 [Worker-0: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (GBK actually) to copy filtered resources, i.e. build is platform dependent!
+2020-07-04 03:37:56,894 [Worker-0: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\MySoftware\JavaProgramming\flagcamp_workspace\delivery\src\test\resources
