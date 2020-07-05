@@ -5,6 +5,7 @@ RESTFul APIs to handle requests from Node.js and interact with AWS RDS
 - step1: configure tomcat 
 - step2: start tomcat 
 - step3: test with postman
+
 Example:
 ```json
 {
