@@ -10,7 +10,6 @@ INDEX VERSION 1.131+C:\Users\jiang\Desktop\around-delivery-backend\.metadata\.pl
 4069293921.index
 3973945260.index
 1896299621.index
-828567492.index
 86941795.index
 180564697.index
 1611532234.index
