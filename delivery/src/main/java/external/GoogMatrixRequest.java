@@ -119,8 +119,11 @@ public class GoogMatrixRequest {
 		  // method 2 robot
 		  cost = 1.99 + distance * weight * 0.2;
 	  }	  
-	  // output
-	  System.out.println("shipping cost: " + cost + "; distance: " + distance);
+	  if (mode) {
+		  System.out.println("Vehicle: Drone; The shipping cost: " + cost + "; The distance: " + distance);
+	  } else {
+		  System.out.println("Vehicle: Robot; The shipping cost: " + cost + "; The distance: " + distance);
+	  }
 	  
 	  return cost;
   }
