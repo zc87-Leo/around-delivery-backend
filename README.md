@@ -3,7 +3,7 @@ RESTFul APIs to handle requests from Node.js and interact with AWS RDS
 
 # How to contribute to this repository
 - step1: Fork this repository
-- step2: git clone to local machine from your own repository
+- step2: git clone to local machine from this repository
 - step3: update code in your local machine
 - step4: merge with this master branch
     - make sure already `git add .`,`git commit -m "your commit content"` and your local master branch is clean
