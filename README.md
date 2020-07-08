@@ -24,17 +24,19 @@ Postman example:
 - body:
 ```json
 {
-    "oneAddr": "Google",
-    "twoAddr": "Facebook",
+    "oneAddr": "1600 Amphitheatre Pkwy, Mountain View, CA 94043",
+    "twoAddr": "164 Jefferson Dr, Menlo Park, CA 94025",
     "weight": 2.0
 }
 ```
 - Result:
 ```json
 {
-    "Robot Estimated Delivery Time (cheapest)": 17.6219627308816,
-    "Robot Price (cheapest)": 73.4778509235264,
-    "Drone Estimated Delivery Time (fastest)": 3.50898254061472,
-    "Drone Price (fastest)": 181.43912703073602
+    "Suggested receiver address": "164 Jefferson, Menlo Park, CA 94025-1115",
+    "Robot Estimated Delivery Time (cheapest)": 0.8254294914528,
+    "Suggested sender address": "1600 Amphitheatre, Mountain View, CA 94043-1351",
+    "Robot Price (cheapest)": 5.2917179658112,
+    "Drone Estimated Delivery Time (fastest)": 0.12731702819021018,
+    "Drone Price (fastest)": 9.082681127608408
 }
 ```
