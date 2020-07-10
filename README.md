@@ -86,7 +86,7 @@ RESTFul APIs to handle requests from Node.js and interact with AWS RDS
     > origin  https://github.com/YOUR_USERNAME/YOUR_FORK.git (fetch)
     > origin  https://github.com/YOUR_USERNAME/YOUR_FORK.git (push)
     ```
-    - `git remote add upstream https://github.com/schen246/dronbot-backend.git`
+    - `git remote add upstream https://github.com/schen246/around-delivery-backend.git`
     - To verify the new upstream repository you've specified for your fork, type git remote -v again. You should see the URL for your fork as origin, and the URL for the original repository as upstream.
     ```
     $ git remote -v
