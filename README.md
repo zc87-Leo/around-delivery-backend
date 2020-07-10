@@ -131,6 +131,7 @@ Now, you can keep your fork synced with the upstream repository with a few Git c
     >  README.md                 |    5 +++--
     >  1 file changed, 3 insertions(+), 2 deletions(-)
     ```
+- step4: `git push -u origin master`
 ## make your changes
 - 
 
