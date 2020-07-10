@@ -17,8 +17,8 @@ import okhttp3.Request;
 
 public class GoogMatrixRequest {
   //Earth's mean radius in meter
-  private static int R = 6378137;
-  private static final String API_KEY = "AIzaSyBdIJ5MrQ4rwNhyx52hGx2J3KDwftrGps0";
+  private static final int R = 6378137;
+  private static final String API_KEY = "AIzaSyC91YIc2UnTLDQ8FX3sfgHce1lr1AWmyjY";
   //set up key
   private static final GeoApiContext distCalcer = new GeoApiContext.Builder()
 		  .apiKey(API_KEY)
@@ -119,8 +119,11 @@ public class GoogMatrixRequest {
 		  // method 2 robot
 		  cost = 1.99 + distance * weight * 0.2;
 	  }	  
-	  // output
-	  System.out.println("shipping cost: " + cost + "; distance: " + distance);
+	  if (mode) {
+		  System.out.println("Vehicle: Drone; The shipping cost: " + cost + "; The distance: " + distance);
+	  } else {
+		  System.out.println("Vehicle: Robot; The shipping cost: " + cost + "; The distance: " + distance);
+	  }
 	  
 	  return cost;
   }

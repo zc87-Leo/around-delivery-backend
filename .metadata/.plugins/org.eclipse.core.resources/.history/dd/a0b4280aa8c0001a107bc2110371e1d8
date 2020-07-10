@@ -1,0 +1,72 @@
+package external;
+
+import com.smartystreets.api.StaticCredentials;
+import com.smartystreets.api.SharedCredentials;
+import com.smartystreets.api.exceptions.SmartyException;
+import com.smartystreets.api.us_street.*;
+import com.smartystreets.api.ClientBuilder;
+
+import java.io.IOException;
+import java.net.Proxy;
+import java.util.ArrayList;
+
+public class SmartyStreetsClient {
+	private static final String AUTH_ID = "f748fd62-a78a-a8a9-57e1-39d9a59bc6e3";
+	private static final String AUTH_TOKEN = "EKqmZ8JEx0BO7FVbiwbp";
+	private String address = "1600 Amphitheatre Pkwy, Mountain View, CA 94043";
+	// for Server-toserver requests, use this code:
+	String authId = System.getenv(AUTH_ID);
+	String authToken = System.getenv(AUTH_TOKEN);
+	StaticCredentials credentials = new StaticCredentials(authId, authToken);
+	
+	Client client = new ClientBuilder(credentials)
+//          .withProxy(Proxy.Type.HTTP, "localhost", 8080) // Uncomment this line to try it with a proxy
+          .buildUsStreetApiClient();
+	
+	// Documentation for input fields can be found at:
+    // https://smartystreets.com/docs/us-street-api#input-fields
+
+    Lookup lookup = new Lookup(address)
+    
+    //lookup.setInputId("24601"); // Optional ID from your system
+    //lookup.setAddressee("John Doe");
+    //lookup.setStreet("1600 Amphitheatre Pkwy");
+    //lookup.setStreet2("closet under the stairs");
+    //lookup.setSecondary("APT 2");
+    //lookup.setUrbanization(""); // Only applies to Puerto Rico addresses
+    //lookup.setCity("Mountain View");
+    //lookup.setState("CA");
+    //lookup.setZipCode("94043");
+    //lookup.setMaxCandidates(3);
+    
+    
+
+    try {
+        client.send(lookup);
+    }
+    catch (SmartyException ex) {
+        System.out.println(ex.getMessage());
+        ex.printStackTrace();
+    }
+    catch (IOException ex) {
+        ex.printStackTrace();
+    }
+
+    ArrayList<Candidate> results = lookup.getResult();
+
+    if (results.isEmpty()) {
+        System.out.println("No candidates. This means the address is not valid.");
+        return;
+    }
+
+    Candidate firstCandidate = results.get(0);
+
+    System.out.println("Address is valid. (There is at least one candidate)\n");
+    System.out.println("Input ID: " + firstCandidate.getInputId());
+    System.out.println("ZIP Code: " + firstCandidate.getComponents().getZipCode());
+    System.out.println("County: " + firstCandidate.getMetadata().getCountyName());
+    System.out.println("Latitude: " + firstCandidate.getMetadata().getLatitude());
+    System.out.println("Longitude: " + firstCandidate.getMetadata().getLongitude());
+}
+
+}
