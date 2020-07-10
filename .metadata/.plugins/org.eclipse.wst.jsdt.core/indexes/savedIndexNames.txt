@@ -1,6 +1,0 @@
-INDEX VERSION 1.4+C:\Users\jiang\Documents\GitHub\around-delivery-backend\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
-1734273759.index
-550278581.index
-2740469645.index
-3169120866.index
-2728723042.index
