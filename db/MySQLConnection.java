@@ -5,7 +5,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class MySQLConnection {
@@ -92,5 +95,28 @@ public class MySQLConnection {
 			e.printStackTrace();
 		}
 		return false;
+	}
+	
+	public List<Date> getTimes(String trackingId){
+		if (conn == null) {
+			System.err.println("DB connection failed");
+			return new ArrayList<>();
+		}
+		List<Date> times = new ArrayList<>();
+		try {
+			String sql = "SELECT created_at,deliverd_at FROM tracking WHERE tracking_id = ?";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setString(1,trackingId);
+			ResultSet rs = statement.executeQuery();
+			while(rs.next()) {
+				Date createdTime = rs.getDate("created_at");
+				times.add(createdTime);
+				Date deliveredTime = rs.getDate("delivered_at");
+				times.add(deliveredTime);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return times;
 	}
 }
