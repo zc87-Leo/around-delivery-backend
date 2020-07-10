@@ -68,6 +68,7 @@
   - /register
   - /login
   - /recommendation
+  - /servlet
 
 # dronbot-backend
 RESTFul APIs to handle requests from Node.js and interact with AWS RDS
