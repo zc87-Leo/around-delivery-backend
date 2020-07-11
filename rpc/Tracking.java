@@ -42,21 +42,31 @@ public class Tracking extends HttpServlet {
 //		String createTime = "2018-07-28 14:42:32";
 //		String deliveredTime = "2018-07-29 12:26:32";
 		JSONObject obj = new JSONObject();
-		DateUtil du = new DateUtil();
+//		DateUtil du = new DateUtil();
 		if(times.size() == 0) {
 			obj.put("alert", "Invalid tracking id!");
 		}else {
 			try {
 //				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				Date date = new Date();
 				DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				String currentTime= df.format(new Date());
 				String createdTime = times.get(0);
 				String deliveredTime = times.get(1);
-				if(du.getDistanceTime(deliveredTime, currentTime)) {
-					obj.put("status","Delivered!");
+//				if(du.getDistanceTime(deliveredTime, currentTime)) {
+//					obj.put("status","Delivered!");
+//				}else {
+//					obj.put("status","Created!");
+//				}
+				long pickedUpTime = DateUtil.addMins(createdTime,30);//创建订单后30分钟上门取货
+				long transmitTime = pickedUpTime + 5 * 60000; //取货后5分钟开始送货
+				if(DateUtil.getDistanceTime(deliveredTime,currentTime)) {
+					obj.put("status","Order delivered!");
+				}else if(DateUtil.getDistanceTime2(currentTime, transmitTime)){
+					obj.put("status","Order out for delivery!");
+				}else if(DateUtil.getDistanceTime2(currentTime, pickedUpTime)) {
+					obj.put("status","Order picked up!");
 				}else {
-					obj.put("status","Created!");
+					obj.put("status", "Order created!");
 				}
 			}catch(Exception e) {
 				e.printStackTrace();
