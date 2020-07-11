@@ -4,8 +4,8 @@
 - select new workspace
 - create tomcat server
 - tomcat configuration
-- add and remove: configured with `delivery`
 - new maven project
+- add and remove: configured with `delivery`
 > Group Id: flagcampproject
 > Artifact Id: delivery
 > Version: 0.0.0.1-SNAPSHOT
@@ -78,9 +78,9 @@ RESTFul APIs to handle requests from Node.js and interact with AWS RDS
 ## fork a repo
 - step1: Fork this [repository](https://github.com/schen246/dronbot-backend.git)
 - step2: git clone to local machine from your own repository
-    - git clone https://github.com/YOUR-USERNAME/dronbot-backend (replace YOUR-USERNAME with your repository)
+    - git clone https://github.com/YOUR-USERNAME/around-delivery-backend (replace YOUR-USERNAME with your repository)
 - step3: configure git to sync your fork with the original dronbot-backend repository
-    - `cd your_listed_directory` which is the location of the fork you cloned in step2 (dronbot-backend)
+    - `cd your_listed_directory` which is the location of the fork you cloned in step2 (around-delivery-backend)
     - `git remote -v`
     ```
     > origin  https://github.com/YOUR_USERNAME/YOUR_FORK.git (fetch)
