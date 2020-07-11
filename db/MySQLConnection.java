@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 public class MySQLConnection {
-	
+
 	private Connection conn;
 
 	public MySQLConnection() {
@@ -33,7 +33,7 @@ public class MySQLConnection {
 			}
 		}
 	}
-	
+
 	public String getFullname(String userId) {
 		if (conn == null) {
 			System.err.println("DB connection failed");
@@ -53,7 +53,7 @@ public class MySQLConnection {
 		}
 		return name;
 	}
-	
+
 	public boolean verifyLogin(String userId, String password) {
 		if (conn == null) {
 			System.err.println("DB connection failed");
@@ -89,29 +89,29 @@ public class MySQLConnection {
 			statement.setString(4, lastname);
 			statement.setString(5, emailAddress);
 			statement.setString(6, phoneNumber);
-			
+
 			return statement.executeUpdate() == 1;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return false;
 	}
-	
-	public List<Date> getTimes(String trackingId){
+
+	public List<String> getTimes(String trackingId){
 		if (conn == null) {
 			System.err.println("DB connection failed");
 			return new ArrayList<>();
 		}
-		List<Date> times = new ArrayList<>();
+		List<String> times = new ArrayList<>();
 		try {
-			String sql = "SELECT created_at,deliverd_at FROM tracking WHERE tracking_id = ?";
+			String sql = "SELECT created_at,delivered_at FROM tracking WHERE tracking_id = ?";
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setString(1,trackingId);
 			ResultSet rs = statement.executeQuery();
 			while(rs.next()) {
-				Date createdTime = rs.getDate("created_at");
+				String createdTime = rs.getString("created_at");
 				times.add(createdTime);
-				Date deliveredTime = rs.getDate("delivered_at");
+				String deliveredTime = rs.getString("delivered_at");
 				times.add(deliveredTime);
 			}
 		}catch(SQLException e) {

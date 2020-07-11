@@ -1,6 +1,7 @@
 package rpc;
 
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 
 import db.MySQLConnection;
+import entity.DateUtil;
 
 /**
  * Servlet implementation class Tracking
@@ -31,23 +33,27 @@ public class Tracking extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String trackingId = request.getParameter("tracking_id");
+		JSONObject input = RpcHelper.readJSONObject(request);
+		String trackingId = input.getString("tracking_id");
 		MySQLConnection connection = new MySQLConnection();
-		List<Date> times = connection.getTimes(trackingId);
+		List<String> times = connection.getTimes(trackingId);
 //		String createTime = "2018-07-28 14:42:32";
 //		String deliveredTime = "2018-07-29 12:26:32";
 		JSONObject obj = new JSONObject();
+		DateUtil du = new DateUtil();
 		if(times.size() == 0) {
 			obj.put("alert", "Invalid tracking id!");
 		}else {
 			try {
 //				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				Date currentTime = new Date();
-				Date createdTime = times.get(0);
-				Date deliveredTime = times.get(1);
-				if(currentTime.compareTo(deliveredTime) <= 0) {
+				Date date = new Date();
+				DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				String currentTime= df.format(new Date());
+				String createdTime = times.get(0);
+				String deliveredTime = times.get(1);
+				if(du.getDistanceTime(deliveredTime, currentTime)) {
 					obj.put("status","Delivered!");
 				}else {
 					obj.put("status","Created!");
@@ -63,7 +69,7 @@ public class Tracking extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
