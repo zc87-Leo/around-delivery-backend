@@ -65,10 +65,10 @@ public class GoogMatrixRequest {
 	  return distApart;
   }
   
-  public static double getDirectDistance (String addrOne, String addrTwo) throws ApiException, InterruptedException, IOException {
+  public static double getDirectDistance (String senderAddr, String receiverAddr) throws ApiException, InterruptedException, IOException {
 	  
-	  GeocodingResult[] resultOrigin = GeocodingApi.geocode(distCalcer,"1600 Amphitheatre Parkway Mountain View, CA 94043").await();
-	  GeocodingResult[] resultDestination = GeocodingApi.geocode(distCalcer,"164 Jefferson Dr, Menlo Park, CA 94025").await();
+	  GeocodingResult[] resultOrigin = GeocodingApi.geocode(distCalcer, senderAddr).await();
+	  GeocodingResult[] resultDestination = GeocodingApi.geocode(distCalcer, receiverAddr).await();
 	  double lat1 = resultOrigin[0].geometry.location.lat;
 	  double lng1 = resultOrigin[0].geometry.location.lng;
 	  double lat2 = resultDestination[0].geometry.location.lat;
@@ -87,14 +87,14 @@ public class GoogMatrixRequest {
 	  return x * Math.PI / 180;
   }
 
-  public static double[][] getDistance(String addrOne, String addrTwo, double weight) throws IOException, ApiException, InterruptedException {
+  public static double[][] getDistance(String senderAddr, String receiverAddr, double weight) throws IOException, ApiException, InterruptedException {
 	  // method 1 drone
 	  double[][] result = new double[2][2];
-	  double droneDistance = getDirectDistance(addrOne, addrTwo);
+	  double droneDistance = getDirectDistance(senderAddr, receiverAddr);
 	  result[0][0] = droneDistance / 50;
 	  result[0][1] = calculatePrice(weight, droneDistance, true);  
 	  // method 2 robot
-	  double robotDistance = getBicyclingDistance(addrOne, addrTwo);
+	  double robotDistance = getBicyclingDistance(senderAddr, receiverAddr);
 	  result[1][0] = robotDistance / 10;
 	  result[1][1] = calculatePrice(weight, robotDistance, false);
 	  
