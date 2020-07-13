@@ -119,4 +119,24 @@ public class MySQLConnection {
 		}
 		return times;
 	}
+
+
+	public boolean addTrackingInfo(String trackingId, String created_at, String delievered_at) {
+		if (conn == null) {
+			System.err.println("DB connection failed");
+			return false;
+		}
+
+		String sql = "INSERT IGNORE INTO dispatch.tracking(tracking_id,created_at,delivered_at)values(?,?,?)";
+		try {
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setString(1, trackingId);
+			statement.setString(2, created_at);
+			statement.setString(3, delievered_at);
+			return statement.executeUpdate() == 1;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 }
