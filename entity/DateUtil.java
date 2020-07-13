@@ -106,7 +106,7 @@ public class DateUtil {
 //            sec = (diff/1000-day*24*60*60-hour*60*60-min*60);
         return false;
     }
-    public 	static boolean getDistanceTime2(String str1, long time) throws java.text.ParseException {  //入参为long和string
+    public static boolean getDistanceTime2(String str1, long time) throws java.text.ParseException {  //入参为long和string
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date one;
         one = df.parse(str1);
