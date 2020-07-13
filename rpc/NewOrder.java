@@ -1,35 +1,35 @@
 package rpc;
- 
+
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
- 
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
- 
+
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 import java.time.LocalDateTime;
- 
+
 import org.json.JSONObject;
 
 import db.MySQLConnection;
 import entity.Order;
 import entity.Order.OrderBuilder;
 import entity.UuidUtil;
- 
+
 /**
  * Servlet implementation class NewOrder
  */
 public class NewOrder extends HttpServlet {
     private static final long serialVersionUID = 1L;
- 
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -37,7 +37,7 @@ public class NewOrder extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
- 
+
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
      *      response)
@@ -47,16 +47,16 @@ public class NewOrder extends HttpServlet {
         // TODO Auto-generated method stub
         response.getWriter().append("Served at: ").append(request.getContextPath());
     }
- 
+
     /**
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
      *      response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    	//tracking/Order id
-    	String trackingId = UuidUtil.generateShortUuid();
-    	
+        //tracking/Order id
+        String trackingId = UuidUtil.generateShortUuid();
+
 //        // initialize attributes for newOrder
 //        String userId = "";
 //        String senderAddress = "";
@@ -72,15 +72,15 @@ public class NewOrder extends HttpServlet {
 // 
 //        // Order Shipping time.
 //        Double shippingTime = null;
- 
+
         // Order Create time
         String orderCreateTime = "";
 //        String orderPickupTime = "";
         String deliveryTime = "";
- 
+
         // get order info from JSON object via HTTP request
         JSONObject preOrderInfo = RpcHelper.readJSONObject(request);
- 
+
 //        if (preOrderInfo.getString("userId") != null) {
 //            userId = preOrderInfo.getString("userId");
 //        }
@@ -121,22 +121,21 @@ public class NewOrder extends HttpServlet {
 //            shippingTime = Double.valueOf(preOrderInfo.getString("shippingTime"));
 //        }
         if(preOrderInfo.getString("deliveryTime") != null) {
-        	deliveryTime = preOrderInfo.getString("deliveryTime");   
+            deliveryTime = preOrderInfo.getString("deliveryTime");
         }
         //Get current time in milliseconds
         double dTDouble = Double.parseDouble(deliveryTime.substring(0,deliveryTime.length()-2));
-        long dT = Math.round(dTDouble);
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String currentTime= df.format(new Date());
-		Date cT = null;
-		try {
-			cT = df.parse(currentTime);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        String currentTime= df.format(new Date());
+        Date cT = null;
+        try {
+            cT = df.parse(currentTime);
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         long creatTimeInSecs = cT.getTime();
-        long deliveryTimeInSecs = creatTimeInSecs + dT * 60000 * 60;
+        long deliveryTimeInSecs = (long) (creatTimeInSecs + dTDouble * 60000 * 60);
         Timestamp tsDelivery = new Timestamp(deliveryTimeInSecs);
         String deliveredAt = df.format(tsDelivery);
         String createdAt = currentTime;
@@ -161,15 +160,15 @@ public class NewOrder extends HttpServlet {
 //        orderDeliveryTime = df.format(tsDelivery);
 //        
         MySQLConnection connection = new MySQLConnection();
-		JSONObject obj = new JSONObject();
-		if(connection.addTrackingInfo(trackingId, createdAt, deliveredAt)) {
-			obj.put("status", "Order Created Successfully!").put("tracking id", trackingId);
-		}else {
-			obj.put("status", "Order Created Unsuccessfully!");
-		}
-		connection.close();
-		RpcHelper.writeJsonObject(response, obj);
- 
+        JSONObject obj = new JSONObject();
+        if(connection.addTrackingInfo(trackingId, createdAt, deliveredAt)) {
+            obj.put("status", "Order Created Successfully!").put("tracking id", trackingId);
+        }else {
+            obj.put("status", "Order Created Unsuccessfully!");
+        }
+        connection.close();
+        RpcHelper.writeJsonObject(response, obj);
+
 //        // create a new order via builder pattern
 //        OrderBuilder newOrder = new OrderBuilder();
 // 
