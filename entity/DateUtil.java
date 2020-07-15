@@ -12,9 +12,9 @@ import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
  */
 public class DateUtil {
     /**
-     * 两个时间之间相差距离多少天 
-     * @param one 时间参数 1： 
-     * @param two 时间参数 2： 
+     * 两个时间之间相差距离多少天
+     * @param one 时间参数 1：
+     * @param two 时间参数 2：
      * @return 相差天数
      */
     public static long getDistanceDays(String str1, String str2) throws Exception{
@@ -41,9 +41,9 @@ public class DateUtil {
     }
 
     /**
-     * 两个时间相差距离多少天多少小时多少分多少秒 
-     * @param str1 时间参数 1 格式：1990-01-01 12:00:00 
-     * @param str2 时间参数 2 格式：2009-01-01 12:00:00 
+     * 两个时间相差距离多少天多少小时多少分多少秒
+     * @param str1 时间参数 1 格式：1990-01-01 12:00:00
+     * @param str2 时间参数 2 格式：2009-01-01 12:00:00
      * @return long[] 返回值为：{天, 时, 分, 秒}
      * @throws java.text.ParseException
      */
@@ -77,10 +77,10 @@ public class DateUtil {
         return times;
     }
     /**
-     * 两个时间相差距离多少天多少小时多少分多少秒 
-     * @param str1 时间参数 1 格式：1990-01-01 12:00:00 
-     * @param str2 时间参数 2 格式：2009-01-01 12:00:00 
-     * @return String 返回值为：xx天xx小时xx分xx秒 
+     * 两个时间相差距离多少天多少小时多少分多少秒
+     * @param str1 时间参数 1 格式：1990-01-01 12:00:00
+     * @param str2 时间参数 2 格式：2009-01-01 12:00:00
+     * @return String 返回值为：xx天xx小时xx分xx秒
      * @throws java.text.ParseException
      */
     public static boolean getDistanceTime(String str1, String str2) throws java.text.ParseException { //入参皆为string
@@ -106,7 +106,7 @@ public class DateUtil {
 //            sec = (diff/1000-day*24*60*60-hour*60*60-min*60);
         return false;
     }
-    public static boolean getDistanceTime2(String str1, long time) throws java.text.ParseException {  //入参为long和string
+    public 	static boolean getDistanceTime2(String str1, long time) throws java.text.ParseException {  //入参为long和string
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date one;
         one = df.parse(str1);

@@ -97,6 +97,29 @@ public class MySQLConnection {
 		return false;
 	}
 
+	public List<String> getUserProfiles(String userId){
+		if (conn == null) {
+			System.err.println("DB connection failed");
+			return new ArrayList<>();
+		}
+		List<String> user = new ArrayList<>();
+		try {
+			String sql = "SELECT email_address,phone_number FROM dispatch.users WHERE user_id = ?;";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setString(1,userId);
+			ResultSet rs = statement.executeQuery();
+			while(rs.next()) {
+				String emailAddress = rs.getString("email_address");
+				user.add(emailAddress);
+				String phoneNumber = rs.getString("phone_number");
+				user.add(phoneNumber);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return user;
+	}
+
 	public List<String> getTimes(String trackingId){
 		if (conn == null) {
 			System.err.println("DB connection failed");
@@ -119,6 +142,7 @@ public class MySQLConnection {
 		}
 		return times;
 	}
+
 
 
 	public boolean addTrackingInfo(String trackingId, String created_at, String delievered_at) {
