@@ -65,10 +65,15 @@
 
 #### Servlet
 - rpc
-  - /register
-  - /login
-  - /recommendation
-  - /servlet
+	- /register
+	- /login
+	- /autocomplete
+	- /validaddr
+	- /recommendation
+	- /neworder
+	- /tracking
+	- /history
+	- /detail
 
 # dronbot-backend
 RESTFul APIs to handle requests from Node.js and interact with AWS RDS
@@ -133,7 +138,7 @@ Now, you can keep your fork synced with the upstream repository with a few Git c
     ```
 - step4: `git push -u origin master`
 ## make your changes
-- 
+- implementation
 
 # How to use the code
 - step1: configure tomcat 
