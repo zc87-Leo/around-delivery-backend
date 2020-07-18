@@ -11,6 +11,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import entity.Order;
+
 public class MySQLConnection {
 
 	private Connection conn;
@@ -163,4 +165,42 @@ public class MySQLConnection {
 		}
 		return false;
 	}
+
+	public boolean createOrder(Order order) {
+		if (conn == null) {
+			System.err.println("DB connection failed");
+			return false;
+		}
+
+
+		try {
+			String sql = "INSERT IGNORE INTO tracking(tracking_id,created_at,status) VALUES (?, ?, ?)";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setString(1, order.getTrackingId());
+			statement.setString(2, order.getOrderCreateTime());
+			String status = (order.getActive() == true) ? "active":"overdue";
+			statement.setString(3, status);
+			int b1 = statement.executeUpdate();
+
+			sql = "INSERT IGNORE INTO orders(order_id,user_id,tracking_id,active,sender_address,recipent_address,package_weight,package_height,package_fragile,total_cost) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			statement = conn.prepareStatement(sql);
+			statement.setString(1, order.getOrderId());
+			statement.setString(2, order.getUserId());
+			statement.setString(3, order.getTrackingId());
+			statement.setBoolean(4, order.getActive());
+			statement.setString(5, order.getSenderAddress());
+			statement.setString(6, order.getRecipentAddress());
+			statement.setFloat(7, order.getPackageWeight());
+			statement.setFloat(8, order.getPackageHeight());
+			statement.setBoolean(9, order.getIsFragile());
+			statement.setFloat(10, order.getTotalCost());
+//		statement.setString(11, order.getOrderCreateTime());
+			int b2 = statement.executeUpdate();
+			return b1 == 1 && b2 ==1;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
 }
