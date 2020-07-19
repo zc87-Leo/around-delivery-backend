@@ -172,7 +172,7 @@ public class NewOrder extends HttpServlet {
         MySQLConnection connection = new MySQLConnection();
         JSONObject obj = new JSONObject();
         if(connection.createOrder(newOrder)) {
-            obj.put("status", "Order Created Successfully!").put("tracking id", trackingId);
+            obj.put("status", "Order Created Successfully!").put("tracking id", trackingId).put("order id", orderId);
         }else {
             obj.put("status", "Order Created Unsuccessfully!");
         }
