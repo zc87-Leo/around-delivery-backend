@@ -1,24 +1,14 @@
 package rpc;
 
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.TimeZone;
-import java.time.LocalDateTime;
-
 import org.json.JSONObject;
-
 import db.MySQLConnection;
 import entity.Order;
 import entity.UuidUtil;
@@ -61,14 +51,26 @@ public class NewOrder extends HttpServlet {
         // initialize other attributes for newOrder（我们需要在前端request中获取的数据）
         String userId = "";
         String senderAddress = "";
-        String recipentAddress = "";
-        String orderPickupTime = "";
-        String orderDeliveryTime = "";
+        String senderFirstName = "";
+        String senderLastName = "";
+        String senderPhoneNumber = "";
+        String senderEmail = "";
+        String recipientAddress = "";
+        String recipientFirstName = "";
+        String recipientLastName = "";
+        String recipientPhoneNumber = "";
+        String recipientEmail = "";
+//    	  String orderPickupTime = "";
+//    	  String orderDeliveryTime = "";
         Boolean active = false;
         Float packageWeight = (float) 0.0;
         Float packageHeight = (float) 0.0;
         Boolean isFragile = false;
         Float totalCost = (float) 0.0;
+        Float packageLength = (float) 0.0;
+        Float packageWidth = (float) 0.0;
+        String carrier = "";
+        String deliveryTime = "";
 
         // get order info from JSON object via HTTP request
         JSONObject orderInfo = RpcHelper.readJSONObject(request);
@@ -76,13 +78,35 @@ public class NewOrder extends HttpServlet {
         if (orderInfo.getString("userId") != null) {
             userId = orderInfo.getString("userId");
         }
-
+        if (orderInfo.getString("senderFirstName") != null) {
+            senderFirstName = orderInfo.getString("senderFirstName");
+        }
+        if (orderInfo.getString("senderLastName") != null) {
+            senderLastName = orderInfo.getString("senderLastName");
+        }
+        if (orderInfo.getString("senderPhoneNumber") != null) {
+            senderPhoneNumber = orderInfo.getString("senderPhoneNumber");
+        }
+        if (orderInfo.getString("senderEmail") != null) {
+            senderEmail = orderInfo.getString("senderEmail");
+        }
         if (orderInfo.getString("senderAddress") != null) {
             senderAddress = orderInfo.getString("senderAddress");
         }
-
-        if (orderInfo.getString("recipentAddress") != null) {
-            recipentAddress = orderInfo.getString("recipentAddress");
+        if (orderInfo.getString("recipientFirstName") != null) {
+            recipientFirstName = orderInfo.getString("recipientFirstName");
+        }
+        if (orderInfo.getString("recipientLastName") != null) {
+            recipientLastName = orderInfo.getString("recipientLastName");
+        }
+        if (orderInfo.getString("recipientPhoneNumber") != null) {
+            recipientPhoneNumber = orderInfo.getString("recipientPhoneNumber");
+        }
+        if (orderInfo.getString("recipientEmail") != null) {
+            recipientEmail = orderInfo.getString("recipientEmail");
+        }
+        if (orderInfo.getString("recipientAddress") != null) {
+            recipientAddress = orderInfo.getString("recipientAddress");
         }
 
         active = orderInfo.getBoolean("active");
@@ -94,9 +118,22 @@ public class NewOrder extends HttpServlet {
         if (orderInfo.getDouble("packageHeight") >= 0) {
             packageHeight = (float) orderInfo.getDouble("packageHeight");
         }
+        if (orderInfo.getDouble("packageLength") >= 0) {
+            packageLength = (float) orderInfo.getDouble("packageLength");
+        }
+        if (orderInfo.getDouble("packageWidth") >= 0) {
+            packageWidth = (float) orderInfo.getDouble("packageWidth");
+        }
 
         isFragile = orderInfo.getBoolean("isFragile");
 
+        if (orderInfo.getString("carrier") != null) {
+            carrier = orderInfo.getString("carrier");
+        }
+        if (orderInfo.getString("deliveryTime") != null) {
+            String dT = orderInfo.getString("deliveryTime");
+            deliveryTime = dT.substring(0, dT.length()-2);
+        }
 
         if (orderInfo.getDouble("totalCost") >= 0) {
             totalCost = (float) orderInfo.getDouble("totalCost");
@@ -138,20 +175,36 @@ public class NewOrder extends HttpServlet {
 //        Timestamp tsDelivery = new Timestamp(deliveryTimeInSecs);
 //        orderDeliveryTime = df.format(tsDelivery);
 //
-        // create a new order via builder pattern
+        MySQLConnection connection = new MySQLConnection();
+        JSONObject obj = new JSONObject();
+        int senderId = -1;
+        connection.addContact(senderFirstName, senderLastName, senderEmail, senderPhoneNumber, senderAddress);
+        if(connection.getContactId(senderFirstName, senderLastName, senderEmail, senderPhoneNumber, senderAddress) != -1) {
+            senderId = connection.getContactId(senderFirstName, senderLastName, senderEmail, senderPhoneNumber, senderAddress);
+        }
+        obj.put("sender id", senderId);
+        int recipientId = -1;
+        connection.addContact(recipientFirstName, recipientLastName, recipientEmail, recipientPhoneNumber, recipientAddress);
+        if(connection.getContactId(recipientFirstName, recipientLastName, recipientEmail, recipientPhoneNumber, recipientAddress) != -1) {
+            recipientId = connection.getContactId(recipientFirstName, recipientLastName, recipientEmail, recipientPhoneNumber, recipientAddress);
+        }
+        obj.put("recipient id", recipientId);
         Order newOrder = new Order();
-
         newOrder.setOrderId(orderId);
         newOrder.setTrackingId(trackingId);
         newOrder.setUserId(userId);
         newOrder.setSenderAddress(senderAddress);
-        newOrder.setRecipentAddress(recipentAddress);
+        newOrder.setRecipientAddress(recipientAddress);
         newOrder.setOrderCreateTime(orderCreateTime);
         newOrder.setPackageWeight(packageWeight);
         newOrder.setPackageHeight(packageHeight);
         newOrder.setIsFragile(isFragile);
         newOrder.setTotalCost(totalCost);
         newOrder.setActive(active);
+        newOrder.setCarrier(carrier);
+        newOrder.setDeliveryTime(deliveryTime);
+        newOrder.setPackageLength(packageLength);
+        newOrder.setPackageWidth(packageWidth);
 
 //        Order order = newOrder.build(); // will be stored in DB
 //
@@ -169,9 +222,8 @@ public class NewOrder extends HttpServlet {
 //            RpcHelper.writeJsonObject(response, newOrderInfo);
 //        }
 
-        MySQLConnection connection = new MySQLConnection();
-        JSONObject obj = new JSONObject();
-        if(connection.createOrder(newOrder)) {
+
+        if(connection.createOrder(newOrder,senderId,recipientId)) {
             obj.put("status", "Order Created Successfully!").put("tracking id", trackingId).put("order id", orderId);
         }else {
             obj.put("status", "Order Created Unsuccessfully!");
