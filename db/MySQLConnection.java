@@ -203,4 +203,119 @@ public class MySQLConnection {
 		return false;
 	}
 
+	
+	public List<String> getHistory(String user_id) {
+		if (conn == null) {
+			System.err.println("DB connection failed");
+			return new ArrayList<String>();
+		}
+		List<String> items = new ArrayList<String>();
+		try {
+			String sql = "SELECT o.order_id, o.tracking_id, c.first_name, c.last_name, c.address, t.status, "
+					+ "t.created_at, t.delivered_at "
+					+ "FROM users u, orders o, contact c, tracking t "
+					+ "WHERE u.user_id = ? "
+					+ 	"AND u.user_id = o.user_id " 
+					+	"AND o.recipient_id = c.contact_id "
+					+ 	"AND o.tracking_id = t.tracking_id";
+			System.out.println(sql);
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setString(1, user_id);
+			ResultSet rs = statement.executeQuery();
+			while (rs.next()) {
+				String order_id = rs.getString("order_id");
+				items.add(order_id);
+				String status = rs.getString("status");
+				items.add(status);
+				String name = rs.getString("first_name") + " " + rs.getString("last_name");
+				items.add(name);
+				String address = rs.getString("address");
+				items.add(address);
+				String delivered_at = rs.getString("delivered_at");
+				items.add(delivered_at);
+				String created_at = rs.getString("created_at");
+				items.add(created_at);
+				String tracking_id = rs.getString("tracking_id");
+				items.add(tracking_id);
+			}
+		}
+		catch (SQLException e){
+			e.printStackTrace();
+		}
+		return items;
+	}
+	
+	public List<String> getDetail(String order_id) {
+		if (conn == null) {
+			System.err.println("DB connection failed");
+			return new ArrayList<String>();
+		}
+		List<String> items = new ArrayList<String>();
+		try {
+			// create the view with general information
+			String sql1 = "CREATE OR REPLACE VIEW G AS "
+					+ "(SELECT o.order_id, o.total_cost, m.machine_type, t.delivered_at, CONCAT(c.first_name, ' ', c.last_name) AS sender_name, "
+					+ "c.address AS sender_address, c.phone_number AS sender_phone, c.email_address AS sender_email, "
+					+ "o.package_weight, o.package_height, package_fragile "
+					+ "FROM orders o, contact c, machine m, tracking t "
+					+ "WHERE o.order_id = ? " 
+					+	"AND o.sender_id = c.contact_id "
+					+ 	"AND o.machine_id = m.machine_id "
+					+ 	"AND o.tracking_id = t.tracking_id)";
+			PreparedStatement statement1 = conn.prepareStatement(sql1);
+			statement1.setString(1, order_id);
+			statement1.executeUpdate();
+			
+			// create view with recipient information
+			String sql2 = "CREATE OR REPLACE VIEW R AS "
+					+ "(SELECT o.order_id, CONCAT(c.first_name, ' ', c.last_name) AS recipient_name, c.address AS recipient_address, "
+					+ "c.phone_number AS recipient_phone, c.email_address AS recipient_email "
+					+ "FROM orders o, contact c "
+					+ "WHERE o.order_id = ? "
+					+ "AND o.recipient_id = c.contact_id)";
+			PreparedStatement statement2 = conn.prepareStatement(sql2);
+			statement2.setString(1, order_id);
+			statement2.executeUpdate();
+			
+			// join two views
+			String sql3 = "SELECT * FROM G LEFT JOIN R ON G.order_id = R.order_id";
+			PreparedStatement statement3 = conn.prepareStatement(sql3);
+			ResultSet rs = statement3.executeQuery();
+			
+			while (rs.next()) {
+				String cost = rs.getString("total_cost");
+				items.add(cost);
+				String machine_type = rs.getString("machine_type");
+				items.add(machine_type);
+				String delivered_at = rs.getString("delivered_at");
+				items.add(delivered_at);
+				String sender_name = rs.getString("sender_name");
+				items.add(sender_name);
+				String sender_address = rs.getString("sender_address");
+				items.add(sender_address);
+				String sender_phone = rs.getString("sender_phone");
+				items.add(sender_phone);
+				String sender_email = rs.getString("sender_email");
+				items.add(sender_email);
+				String recipient_name = rs.getString("recipient_name");
+				items.add(recipient_name);
+				String recipient_address = rs.getString("recipient_address");
+				items.add(recipient_address);
+				String recipient_phone = rs.getString("recipient_phone");
+				items.add(recipient_phone);
+				String recipient_email = rs.getString("recipient_email");
+				items.add(recipient_email);
+				String weight = rs.getString("package_weight");
+				items.add(weight);
+				String height = rs.getString("package_height");
+				items.add(height);
+				String fragile = rs.getString("package_fragile");
+				items.add(fragile);
+			}
+		}
+		catch (SQLException e){
+			e.printStackTrace();
+		}
+		return items;
+	}
 }
