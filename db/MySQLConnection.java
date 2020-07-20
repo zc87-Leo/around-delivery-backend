@@ -6,10 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+
 
 import entity.Order;
 
@@ -166,7 +164,52 @@ public class MySQLConnection {
 		return false;
 	}
 
-	public boolean createOrder(Order order) {
+	public boolean addContact(String firstName, String lastName,String emailAddress, String phoneNumber, String address) {
+		if (conn == null) {
+			System.err.println("DB connection failed");
+			return false;
+		}
+
+		String sql = "INSERT IGNORE INTO dispatch.contact(first_name,last_name,phone_number,email_address,address) VALUES(?,?,?,?,?)";
+		try {
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setString(1, firstName);
+			statement.setString(2, lastName);
+			statement.setString(3, phoneNumber);
+			statement.setString(4, emailAddress);
+			statement.setString(5, address);
+			return statement.executeUpdate() == 1;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	public int getContactId(String firstName, String lastName,String emailAddress, String phoneNumber, String address) {
+		if (conn == null) {
+			System.err.println("DB connection failed");
+			return -1;
+		}
+		int id = -1;
+		try {
+			String sql = "SELECT contact_id FROM dispatch.contact WHERE first_name = ? and last_name = ? and phone_number = ? and email_address = ? and address = ?";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setString(1, firstName);
+			statement.setString(2, lastName);
+			statement.setString(3, phoneNumber);
+			statement.setString(4, emailAddress);
+			statement.setString(5, address);
+			ResultSet rs = statement.executeQuery();
+			while(rs.next()) {
+				id = rs.getInt("contact_id");
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return id;
+
+	}
+
+	public boolean createOrder(Order order, int senderId, int recipientId) {
 		if (conn == null) {
 			System.err.println("DB connection failed");
 			return false;
@@ -182,18 +225,22 @@ public class MySQLConnection {
 			statement.setString(3, status);
 			int b1 = statement.executeUpdate();
 
-			sql = "INSERT IGNORE INTO orders(order_id,user_id,tracking_id,active,sender_address,recipent_address,package_weight,package_height,package_fragile,total_cost) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-			statement = conn.prepareStatement(sql);
+			String sql2 = "INSERT IGNORE INTO orders(order_id,user_id,tracking_id,active,sender_id,recipient_id,package_weight,package_height,package_fragile,total_cost,package_width,package_length,carrier,delivery_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			statement = conn.prepareStatement(sql2);
 			statement.setString(1, order.getOrderId());
 			statement.setString(2, order.getUserId());
 			statement.setString(3, order.getTrackingId());
 			statement.setBoolean(4, order.getActive());
-			statement.setString(5, order.getSenderAddress());
-			statement.setString(6, order.getRecipentAddress());
+			statement.setInt(5, senderId);
+			statement.setInt(6, recipientId);
 			statement.setFloat(7, order.getPackageWeight());
 			statement.setFloat(8, order.getPackageHeight());
 			statement.setBoolean(9, order.getIsFragile());
 			statement.setFloat(10, order.getTotalCost());
+			statement.setFloat(11, order.getPackageWidth());
+			statement.setFloat(12, order.getPackageLength());
+			statement.setString(13, order.getCarrier());
+			statement.setString(14, order.getDeliveryTime());
 //		statement.setString(11, order.getOrderCreateTime());
 			int b2 = statement.executeUpdate();
 			return b1 == 1 && b2 ==1;
