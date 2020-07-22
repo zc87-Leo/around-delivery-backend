@@ -27,31 +27,35 @@ public class Login extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		JSONObject input = RpcHelper.readJSONObject(request);
 		String userId = input.getString("user_id");
 		String password = input.getString("password");
 		MySQLConnection connection = new MySQLConnection();
 		JSONObject obj = new JSONObject();
-		if(connection.verifyLogin(userId, password)) {
-			obj.put("status", "OK").put("user_name", userId).put("name", connection.getFullname(userId));
+		if (connection.verifyLogin(userId, password)) {
+			obj.put("status", "OK").put("user_id", userId).put("name", connection.getFullname(userId));
 			List<String> user = connection.getUserProfiles(userId);
-			if(user != null & user.size() > 0) {
+			if (user != null & user.size() > 0) {
 				obj.put("email_address", user.get(0));
 				obj.put("phone_number", user.get(1));
 			}
-		}else {
+		} else {
 			obj.put("status", "User Doesn't Exist");
 			response.setStatus(401);
 		}
