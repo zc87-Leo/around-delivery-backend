@@ -291,9 +291,6 @@ public class MySQLConnection {
 		}
 		return items;
 	}
-<<<<<<< HEAD
-
-=======
 	
 	public List<String> getActive(String user_id) {
 		if (conn == null) {
@@ -337,7 +334,6 @@ public class MySQLConnection {
 		return items;
 	}
 	
->>>>>>> upstream/master
 	public List<String> getDetail(String order_id) {
 		if (conn == null) {
 			System.err.println("DB connection failed");
@@ -411,8 +407,8 @@ public class MySQLConnection {
 		}
 		return items;
 	}
-<<<<<<< HEAD
-	// 通过station id,来获取该station近30分钟状态为ordered的订单的list。
+
+		// 通过station id,来获取该station近30分钟状态为ordered的订单的list。
 	public List<Order> getStastionOrderList(int stationId) {
 		if (conn == null) {
 			System.err.println("DB connection failed");
@@ -468,7 +464,6 @@ public class MySQLConnection {
 		}
 		return stationOrders;
 	}
-=======
 	
 	/**
 	 * Store the latest update time into the tacking table 
@@ -495,6 +490,4 @@ public class MySQLConnection {
 		}
 	}
 	
-	
->>>>>>> upstream/master
 }
