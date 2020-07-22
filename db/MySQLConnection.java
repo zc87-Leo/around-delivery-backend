@@ -291,7 +291,53 @@ public class MySQLConnection {
 		}
 		return items;
 	}
+<<<<<<< HEAD
 
+=======
+	
+	public List<String> getActive(String user_id) {
+		if (conn == null) {
+			System.err.println("DB connection failed");
+			return new ArrayList<String>();
+		}
+		List<String> items = new ArrayList<String>();
+		try {
+			String sql = "SELECT o.order_id, o.tracking_id, c.first_name, c.last_name, c.address, t.status, "
+					+ "t.created_at, t.delivered_at "
+					+ "FROM users u, orders o, contact c, tracking t "
+					+ "WHERE u.user_id = ? "
+					+ 	"AND t.status = 'active' "
+					+ 	"AND u.user_id = o.user_id " 
+					+	"AND o.recipient_id = c.contact_id "
+					+ 	"AND o.tracking_id = t.tracking_id";
+			System.out.println(sql);
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setString(1, user_id);
+			ResultSet rs = statement.executeQuery();
+			while (rs.next()) {
+				String order_id = rs.getString("order_id");
+				items.add(order_id);
+				String status = rs.getString("status");
+				items.add(status);
+				String name = rs.getString("first_name") + " " + rs.getString("last_name");
+				items.add(name);
+				String address = rs.getString("address");
+				items.add(address);
+				String delivered_at = rs.getString("delivered_at");
+				items.add(delivered_at);
+				String created_at = rs.getString("created_at");
+				items.add(created_at);
+				String tracking_id = rs.getString("tracking_id");
+				items.add(tracking_id);
+			}
+		}
+		catch (SQLException e){
+			e.printStackTrace();
+		}
+		return items;
+	}
+	
+>>>>>>> upstream/master
 	public List<String> getDetail(String order_id) {
 		if (conn == null) {
 			System.err.println("DB connection failed");
@@ -365,6 +411,7 @@ public class MySQLConnection {
 		}
 		return items;
 	}
+<<<<<<< HEAD
 	// 通过station id,来获取该station近30分钟状态为ordered的订单的list。
 	public List<Order> getStastionOrderList(int stationId) {
 		if (conn == null) {
@@ -421,4 +468,33 @@ public class MySQLConnection {
 		}
 		return stationOrders;
 	}
+=======
+	
+	/**
+	 * Store the latest update time into the tacking table 
+	 * @param trackingId
+	 * @param deliverStatus
+	 * @param updateTime
+	 */
+	public void updateTimes(String trackingId, String deliverStatus, String updateTime){
+		if (conn == null) {
+			System.err.println("DB connection failed");
+			return;
+		}
+		
+		try {
+			String sql = "UPDATE tracking SET status = ?, last_update = ? WHERE tracking_id = ?";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setString(1,deliverStatus);
+			statement.setString(2,updateTime);
+			statement.setString(3,trackingId);
+			statement.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+>>>>>>> upstream/master
 }
