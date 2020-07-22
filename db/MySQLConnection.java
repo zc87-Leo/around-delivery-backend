@@ -250,7 +250,7 @@ public class MySQLConnection {
 		return false;
 	}
 
-	
+
 	public List<String> getHistory(String user_id) {
 		if (conn == null) {
 			System.err.println("DB connection failed");
@@ -262,7 +262,7 @@ public class MySQLConnection {
 					+ "t.created_at, t.delivered_at "
 					+ "FROM users u, orders o, contact c, tracking t "
 					+ "WHERE u.user_id = ? "
-					+ 	"AND u.user_id = o.user_id " 
+					+ 	"AND u.user_id = o.user_id "
 					+	"AND o.recipient_id = c.contact_id "
 					+ 	"AND o.tracking_id = t.tracking_id";
 			System.out.println(sql);
@@ -291,7 +291,7 @@ public class MySQLConnection {
 		}
 		return items;
 	}
-	
+
 	public List<String> getDetail(String order_id) {
 		if (conn == null) {
 			System.err.println("DB connection failed");
@@ -305,14 +305,14 @@ public class MySQLConnection {
 					+ "c.address AS sender_address, c.phone_number AS sender_phone, c.email_address AS sender_email, "
 					+ "o.package_weight, o.package_height, package_fragile "
 					+ "FROM orders o, contact c, machine m, tracking t "
-					+ "WHERE o.order_id = ? " 
+					+ "WHERE o.order_id = ? "
 					+	"AND o.sender_id = c.contact_id "
 					+ 	"AND o.machine_id = m.machine_id "
 					+ 	"AND o.tracking_id = t.tracking_id)";
 			PreparedStatement statement1 = conn.prepareStatement(sql1);
 			statement1.setString(1, order_id);
 			statement1.executeUpdate();
-			
+
 			// create view with recipient information
 			String sql2 = "CREATE OR REPLACE VIEW R AS "
 					+ "(SELECT o.order_id, CONCAT(c.first_name, ' ', c.last_name) AS recipient_name, c.address AS recipient_address, "
@@ -323,12 +323,12 @@ public class MySQLConnection {
 			PreparedStatement statement2 = conn.prepareStatement(sql2);
 			statement2.setString(1, order_id);
 			statement2.executeUpdate();
-			
+
 			// join two views
 			String sql3 = "SELECT * FROM G LEFT JOIN R ON G.order_id = R.order_id";
 			PreparedStatement statement3 = conn.prepareStatement(sql3);
 			ResultSet rs = statement3.executeQuery();
-			
+
 			while (rs.next()) {
 				String cost = rs.getString("total_cost");
 				items.add(cost);
@@ -364,5 +364,61 @@ public class MySQLConnection {
 			e.printStackTrace();
 		}
 		return items;
+	}
+	// 通过station id,来获取该station近30分钟状态为ordered的订单的list。
+	public List<Order> getStastionOrderList(int stationId) {
+		if (conn == null) {
+			System.err.println("DB connection failed");
+			return new ArrayList<>();
+		}
+		List<Order> stationOrders = new ArrayList<>();
+		try {
+			String sql = "select o.order_id,o.tracking_id,o.package_weight,o.total_cost,c.address,m.machine_type,t.created_at from dispatch.orders o, dispatch.contact c, dispatch.machine m, dispatch.tracking t where o.tracking_id = t.tracking_id and o.recipient_id = c.contact_id and o.machine_id = m.machine_id and t.status = ? and m.station_id = ?;";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setString(1, "ordered");
+			statement.setInt(2, stationId);
+			ResultSet rs = statement.executeQuery();
+			DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			Date cT = new Date();
+			String cT1 = df.format(cT);
+			Date currentTime = null;
+			try {
+				currentTime = df.parse(cT1);
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			long currentTimeInMS = currentTime.getTime();
+			while (rs.next()) {
+				String crT = rs.getString("created_at");
+				Date createdTime = null;
+				try {
+					createdTime = df.parse(crT);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				long createdTimeInMS = createdTime.getTime();
+				if (currentTimeInMS - createdTimeInMS <= 30 * 60000) { // check是否是30分钟以内的订单
+					String orderId = rs.getString("order_id");
+					String trackingId = rs.getString("tracking_id");
+					Float packageWeight = rs.getFloat("package_weight");
+					Float totalCost = rs.getFloat("total_cost");
+					String destinationAddress = rs.getString("address");
+					String machineType = rs.getString("machine_type");
+					Order order = new Order();
+					order.setOrderId(orderId);
+					order.setTrackingId(trackingId);
+					order.setPackageWeight(packageWeight);
+					order.setTotalCost(totalCost);
+					order.setRecipientAddress(destinationAddress);
+					order.setCarrier(machineType);
+					stationOrders.add(order);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return stationOrders;
 	}
 }
