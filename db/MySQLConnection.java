@@ -407,4 +407,31 @@ public class MySQLConnection {
 		}
 		return items;
 	}
+	
+	/**
+	 * Store the latest update time into the tacking table 
+	 * @param trackingId
+	 * @param deliverStatus
+	 * @param updateTime
+	 */
+	public void updateTimes(String trackingId, String deliverStatus, String updateTime){
+		if (conn == null) {
+			System.err.println("DB connection failed");
+			return;
+		}
+		
+		try {
+			String sql = "UPDATE tracking SET status = ?, last_update = ? WHERE tracking_id = ?";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setString(1,deliverStatus);
+			statement.setString(2,updateTime);
+			statement.setString(3,trackingId);
+			statement.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 }
