@@ -299,7 +299,7 @@ public class MySQLConnection {
 			String sql1 = "CREATE OR REPLACE VIEW G AS "
 					+ "(SELECT o.order_id, o.total_cost, m.machine_type, t.delivered_at, CONCAT(c.first_name, ' ', c.last_name) AS sender_name, "
 					+ "c.address AS sender_address, c.phone_number AS sender_phone, c.email_address AS sender_email, "
-					+ "o.package_weight, o.package_height, package_fragile "
+					+ "o.package_weight, o.package_height, o.package_fragile, o.package_width, o.package_length "
 					+ "FROM orders o, contact c, machine m, tracking t "
 					+ "WHERE o.order_id = ? " 
 					+	"AND o.sender_id = c.contact_id "
@@ -354,6 +354,10 @@ public class MySQLConnection {
 				items.add(height);
 				String fragile = rs.getString("package_fragile");
 				items.add(fragile);
+				String length = rs.getString("package_length");
+				items.add(length);
+				String width = rs.getString("package_width");
+				items.add(width);
 			}
 		}
 		catch (SQLException e){
