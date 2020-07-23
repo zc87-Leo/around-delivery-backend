@@ -216,17 +216,16 @@ public class MySQLConnection {
 			return false;
 		}
 
-
 		try {
 			String sql = "INSERT IGNORE INTO tracking(tracking_id,created_at,status) VALUES (?, ?, ?)";
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setString(1, order.getTrackingId());
 			statement.setString(2, order.getOrderCreateTime());
-			String status = (order.getActive() == true) ? "active":"overdue";
+			String status = (order.getActive() == true) ? "ordered" : "overdue";
 			statement.setString(3, status);
 			int b1 = statement.executeUpdate();
 
-			String sql2 = "INSERT IGNORE INTO orders(order_id,user_id,tracking_id,active,sender_id,recipient_id,package_weight,package_height,package_fragile,total_cost,package_width,package_length,carrier,delivery_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			String sql2 = "INSERT IGNORE INTO orders(order_id,user_id,tracking_id,active,sender_id,recipient_id,package_weight,package_height,package_fragile,total_cost,package_width,package_length,carrier,delivery_time,destination_address,appointment_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			statement = conn.prepareStatement(sql2);
 			statement.setString(1, order.getOrderId());
 			statement.setString(2, order.getUserId());
@@ -242,15 +241,16 @@ public class MySQLConnection {
 			statement.setFloat(12, order.getPackageLength());
 			statement.setString(13, order.getCarrier());
 			statement.setString(14, order.getDeliveryTime());
+			statement.setString(15, order.getRecipientAddress());
+			statement.setString(16, order.getAppointmentTime());
 //		statement.setString(11, order.getOrderCreateTime());
 			int b2 = statement.executeUpdate();
-			return b1 == 1 && b2 ==1;
+			return b1 == 1 && b2 == 1;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return false;
 	}
-
 
 	public List<String> getHistory(String user_id) {
 		if (conn == null) {
@@ -413,17 +413,81 @@ public class MySQLConnection {
 		return items;
 	}
 
-	public List<Order> getStastionOrderList(int stationId) {
+
+	}
+	
+	/**
+	 * Store the latest update time into the tacking table 
+	 * @param trackingIdpublic List<Order> getStastionOrderList(int stationId) {
+	 * 		if (conn == null) {
+	 * 			System.err.println("DB connection failed");
+	 * 			return new ArrayList<>();
+	 *                }
+	 * 		List<Order> stationOrders = new ArrayList<>();
+	 * 		try {
+	 * 			String sql = "select o.order_id,o.tracking_id,o.package_weight,o.total_cost,c.address,m.machine_type,t.created_at from dispatch.orders o, dispatch.contact c, dispatch.machine m, dispatch.tracking t where o.tracking_id = t.tracking_id and o.recipient_id = c.contact_id and o.machine_id = m.machine_id and t.status = ? and m.station_id = ?;";
+	 * 			PreparedStatement statement = conn.prepareStatement(sql);
+	 * 			statement.setString(1, "ordered");
+	 * 			statement.setInt(2, stationId);
+	 * 			ResultSet rs = statement.executeQuery();
+	 * 			DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	 * 			Date cT = new Date();
+	 * 			String cT1 = df.format(cT);
+	 * 			Date currentTime = null;
+	 * 			try {
+	 * 				currentTime = df.parse(cT1);
+	 *            } catch (ParseException e1) {
+	 * 				// TODO Auto-generated catch block
+	 * 				e1.printStackTrace();
+	 *            }
+	 * 			long currentTimeInMS = currentTime.getTime();
+	 * 			while (rs.next()) {
+	 * 				String crT = rs.getString("created_at");
+	 * 				Date createdTime = null;
+	 * 				try {
+	 * 					createdTime = df.parse(crT);
+	 *                } catch (ParseException e) {
+	 * 					// TODO Auto-generated catch block
+	 * 					e.printStackTrace();
+	 *                }
+	 * 				long createdTimeInMS = createdTime.getTime();
+	 * 				if (currentTimeInMS - createdTimeInMS <= 30 * 60000) {
+	 * 					String orderId = rs.getString("order_id");
+	 * 					String trackingId = rs.getString("tracking_id");
+	 * 					Float packageWeight = rs.getFloat("package_weight");
+	 * 					Float totalCost = rs.getFloat("total_cost");
+	 * 					String destinationAddress = rs.getString("address");
+	 * 					String machineType = rs.getString("machine_type");
+	 * 					Order order = new Order();
+	 * 					order.setOrderId(orderId);
+	 * 					order.setTrackingId(trackingId);
+	 * 					order.setPackageWeight(packageWeight);
+	 * 					order.setTotalCost(totalCost);
+	 * 					order.setRecipientAddress(destinationAddress);
+	 * 					order.setCarrier(machineType);
+	 * 					stationOrders.add(order);
+	 *                }
+	 *            }
+	 *        } catch (SQLException e) {
+	 * 			e.printStackTrace();
+	 *        }
+	 * 		return stationOrders;
+	 * @param deliverStatus
+	 * @param updateTime
+	 */
+	// 通过station id,来获取该station近30分钟状态为ordered的订单的list。
+	public List<Order> getStastionOrderList(int stationId, String carrier) {
 		if (conn == null) {
 			System.err.println("DB connection failed");
 			return new ArrayList<>();
 		}
 		List<Order> stationOrders = new ArrayList<>();
 		try {
-			String sql = "select o.order_id,o.tracking_id,o.package_weight,o.total_cost,c.address,m.machine_type,t.created_at from dispatch.orders o, dispatch.contact c, dispatch.machine m, dispatch.tracking t where o.tracking_id = t.tracking_id and o.recipient_id = c.contact_id and o.machine_id = m.machine_id and t.status = ? and m.station_id = ?;";
+			String sql = "select o.order_id,o.tracking_id,o.package_weight,o.total_cost,c.address,o.appointment_time from dispatch.orders o, dispatch.contact c, dispatch.tracking t where o.tracking_id = t.tracking_id and o.recipient_id = c.contact_id and t.status = ? and o.station_id = ? and o.carrier = ?;";
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setString(1, "ordered");
 			statement.setInt(2, stationId);
+			statement.setString(3, carrier);
 			ResultSet rs = statement.executeQuery();
 			DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			Date cT = new Date();
@@ -437,29 +501,27 @@ public class MySQLConnection {
 			}
 			long currentTimeInMS = currentTime.getTime();
 			while (rs.next()) {
-				String crT = rs.getString("created_at");
-				Date createdTime = null;
+				String apT = rs.getString("appointment_time");
+				Date appointmentTime = null;
 				try {
-					createdTime = df.parse(crT);
+					appointmentTime = df.parse(apT);
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				long createdTimeInMS = createdTime.getTime();
-				if (currentTimeInMS - createdTimeInMS <= 30 * 60000) {
+				long appointmentTimeInMS = appointmentTime.getTime();
+				if (currentTimeInMS - appointmentTimeInMS <= 30 * 60000) { // check是否是30分钟以内的订单
 					String orderId = rs.getString("order_id");
 					String trackingId = rs.getString("tracking_id");
 					Float packageWeight = rs.getFloat("package_weight");
 					Float totalCost = rs.getFloat("total_cost");
 					String destinationAddress = rs.getString("address");
-					String machineType = rs.getString("machine_type");
 					Order order = new Order();
 					order.setOrderId(orderId);
 					order.setTrackingId(trackingId);
 					order.setPackageWeight(packageWeight);
 					order.setTotalCost(totalCost);
 					order.setRecipientAddress(destinationAddress);
-					order.setCarrier(machineType);
 					stationOrders.add(order);
 				}
 			}
@@ -468,13 +530,6 @@ public class MySQLConnection {
 		}
 		return stationOrders;
 	}
-	
-	/**
-	 * Store the latest update time into the tacking table 
-	 * @param trackingId
-	 * @param deliverStatus
-	 * @param updateTime
-	 */
 	public void updateTimes(String trackingId, String deliverStatus, String updateTime){
 		if (conn == null) {
 			System.err.println("DB connection failed");
