@@ -1,7 +1,0 @@
-INDEX VERSION 1.4+D:\MySoftware\JavaProgramming\flagcamp_workspace\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
-2218941716.index
-550278581.index
-1836839564.index
-2269061161.index
-2427687236.index
-1945236866.index

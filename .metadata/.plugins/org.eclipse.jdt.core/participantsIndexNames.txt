@@ -1,3 +1,0 @@
-INDEX VERSION 1.131
-D:\MySoftware\JavaProgramming\flagcamp_workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\879997369.index
-\delivery\src\main\java
