@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 import entity.Order;
+import entity.User;
 
 public class MySQLConnection {
 
@@ -359,5 +360,50 @@ public class MySQLConnection {
 			e.printStackTrace();
 		}
 		return items;
+	}
+	
+	public boolean updateProfile(User user) {
+		// get independent parameters
+		String user_id = user.getUser_id();
+		String first_name = user.getFirst_name();
+		String last_name = user.getLast_name();
+		String email_address = user.getEmail();
+		String phone_number = user.getPhone();
+		String address = user.getAddress();
+		
+		if (conn == null) {
+			System.err.println("DB Connection Failed");
+			return false;
+		}
+		
+		try {
+			String close_safe_update = "SET SQL_SAFE_UPDATES = 0";
+			PreparedStatement statement1 = conn.prepareStatement(close_safe_update);
+			statement1.executeQuery();
+			
+			String update = "UPDATE dispatch.users " + 
+					"SET first_name = ?, " + 
+					"	 last_name = ?, " + 
+					"	 email_address = ?, " + 
+					"	 phone_number = ?" + 
+					"WHERE user_id = ?";
+			PreparedStatement statement2 = conn.prepareStatement(update);
+			statement2.setString(1, first_name);
+			statement2.setString(2,  last_name);
+			statement2.setString(3,  email_address);
+			statement2.setString(4, phone_number);
+			statement2.setString(5, user_id);
+			int rs = statement2.executeUpdate();
+			
+			String open_safe_update = "SET SQL_SAFE_UPDATES = 1";
+			PreparedStatement statement3 = conn.prepareStatement(open_safe_update);
+			statement3.executeQuery();
+			
+			return rs == 1;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 }
