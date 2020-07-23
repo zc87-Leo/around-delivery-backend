@@ -17,7 +17,7 @@ public class MySQLConnection {
 	private Connection conn;
 
 	public MySQLConnection() {
-		try { //杩炴帴鏁版嵁搴�
+		try {
 			Class.forName("com.mysql.cj.jdbc.Driver").getConstructor().newInstance();
 			conn = DriverManager.getConnection(MySQLDBUtil.URL);
 		} catch (Exception e) {
@@ -412,9 +412,7 @@ public class MySQLConnection {
 		}
 		return items;
 	}
-<<<<<<< HEAD
 
-		// 閫氳繃station id,鏉ヨ幏鍙栬station杩�30鍒嗛挓鐘舵�佷负ordered鐨勮鍗曠殑list銆�
 	public List<Order> getStastionOrderList(int stationId) {
 		if (conn == null) {
 			System.err.println("DB connection failed");
@@ -448,7 +446,7 @@ public class MySQLConnection {
 					e.printStackTrace();
 				}
 				long createdTimeInMS = createdTime.getTime();
-				if (currentTimeInMS - createdTimeInMS <= 30 * 60000) { // check鏄惁鏄�30鍒嗛挓浠ュ唴鐨勮鍗�
+				if (currentTimeInMS - createdTimeInMS <= 30 * 60000) {
 					String orderId = rs.getString("order_id");
 					String trackingId = rs.getString("tracking_id");
 					Float packageWeight = rs.getFloat("package_weight");
@@ -497,7 +495,6 @@ public class MySQLConnection {
 	}
 	
 }
-=======
 	
 	public boolean updateProfile(User user) {
 		// get independent parameters
@@ -544,4 +541,3 @@ public class MySQLConnection {
 		return false;
 	}
 }
->>>>>>> ee08fe11611f5eb1396ca6c3e73d297f59214a61
