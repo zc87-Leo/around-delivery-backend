@@ -62,13 +62,15 @@ public class Detail extends HttpServlet {
 		cols.add("package_weight");
 		cols.add("package_height");
 		cols.add("package_fragile");
+		cols.add("package_length");
+		cols.add("package_width");
 		if (details.isEmpty()) {
 			obj.put("alert", "Order Id Not Valid");
 		}
 		else {
 			try {
 				// put received information into the json object
-				for (int i = 0; i < 14; i++) {
+				for (int i = 0; i < 16; i++) {
 					obj.put(cols.get(i), details.get(i));
 				}
 			}
