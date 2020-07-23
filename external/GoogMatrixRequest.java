@@ -1,42 +1,45 @@
 package external;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 
-import com.google.maps.DirectionsApi;
 import com.google.maps.DirectionsApi.RouteRestriction;
 import com.google.maps.DistanceMatrixApi;
 import com.google.maps.DistanceMatrixApiRequest;
 import com.google.maps.GeoApiContext;
 import com.google.maps.GeocodingApi;
-import com.google.maps.RoadsApi;
 import com.google.maps.errors.ApiException;
-import com.google.maps.model.DirectionsResult;
-import com.google.maps.model.DirectionsStep;
 import com.google.maps.model.DistanceMatrix;
 import com.google.maps.model.GeocodingResult;
-import com.google.maps.model.LatLng;
-import com.google.maps.model.SnappedPoint;
 import com.google.maps.model.TravelMode;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import java.util.ArrayList;
+import java.util.List;
+import com.google.maps.DirectionsApi;
+import com.google.maps.RoadsApi;
+import com.google.maps.model.DirectionsResult;
+import com.google.maps.model.DirectionsStep;
+import com.google.maps.model.LatLng;
+import com.google.maps.model.SnappedPoint;
 
 public class GoogMatrixRequest {
 	// Earth's mean radius in meter
-	private static final int R = 6378137;
-	private static final String API_KEY = "AIzaSyBdIJ5MrQ4rwNhyx52hGx2J3KDwftrGps0";
-//	private static final String API_KEY = "AIzaSyC91YIc2UnTLDQ8FX3sfgHce1lr1AWmyjY";
-	// set up key
-	private static final GeoApiContext distCalcer = new GeoApiContext.Builder().apiKey(API_KEY).build();
+		private static final int R = 6378137;
+		private static final String API_KEY = "AIzaSyBdIJ5MrQ4rwNhyx52hGx2J3KDwftrGps0";
+//		private static final String API_KEY = "AIzaSyC91YIc2UnTLDQ8FX3sfgHce1lr1AWmyjY";
+		// set up key
+		private static final GeoApiContext distCalcer = new GeoApiContext.Builder().apiKey(API_KEY).build();
 
-	private OkHttpClient client;
+		private OkHttpClient client;
+	
 //  private String addrOne;
 //  private String addrTwo;
 //  private double weight;
 //  private boolean mode;
-
+  
 //  public GoogMatrixRequest(String addrOne, String addrTwo, double weight, boolean mode) {
 //	   this.client = new OkHttpClient();
 //	   this.addrOne = addrOne;
@@ -45,50 +48,56 @@ public class GoogMatrixRequest {
 //	   this.mode = mode;
 //  }
 
-	public String run(String url) throws IOException {
-		Request request = new Request.Builder().url(url).build();
-		okhttp3.Response response = client.newCall(request).execute();
-		// response.body().rows[0].elements[0].distance.value
-		System.out.println(response);
-		return response.body().string();
-	}
-
-	public static double getBicyclingDistance(String addrOne, String addrTwo)
-			throws ApiException, InterruptedException, IOException {
-
-		DistanceMatrixApiRequest req = DistanceMatrixApi.newRequest(distCalcer);
-		TravelMode travel;
-
-		travel = TravelMode.BICYCLING;
-
-		DistanceMatrix result = req.origins(addrOne).destinations(addrTwo).mode(travel).avoid(RouteRestriction.TOLLS)
-				.language("en-US").await();
-		double distApart = result.rows[0].elements[0].distance.inMeters * 0.000621371192;
-		return distApart;
-	}
-
-	public static double getDirectDistance(String senderAddr, String receiverAddr)
-			throws ApiException, InterruptedException, IOException {
-
-		GeocodingResult[] resultOrigin = GeocodingApi.geocode(distCalcer, senderAddr).await();
-		GeocodingResult[] resultDestination = GeocodingApi.geocode(distCalcer, receiverAddr).await();
-		double lat1 = resultOrigin[0].geometry.location.lat;
-		double lng1 = resultOrigin[0].geometry.location.lng;
-		double lat2 = resultDestination[0].geometry.location.lat;
-		double lng2 = resultDestination[0].geometry.location.lng;
-
-		double dlng = Radians(lng2 - lng1);
-		double dlat = Radians(lat2 - lat1);
-
-		double a = (Math.sin(dlat / 2) * Math.sin(dlat / 2))
-				+ Math.cos(Radians(lat1)) * Math.cos(Radians(lat2)) * (Math.sin(dlng / 2) * Math.sin(dlng / 2));
-		double angle = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-		// return the distance in miles
-		return R * angle * 0.000621371192;
-	}
-	
-	
-	/**
+  public String run(String url) throws IOException {
+	  Request request = new Request.Builder()
+			  .url(url)
+			  .build();
+	  okhttp3.Response response = client.newCall(request).execute();
+	  // response.body().rows[0].elements[0].distance.value
+	  System.out.println(response);
+	  return response.body().string();
+  }
+  
+  public static double getBicyclingDistance(String addrOne, String addrTwo) throws ApiException, InterruptedException, IOException{
+	   	
+	  DistanceMatrixApiRequest req = DistanceMatrixApi.newRequest(distCalcer); 
+	  TravelMode travel;
+	  
+	  travel = TravelMode.BICYCLING;
+	  
+	  DistanceMatrix result = req.origins(addrOne)
+			  .destinations(addrTwo)
+	          .mode(travel)
+	          .avoid(RouteRestriction.TOLLS)
+	          .language("en-US")
+	          .await();
+	  double distApart = result.rows[0].elements[0].distance.inMeters * 0.000621371192;
+	  return distApart;
+  }
+  
+  public static double getDirectDistance (String senderAddr, String receiverAddr) throws ApiException, InterruptedException, IOException {
+	  
+	  GeocodingResult[] resultOrigin = GeocodingApi.geocode(distCalcer, senderAddr).await();
+	  GeocodingResult[] resultDestination = GeocodingApi.geocode(distCalcer, receiverAddr).await();
+	  double lat1 = resultOrigin[0].geometry.location.lat;
+	  double lng1 = resultOrigin[0].geometry.location.lng;
+	  double lat2 = resultDestination[0].geometry.location.lat;
+	  double lng2 = resultDestination[0].geometry.location.lng;
+	  
+	  double dlng = Radians(lng2 - lng1);
+	  double dlat = Radians(lat2 - lat1);
+	  
+	  double a = (Math.sin(dlat / 2) * Math.sin(dlat / 2)) + Math.cos(Radians(lat1)) * Math.cos(Radians(lat2)) * (Math.sin(dlng / 2) * Math.sin(dlng / 2));
+      double angle = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      //return the distance in miles
+      return R * angle * 0.000621371192;
+  }
+  
+  private static double Radians (double x) {
+	  return x * Math.PI / 180;
+  }
+  
+  /**
 	 * Convert the address from String to lat/lng double 
 	 * 
 	 * @param address
@@ -118,7 +127,7 @@ public class GoogMatrixRequest {
 		LatLng latLng = result[0].geometry.location;
 		return latLng;
 	}
-
+	
 	/**
 	 * Calculate the current location based on the complete ratio of the total distance from sender and receiver. 
 	 * 
@@ -213,43 +222,189 @@ public class GoogMatrixRequest {
 		return pointsLatLngs;
 	}
 
-//    .avoid(
-//    DirectionsApi.RouteRestriction.HIGHWAYS,
-//    DirectionsApi.RouteRestriction.TOLLS,
-//    DirectionsApi.RouteRestriction.FERRIES)
+//  .avoid(
+//  DirectionsApi.RouteRestriction.HIGHWAYS,
+//  DirectionsApi.RouteRestriction.TOLLS,
+//  DirectionsApi.RouteRestriction.FERRIES)
 
-	private static double Radians(double x) {
-		return x * Math.PI / 180;
-	}
+  public static double[][] getDistance(String stationAddr, String receiverAddr, double weight, double length, double width, double height, boolean fragile) throws IOException, ApiException, InterruptedException {
+	  // max dimension at any side
+	  double max = length >= width ? length : width;
+	  max = height >= max ? height : max;
+	  
+	  boolean mode = true; // true as drone; false as robot
+	  double[][] result = new double[4][2]; //?空出
+	  if (weight > 50) {
+		  //neither, warning weight, no need to check dimension, no need to check fragile. ?
+		  return null;
+	  } 
+	  /* case 2. 0 < weight <= 5, drone or robot, 
+		 then, 1) dimension max > 25.00, neither, warning dimension, no need to check fragile
+		  	   2) dimension 13 < max <= 25, only robot, no need to check fragile
+		  	 	   			recommend robot: option a. fastest <=30 mins, shipping cost + $10;  option b.  <= 1 hour, shipping cost, option c. cheapest <=2 hours, shipping cost - 5
+		  	 	   		    //speed not change, priority change.
+		  	   2) dimension max <= 13, drone or robot, check fragile // for testing
+		  	 	   			(1) fragile: recommend robot: option a. fastest <=30 mins, shipping cost + $10;  option b. <= 1 hour, shipping cost c. cheapest <=2 hours, shipping cost - 5
+		  	 	   			(2) not fragile: recommend drone or robot: option a. drone fastest <=30 mins, shipping cost + $5;  option b. drone <= 1 hour, shipping cost; option  c. cheapest <=2 hours, shipping cost - 5
+		  	 	   																d. robot <=30 mins, shipping cost + $5;  option e. robot <= 1 hour, shipping cost; 	f. robot cheapest <=2 hours, shipping cost - 5	
+		  		 * 
+		  		 */
+	  else if (weight > 0 && weight <= 5) {
+		  if (max > 25.00) {
+			  // neither, warning dimension, no need to check fragile?
+			  return null;
+			  
+		  } else if (max > 13 && max <= 25) {
+		      //mode = false;
+			  double robotDistance = getBicyclingDistance(stationAddr, receiverAddr);
+			  // 30 mins sends
+				result[0][0] = robotDistance / 10; //? time return
+				result[0][1] = calculatePrice(weight, robotDistance, false, length, width, height, fragile) + 10; // fragile or true or false?
+			  //double droneDistance = getDirectDistance(stationAddr, receiverAddr);
+			  //result[0][0] = droneDistance / 50;
+				//? need hardcord fastest, cheapest, <=30, <= 1 hour
+			  // 1 hour sends
+				result[1][0] = robotDistance / 10; // ？不用返回也不应该返回时间
+				result[1][1] = calculatePrice(weight, robotDistance, false, length, width, height, fragile);
+				
+			  // 2 hours sends
+				result[2][0] = robotDistance / 10; // ？不用返回也不应该返回时间
+				result[2][1] = calculatePrice(weight, robotDistance, false, length, width, height, fragile) - 5;
+		  } else {
+			// method 1 drone
+			  if (fragile) {
+				  // mode = false
+				  double robotDistance = getBicyclingDistance(stationAddr, receiverAddr);
+				  // 30 mins sends
+					result[0][0] = robotDistance / 10; //? time return
+					result[0][1] = calculatePrice(weight, robotDistance, false, length, width, height, true) + 10;
+				  //double droneDistance = getDirectDistance(stationAddr, receiverAddr);
+				  //result[0][0] = droneDistance / 50;
+					//? need hardcord fastest, cheapest, <=30, <= 1 hour
+				  // 1 hour sends
+					result[1][0] = robotDistance / 10; // ？不用返回也不应该返回时间
+					result[1][1] = calculatePrice(weight, robotDistance, false, length, width, height, true);
+					
+				  // 2 hours sends
+					result[2][0] = robotDistance / 10; // ？不用返回也不应该返回时间
+					result[2][1] = calculatePrice(weight, robotDistance, false, length, width, height, true) - 5;
+				  
+			  } else {
+				  // mode = true drone
+				  double droneDistance = getDirectDistance(stationAddr, receiverAddr);
+				  // 30 mins sends
+					result[0][0] = droneDistance / 50; //? time return
+					result[0][1] = calculatePrice(weight, droneDistance, true, length, width, height, false) + 10;
+				  //double droneDistance = getDirectDistance(stationAddr, receiverAddr);
+				  //result[0][0] = droneDistance / 50;
+					//? need hardcord fastest, cheapest, <=30, <= 1 hour
+				  // 1 hour sends
+					result[1][0] = droneDistance / 50; // ？不用返回也不应该返回时间
+					result[1][1] = calculatePrice(weight, droneDistance, true, length, width, height, false);
+					
+				  // 2 hours sends
+					result[2][0] = droneDistance / 50; // ？不用返回也不应该返回时间
+					result[2][1] = calculatePrice(weight, droneDistance, true, length, width, height, false) - 5;
+					
+					// mode = false robot
+					  double robotDistance = getBicyclingDistance(stationAddr, receiverAddr);
+					  // 30 mins sends
+						result[3][0] = robotDistance / 10; //? time return
+						result[3][1] = calculatePrice(weight, robotDistance, false, length, width, height, false) + 10;
+					  //double droneDistance = getDirectDistance(stationAddr, receiverAddr);
+					  //result[0][0] = droneDistance / 50;
+						//? need hardcord fastest, cheapest, <=30, <= 1 hour
+					  // 1 hour sends
+						result[4][0] = robotDistance / 10; // ？不用返回也不应该返回时间
+						result[4][1] = calculatePrice(weight, robotDistance, false, length, width, height, false);
+						
+					  // 2 hours sends
+						result[5][0] = robotDistance / 10; // ？不用返回也不应该返回时间
+						result[5][1] = calculatePrice(weight, robotDistance, false, length, width, height, false) - 5;
+			  }
+			
 
-	public static double[][] getDistance(String senderAddr, String receiverAddr, double weight)
-			throws IOException, ApiException, InterruptedException {
-		// method 1 drone
-		double[][] result = new double[2][2];
-		double droneDistance = getDirectDistance(senderAddr, receiverAddr);
-		result[0][0] = droneDistance / 50;
-		result[0][1] = calculatePrice(weight, droneDistance, true);
-		// method 2 robot
-		double robotDistance = getBicyclingDistance(senderAddr, receiverAddr);
-		result[1][0] = robotDistance / 10;
-		result[1][1] = calculatePrice(weight, robotDistance, false);
+			  }
 
+
+	  }
+
+		 /* case 3. 
+		   * 5 < weight <= 50, only robot.
+		   * then, 1) dimension max > 25.00, warning dimension is to large. should not exceed 25.00. personalized suggestion. 
+		   * 	   2) dimension max <= 25, robot, fragile or not 都是: recommend robot, option a. fastest <=30 mins, shipping cost + $10;  option b.  <= 1 hour, shipping cost
+		   * 											c. cheapest <= 2 hours, shipping cost - 5
+		   */
+	  else {
+		  
+		  if (max > 25.00) {
+			  return null; //? warning dimension is to large. 
+		  } else if (max <= 25) {
+			// mode = false robot
+			  double robotDistance = getBicyclingDistance(stationAddr, receiverAddr); // 显示function
+			  // 30 mins sends
+				result[0][0] = robotDistance / 10; //? time return
+				result[0][1] = calculatePrice(weight, robotDistance, false, length, width, height, fragile) + 10;
+			  //double droneDistance = getDirectDistance(stationAddr, receiverAddr);
+			  //result[0][0] = droneDistance / 50;
+				//? need hardcord fastest, cheapest, <=30, <= 1 hour
+			  // 1 hour sends
+				result[1][0] = robotDistance / 10; // ？不用返回也不应该返回时间
+				result[1][1] = calculatePrice(weight, robotDistance, false, length, width, height, fragile);
+				
+			  // 2 hours sends
+				result[2][0] = robotDistance / 10; // ？不用返回也不应该返回时间
+				result[2][1] = calculatePrice(weight, robotDistance, false, length, width, height, fragile) - 5;
+		  }
+		 
+		  
+	  }
+		  
+		  
 //	  GoogMatrixRequest request = new GoogMatrixRequest();
 //	  String url_request = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=Seattle&destinations=San+Francisco&mode=bicycling&language=en-GB&key=" + API_KEY;
 //	  String response = request.run(url_request);
 //	  long robotDistance = response.rows[0].elements[0].distance.value;
 //	  System.out.println(calculatePrice(weight, robotDistance, false));
-		return result;
-	}
+	  return result;
+  }
+   
+  // price = base fare (surcharge) + distance/speed as constant * price per minute + weight * price per lb
+  /* 一次多单
+   * time: distance/speed dummy data speed
+   * 
+   * location: dummy data location of three stations, only use the nearest station
+   * estmate time: nearest to sender address, compare distance among sender address, receiver address, 
+   * station nearest to sender - sender - receiver - station
+   * 
+   * weight: 1.4kg or not. 
+   * 
+   * size: length * width * height
+   * Wing's drones have a wingspan of about 3 feet and weigh approximately 11 pounds, and they can carry packages that weigh up to a little more than 3 pounds. They fly up to 400 feet above the ground.
+   * 
+   * fragile: robot (front end)
+   * 
+   * availabiliity 不check: urgent or not. 最晚希望送达时间。
+   * 
+   * latest expected 
+   * drone availability: management调配，两块: 1. available, 运送 2. 不available，调到这个station (空中飞的或者其它站点的顺道) => aws
+   * 配送站 routific api: 
+   * 
+   * distance: nearest station to destination
+   * 
+   * estimate time: preparation - start - start time - end time
+   * 
+   * 
+   * Wing said that its drones can currently make a round-trip flight of about 6 miles (9.7 km), traveling about 60 miles per hour (97 km per hour), and can carry around 3 lbs (1.4 kg) of payload.
+   */
+  
+  public static double calculatePrice(double weight, double distance, boolean mode, double length, double width, double height, boolean fragile) {
+	  // from, to, weight, mode
+	  double cost = 0.0;
 
-	// price = base fare (surcharge) + distance/speed as constant * price per minute
-	// + weight * price per lb
-	public static double calculatePrice(double weight, double distance, boolean mode) {
-		// from, to, weight, mode
-		double cost = 0.0;
-
-		// query db to get data, assume we already have base price, additional rate
-		if (mode == true) {
+	  
+	  // query db to get data, assume we already have base price, additional rate
+	  if (mode == true) {
 			// method 1 drone
 			cost = 3.99 + distance * weight * 0.4;
 		} else {
@@ -261,7 +416,8 @@ public class GoogMatrixRequest {
 		} else {
 			System.out.println("Vehicle: Robot; The shipping cost: " + cost + "; The distance: " + distance);
 		}
-
+		 cost = new BigDecimal(cost).setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
 		return cost;
-	}
-}
+	  
+	  } 
+  }

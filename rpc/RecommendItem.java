@@ -3,6 +3,7 @@
 package rpc;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -71,13 +72,23 @@ public class RecommendItem extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		JSONObject input = RpcHelper.readJSONObject(request);
-		String senderAddr = input.getString("senderAddr");
+		//senderAddr as stationAddr
+		//? line 77
+		String stationAddr = input.getString("address");
 		String receiverAddr = input.getString("receiverAddr");
 		double weight = input.getDouble("weight");
-
-		double[][] result = new double[2][2];
+		// change to one decimal
+		weight = new BigDecimal(weight).setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
+		double length = input.getDouble("length");
+		double width = input.getDouble("width");
+		double height = input.getDouble("height");
+		boolean fragile = input.getBoolean("fragile");
+		
+		// time, price // per row as per item
+		// time, price
+		double[][] result = new double[6][2];
 		try {
-			result = GoogMatrixRequest.getDistance(senderAddr, receiverAddr, weight);
+			result = GoogMatrixRequest.getDistance(stationAddr, receiverAddr, weight, length, width, height, fragile);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -95,6 +106,7 @@ public class RecommendItem extends HttpServlet {
 //		obj.put("Robot Price (cheapest)", "$" + String.format("%.2f", result[1][1]));
 //		RpcHelper.writeJsonObject(response, obj);
 
+		// response words in the front end? time (2种标准即可), carrier, price, + words
 		JSONArray array = new JSONArray();
 		array.put(new JSONObject().put("carrier", "drone").put("time", String.format("%.2f", result[0][0]))
 				.put("price", String.format("%.2f", result[0][1])));
