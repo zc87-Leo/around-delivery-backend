@@ -16,7 +16,7 @@ public class MySQLConnection {
 	private Connection conn;
 
 	public MySQLConnection() {
-		try { //连接数据库
+		try { //杩炴帴鏁版嵁搴�
 			Class.forName("com.mysql.cj.jdbc.Driver").getConstructor().newInstance();
 			conn = DriverManager.getConnection(MySQLDBUtil.URL);
 		} catch (Exception e) {
@@ -345,16 +345,16 @@ public class MySQLConnection {
 			String sql1 = "CREATE OR REPLACE VIEW G AS "
 					+ "(SELECT o.order_id, o.total_cost, m.machine_type, t.delivered_at, CONCAT(c.first_name, ' ', c.last_name) AS sender_name, "
 					+ "c.address AS sender_address, c.phone_number AS sender_phone, c.email_address AS sender_email, "
-					+ "o.package_weight, o.package_height, package_fragile "
+					+ "o.package_weight, o.package_height, o.package_fragile, o.package_width, o.package_length "
 					+ "FROM orders o, contact c, machine m, tracking t "
-					+ "WHERE o.order_id = ? "
+					+ "WHERE o.order_id = ? " 
 					+	"AND o.sender_id = c.contact_id "
 					+ 	"AND o.machine_id = m.machine_id "
 					+ 	"AND o.tracking_id = t.tracking_id)";
 			PreparedStatement statement1 = conn.prepareStatement(sql1);
 			statement1.setString(1, order_id);
 			statement1.executeUpdate();
-
+			
 			// create view with recipient information
 			String sql2 = "CREATE OR REPLACE VIEW R AS "
 					+ "(SELECT o.order_id, CONCAT(c.first_name, ' ', c.last_name) AS recipient_name, c.address AS recipient_address, "
@@ -365,12 +365,12 @@ public class MySQLConnection {
 			PreparedStatement statement2 = conn.prepareStatement(sql2);
 			statement2.setString(1, order_id);
 			statement2.executeUpdate();
-
+			
 			// join two views
 			String sql3 = "SELECT * FROM G LEFT JOIN R ON G.order_id = R.order_id";
 			PreparedStatement statement3 = conn.prepareStatement(sql3);
 			ResultSet rs = statement3.executeQuery();
-
+			
 			while (rs.next()) {
 				String cost = rs.getString("total_cost");
 				items.add(cost);
@@ -400,6 +400,10 @@ public class MySQLConnection {
 				items.add(height);
 				String fragile = rs.getString("package_fragile");
 				items.add(fragile);
+				String length = rs.getString("package_length");
+				items.add(length);
+				String width = rs.getString("package_width");
+				items.add(width);
 			}
 		}
 		catch (SQLException e){
@@ -408,7 +412,7 @@ public class MySQLConnection {
 		return items;
 	}
 
-		// 通过station id,来获取该station近30分钟状态为ordered的订单的list。
+		// 閫氳繃station id,鏉ヨ幏鍙栬station杩�30鍒嗛挓鐘舵�佷负ordered鐨勮鍗曠殑list銆�
 	public List<Order> getStastionOrderList(int stationId) {
 		if (conn == null) {
 			System.err.println("DB connection failed");
@@ -442,7 +446,7 @@ public class MySQLConnection {
 					e.printStackTrace();
 				}
 				long createdTimeInMS = createdTime.getTime();
-				if (currentTimeInMS - createdTimeInMS <= 30 * 60000) { // check是否是30分钟以内的订单
+				if (currentTimeInMS - createdTimeInMS <= 30 * 60000) { // check鏄惁鏄�30鍒嗛挓浠ュ唴鐨勮鍗�
 					String orderId = rs.getString("order_id");
 					String trackingId = rs.getString("tracking_id");
 					Float packageWeight = rs.getFloat("package_weight");
