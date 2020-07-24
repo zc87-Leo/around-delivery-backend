@@ -509,7 +509,7 @@ public class MySQLConnection {
 					e.printStackTrace();
 				}
 				long appointmentTimeInMS = appointmentTime.getTime();
-				if (currentTimeInMS - appointmentTimeInMS <= 30 * 60000) { // check是否是30分钟以内的订单
+				if ( appointmentTimeInMS - currentTimeInMS <= 30 * 60000) { // check是否是30分钟以内的订单
 					String orderId = rs.getString("order_id");
 					String trackingId = rs.getString("tracking_id");
 					Float packageWeight = rs.getFloat("package_weight");
