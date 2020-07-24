@@ -225,7 +225,7 @@ public class MySQLConnection {
 			statement.setString(3, status);
 			int b1 = statement.executeUpdate();
 
-			String sql2 = "INSERT IGNORE INTO orders(order_id,user_id,tracking_id,active,sender_id,recipient_id,package_weight,package_height,package_fragile,total_cost,package_width,package_length,carrier,delivery_time,destination_address,appointment_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			String sql2 = "INSERT IGNORE INTO orders(order_id,user_id,tracking_id,active,sender_id,recipient_id,package_weight,package_height,package_fragile,total_cost,package_width,package_length,carrier,delivery_time,appointment_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			statement = conn.prepareStatement(sql2);
 			statement.setString(1, order.getOrderId());
 			statement.setString(2, order.getUserId());
@@ -241,8 +241,7 @@ public class MySQLConnection {
 			statement.setFloat(12, order.getPackageLength());
 			statement.setString(13, order.getCarrier());
 			statement.setString(14, order.getDeliveryTime());
-			statement.setString(15, order.getRecipientAddress());
-			statement.setString(16, order.getAppointmentTime());
+			statement.setString(15, order.getAppointmentTime());
 //		statement.setString(11, order.getOrderCreateTime());
 			int b2 = statement.executeUpdate();
 			return b1 == 1 && b2 == 1;
