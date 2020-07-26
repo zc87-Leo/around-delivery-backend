@@ -1,9 +1,7 @@
 package rpc;
 
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -12,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import org.json.JSONObject;
 import db.MySQLConnection;
-import entity.DateUtil;
 import entity.Order;
 import entity.UuidUtil;
 
@@ -46,11 +43,11 @@ public class NewOrder extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // tracking & Order id & order create time (我们在后端生成的数据)
+        //tracking & Order id & order create time (我们在后端生成的数据)
         String orderId = UuidUtil.generateShortUuid();
         String trackingId = UuidUtil.generateShortUuid();
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String orderCreateTime = df.format(new Date());
+        String orderCreateTime= df.format(new Date());
         // initialize other attributes for newOrder（我们需要在前端request中获取的数据）
         String userId = "";
         String senderAddress = "";
@@ -74,8 +71,6 @@ public class NewOrder extends HttpServlet {
         Float packageWidth = (float) 0.0;
         String carrier = "";
         String deliveryTime = "";
-        String appointmentTime ="";
-        int stationId = 0;
 
         // get order info from JSON object via HTTP request
         JSONObject orderInfo = RpcHelper.readJSONObject(request);
@@ -135,35 +130,16 @@ public class NewOrder extends HttpServlet {
         if (orderInfo.getString("carrier") != null) {
             carrier = orderInfo.getString("carrier");
         }
-
-//		if (orderInfo.getString("deliveryTime") != null) {
-//			String dT = orderInfo.getString("deliveryTime");
-//			deliveryTime = dT.substring(0, dT.length() - 2);
-//		}
+        if (orderInfo.getString("deliveryTime") != null) {
+            String dT = orderInfo.getString("deliveryTime");
+            deliveryTime = dT.substring(0, dT.length()-2);
+        }
 
         if (orderInfo.getDouble("totalCost") >= 0) {
             totalCost = (float) orderInfo.getDouble("totalCost");
         }
 
-        if(orderInfo.getString("appointmentTime") != null) {
-            String minInStringWithHr = orderInfo.getString("appointmentTime");
-            String minInString = minInStringWithHr.substring(0, minInStringWithHr.length() - 2);
-            int mins = (int) (Double.parseDouble(minInString)*60);
-            long appointmentTimeInMs = 0;
-            try {
-                appointmentTimeInMs = DateUtil.addMins(orderCreateTime, mins);
-            } catch (ParseException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            Timestamp aT = new Timestamp(appointmentTimeInMs);
-            appointmentTime = df.format(aT);
-        }
-        if(orderInfo.getInt("stationId") >= 1 && orderInfo.getInt("stationId") <= 3) {
-            stationId = orderInfo.getInt("stationId");
-        }
-
-        // Get current time in milliseconds
+        //Get current time in milliseconds
 //        double dTDouble = Double.parseDouble(deliveryTime.substring(0,deliveryTime.length()-2));
 //        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 //		String currentTime= df.format(new Date());
@@ -203,19 +179,14 @@ public class NewOrder extends HttpServlet {
         JSONObject obj = new JSONObject();
         int senderId = -1;
         connection.addContact(senderFirstName, senderLastName, senderEmail, senderPhoneNumber, senderAddress);
-        if (connection.getContactId(senderFirstName, senderLastName, senderEmail, senderPhoneNumber,
-                senderAddress) != -1) {
-            senderId = connection.getContactId(senderFirstName, senderLastName, senderEmail, senderPhoneNumber,
-                    senderAddress);
+        if(connection.getContactId(senderFirstName, senderLastName, senderEmail, senderPhoneNumber, senderAddress) != -1) {
+            senderId = connection.getContactId(senderFirstName, senderLastName, senderEmail, senderPhoneNumber, senderAddress);
         }
         obj.put("sender id", senderId);
         int recipientId = -1;
-        connection.addContact(recipientFirstName, recipientLastName, recipientEmail, recipientPhoneNumber,
-                recipientAddress);
-        if (connection.getContactId(recipientFirstName, recipientLastName, recipientEmail, recipientPhoneNumber,
-                recipientAddress) != -1) {
-            recipientId = connection.getContactId(recipientFirstName, recipientLastName, recipientEmail,
-                    recipientPhoneNumber, recipientAddress);
+        connection.addContact(recipientFirstName, recipientLastName, recipientEmail, recipientPhoneNumber, recipientAddress);
+        if(connection.getContactId(recipientFirstName, recipientLastName, recipientEmail, recipientPhoneNumber, recipientAddress) != -1) {
+            recipientId = connection.getContactId(recipientFirstName, recipientLastName, recipientEmail, recipientPhoneNumber, recipientAddress);
         }
         obj.put("recipient id", recipientId);
         Order newOrder = new Order();
@@ -234,8 +205,6 @@ public class NewOrder extends HttpServlet {
         newOrder.setDeliveryTime(deliveryTime);
         newOrder.setPackageLength(packageLength);
         newOrder.setPackageWidth(packageWidth);
-        newOrder.setAppointmentTime(appointmentTime);
-        newOrder.setStationId(stationId);
 
 //        Order order = newOrder.build(); // will be stored in DB
 //
@@ -253,9 +222,10 @@ public class NewOrder extends HttpServlet {
 //            RpcHelper.writeJsonObject(response, newOrderInfo);
 //        }
 
-        if (connection.createOrder(newOrder, senderId, recipientId)) {
+
+        if(connection.createOrder(newOrder,senderId,recipientId)) {
             obj.put("status", "Order Created Successfully!").put("tracking id", trackingId).put("order id", orderId);
-        } else {
+        }else {
             obj.put("status", "Order Created Unsuccessfully!");
         }
         connection.close();

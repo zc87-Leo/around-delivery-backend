@@ -29,8 +29,6 @@ public class Order {
 	private String carrier;
 	private String deliveryTime;
 	private Float totalCost;
-	private String appointmentTime;
-	private int stationId;
 
 //public Order(OrderBuilder builder) {
 //	// TODO Auto-generated constructor stub
@@ -247,22 +245,6 @@ public class Order {
 
 	public void setDeliveryTime(String deliveryTime) {
 		this.deliveryTime = deliveryTime;
-	}
-
-	public String getAppointmentTime() {
-		return appointmentTime;
-	}
-
-	public void setAppointmentTime(String appointmentTime) {
-		this.appointmentTime = appointmentTime;
-	}
-
-	public int getStationId() {
-		return stationId;
-	}
-
-	public void setStationId(int stationId) {
-		this.stationId = stationId;
 	}
 
 //public JSONObject toJSONObject() {
