@@ -21,7 +21,7 @@ public class MySQLConnection {
 	private Connection conn;
 
 	public MySQLConnection() {
-		try { //杩炴帴鏁版嵁搴�
+		try { //鏉╃偞甯撮弫鐗堝祦鎼达拷
 			Class.forName("com.mysql.cj.jdbc.Driver").getConstructor().newInstance();
 			conn = DriverManager.getConnection(MySQLDBUtil.URL);
 		} catch (Exception e) {
@@ -348,7 +348,7 @@ public class MySQLConnection {
 		try {
 			// create the view with general information
 			String sql1 = "CREATE OR REPLACE VIEW G AS "
-					+ "(SELECT o.order_id, o.total_cost, m.machine_type, o.delivered_at, CONCAT(c.first_name, ' ', c.last_name) AS sender_name, "
+					+ "(SELECT o.order_id, o.total_cost, m.machine_type, t.delivered_at, CONCAT(c.first_name, ' ', c.last_name) AS sender_name, "
 					+ "s.address AS sender_address, c.phone_number AS sender_phone, c.email_address AS sender_email, "
 					+ "o.package_weight, o.package_height, o.package_fragile, o.package_width, o.package_length "
 					+ "FROM orders o, contact c, machine m, tracking t, station s "
@@ -418,7 +418,7 @@ public class MySQLConnection {
 		return items;
 	}
 
-		// 閫氳繃station id,鏉ヨ幏鍙栬station杩�30鍒嗛挓鐘舵�佷负ordered鐨勮鍗曠殑list銆�
+		// 闁俺绻僺tation id,閺夈儴骞忛崣鏍嚉station鏉╋拷30閸掑棝鎸撻悩鑸碉拷浣疯礋ordered閻ㄥ嫯顓归崡鏇犳畱list閵嗭拷
 	public List<Order> getStastionOrderList(int stationId) {
 		if (conn == null) {
 			System.err.println("DB connection failed");
@@ -452,7 +452,7 @@ public class MySQLConnection {
 					e.printStackTrace();
 				}
 				long createdTimeInMS = createdTime.getTime();
-				if (currentTimeInMS - createdTimeInMS <= 30 * 60000) { // check鏄惁鏄�30鍒嗛挓浠ュ唴鐨勮鍗�
+				if (currentTimeInMS - createdTimeInMS <= 30 * 60000) { // check閺勵垰鎯侀弰锟�30閸掑棝鎸撴禒銉ュ敶閻ㄥ嫯顓归崡锟�
 					String orderId = rs.getString("order_id");
 					String trackingId = rs.getString("tracking_id");
 					Float packageWeight = rs.getFloat("package_weight");
