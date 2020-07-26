@@ -73,8 +73,6 @@ public class MySQLTableCreation {
 					+ "package_width FLOAT NOT NULL"
 					+ "total_cost FLOAT NOT NULL,"
 					+ "appointment_time VARCHAR(45) NOT NULL,"
-					+ "delivered_at DATETIME NOT NULL,"
-					+ "last_update DATETIME NOT NULL,"
 					+ "PRIMARY KEY (order_id),"
 					+ "FOREIGN KEY (user_id) REFERENCES users(user_id),"
 					+ "FOREIGN KEY (tracking_id) REFERENCES tracking(tracking_id),"
