@@ -42,9 +42,9 @@ public class Tracking extends HttpServlet {
 			throws ServletException, IOException {
 		JSONObject input = RpcHelper.readJSONObject(request);
 		String trackingId = input.getString("tracking_id");
-		
+		String orderId = input.getString("order_id");
+
 		MySQLConnection connection = new MySQLConnection();
-		String orderId = connection.getOrderId(trackingId);
 		List<String> times = connection.getTimes(trackingId);
 
 //		String machineId = connection.getMachineId(orderId);
@@ -87,11 +87,9 @@ public class Tracking extends HttpServlet {
 //				} else {
 //					pickAfter = (int)GoogMatrixRequest.getBicyclingDistance(stationAddr, enderAddr) / 10;
 //				}
-				
+
 				long pickedUpTime = DateUtil.addMins(createdTime, 30);// 创建订单后30分钟上门取货
 				long transmitTime = pickedUpTime + 5 * 60000; // 取货后5分钟开始送货
-				obj.put("pick up time", df.format(pickedUpTime));
-				obj.put("pick up time", deliveredTime);
 				String deliverStatus;
 				if (DateUtil.getDistanceTime(deliveredTime, currentTime)) {
 					deliverStatus = "Order delivered";
@@ -144,7 +142,7 @@ public class Tracking extends HttpServlet {
 //								obj.put("currLocation1", senderLatLng);
 //								obj.put("currLocation2", receiverLatLng);
 								int currIndex = (int) (distRatio * points.size()) - 1;
-								obj.put("currLocation", points.get(currIndex));
+								obj.put("currLocation3", points.get(currIndex));
 //							obj.put("index", currIndex);
 							} catch (NullPointerException e) {
 								obj.put("currLocation", "error");

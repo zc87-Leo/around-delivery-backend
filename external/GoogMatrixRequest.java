@@ -75,9 +75,9 @@ public class GoogMatrixRequest {
 	  return distApart;
   }
   
-  public static double getDirectDistance (String stationAddr, String receiverAddr) throws ApiException, InterruptedException, IOException {
+  public static double getDirectDistance (String senderAddr, String receiverAddr) throws ApiException, InterruptedException, IOException {
 	  
-	  GeocodingResult[] resultOrigin = GeocodingApi.geocode(distCalcer, stationAddr).await();
+	  GeocodingResult[] resultOrigin = GeocodingApi.geocode(distCalcer, senderAddr).await();
 	  GeocodingResult[] resultDestination = GeocodingApi.geocode(distCalcer, receiverAddr).await();
 	  double lat1 = resultOrigin[0].geometry.location.lat;
 	  double lng1 = resultOrigin[0].geometry.location.lng;
@@ -129,9 +129,9 @@ public class GoogMatrixRequest {
 	}
 	
 	/**
-	 * Calculate the current location based on the complete ratio of the total distance from station and receiver. 
+	 * Calculate the current location based on the complete ratio of the total distance from sender and receiver. 
 	 * 
-	 * @param stationAddr
+	 * @param senderAddr
 	 * @param receiverAddr
 	 * @param ratio 		
 	 * @return
@@ -139,10 +139,10 @@ public class GoogMatrixRequest {
 	 * @throws InterruptedException
 	 * @throws IOException
 	 */
-	public static double[] getNewLocation(String stationAddr, String receiverAddr, double ratio)
+	public static double[] getNewLocation(String senderAddr, String receiverAddr, double ratio)
 			throws ApiException, InterruptedException, IOException {
 		double[] newLatLng = new double[2];
-		GeocodingResult[] resultOrigin = GeocodingApi.geocode(distCalcer, stationAddr).await();
+		GeocodingResult[] resultOrigin = GeocodingApi.geocode(distCalcer, senderAddr).await();
 		GeocodingResult[] resultDestination = GeocodingApi.geocode(distCalcer, receiverAddr).await();
 		double lat1 = resultOrigin[0].geometry.location.lat;
 		double lng1 = resultOrigin[0].geometry.location.lng;
@@ -233,10 +233,10 @@ public class GoogMatrixRequest {
 	  max = height >= max ? height : max;
 	  
 	  boolean mode = true; // true as drone; false as robot
-	  double[][] result = new double[6][2]; //空出
+	  double[][] result = new double[4][2]; //?空出
 	  if (weight > 50) {
-		  //neither, warning weight, no need to check dimension, no need to check fragile.
-		  return result;
+		  //neither, warning weight, no need to check dimension, no need to check fragile. ?
+		  return null;
 	  } 
 	  /* case 2. 0 < weight <= 5, drone or robot, 
 		 then, 1) dimension max > 25.00, neither, warning dimension, no need to check fragile
@@ -251,25 +251,25 @@ public class GoogMatrixRequest {
 		  		 */
 	  else if (weight > 0 && weight <= 5) {
 		  if (max > 25.00) {
-			  // neither, warning dimension, no need to check fragile
-			  return result;
+			  // neither, warning dimension, no need to check fragile?
+			  return null;
 			  
 		  } else if (max > 13 && max <= 25) {
 		      //mode = false;
 			  double robotDistance = getBicyclingDistance(stationAddr, receiverAddr);
 			  // 30 mins sends
 				result[0][0] = robotDistance / 10; //? time return
-				result[0][1] = calculatePrice(weight, robotDistance, false, length, width, height, fragile) * 1.2; // fragile or true or false?
+				result[0][1] = calculatePrice(weight, robotDistance, false, length, width, height, fragile) + 10; // fragile or true or false?
 			  //double droneDistance = getDirectDistance(stationAddr, receiverAddr);
 			  //result[0][0] = droneDistance / 50;
-				//need hardcord fastest, cheapest, <=30, <= 1 hour
+				//? need hardcord fastest, cheapest, <=30, <= 1 hour
 			  // 1 hour sends
 				result[1][0] = robotDistance / 10; // ？不用返回也不应该返回时间
-				result[1][1] = calculatePrice(weight, robotDistance, false, length, width, height, fragile) * 1.1;
+				result[1][1] = calculatePrice(weight, robotDistance, false, length, width, height, fragile);
 				
 			  // 2 hours sends
 				result[2][0] = robotDistance / 10; // ？不用返回也不应该返回时间
-				result[2][1] = calculatePrice(weight, robotDistance, false, length, width, height, fragile);
+				result[2][1] = calculatePrice(weight, robotDistance, false, length, width, height, fragile) - 5;
 		  } else {
 			// method 1 drone
 			  if (fragile) {
@@ -277,50 +277,50 @@ public class GoogMatrixRequest {
 				  double robotDistance = getBicyclingDistance(stationAddr, receiverAddr);
 				  // 30 mins sends
 					result[0][0] = robotDistance / 10; //? time return
-					result[0][1] = calculatePrice(weight, robotDistance, false, length, width, height, true) * 1.2;
+					result[0][1] = calculatePrice(weight, robotDistance, false, length, width, height, true) + 10;
 				  //double droneDistance = getDirectDistance(stationAddr, receiverAddr);
 				  //result[0][0] = droneDistance / 50;
-					//need hardcord fastest, cheapest, <=30, <= 1 hour
+					//? need hardcord fastest, cheapest, <=30, <= 1 hour
 				  // 1 hour sends
 					result[1][0] = robotDistance / 10; // ？不用返回也不应该返回时间
-					result[1][1] = calculatePrice(weight, robotDistance, false, length, width, height, true) * 1.1;
+					result[1][1] = calculatePrice(weight, robotDistance, false, length, width, height, true);
 					
 				  // 2 hours sends
 					result[2][0] = robotDistance / 10; // ？不用返回也不应该返回时间
-					result[2][1] = calculatePrice(weight, robotDistance, false, length, width, height, true);
+					result[2][1] = calculatePrice(weight, robotDistance, false, length, width, height, true) - 5;
 				  
 			  } else {
 				  // mode = true drone
 				  double droneDistance = getDirectDistance(stationAddr, receiverAddr);
 				  // 30 mins sends
 					result[0][0] = droneDistance / 50; //? time return
-					result[0][1] = calculatePrice(weight, droneDistance, true, length, width, height, false) * 1.2;
+					result[0][1] = calculatePrice(weight, droneDistance, true, length, width, height, false) + 10;
 				  //double droneDistance = getDirectDistance(stationAddr, receiverAddr);
 				  //result[0][0] = droneDistance / 50;
-					//frontend: need hardcord fastest, cheapest, <=30, <= 1 hour
+					//? need hardcord fastest, cheapest, <=30, <= 1 hour
 				  // 1 hour sends
 					result[1][0] = droneDistance / 50; // ？不用返回也不应该返回时间
-					result[1][1] = calculatePrice(weight, droneDistance, true, length, width, height, false) * 1.1;
+					result[1][1] = calculatePrice(weight, droneDistance, true, length, width, height, false);
 					
 				  // 2 hours sends
 					result[2][0] = droneDistance / 50; // ？不用返回也不应该返回时间
-					result[2][1] = calculatePrice(weight, droneDistance, true, length, width, height, false);
+					result[2][1] = calculatePrice(weight, droneDistance, true, length, width, height, false) - 5;
 					
 					// mode = false robot
 					  double robotDistance = getBicyclingDistance(stationAddr, receiverAddr);
 					  // 30 mins sends
 						result[3][0] = robotDistance / 10; //? time return
-						result[3][1] = calculatePrice(weight, robotDistance, false, length, width, height, false) * 1.2;
+						result[3][1] = calculatePrice(weight, robotDistance, false, length, width, height, false) + 10;
 					  //double droneDistance = getDirectDistance(stationAddr, receiverAddr);
 					  //result[0][0] = droneDistance / 50;
-						//need hardcord fastest, cheapest, <=30, <= 1 hour
+						//? need hardcord fastest, cheapest, <=30, <= 1 hour
 					  // 1 hour sends
 						result[4][0] = robotDistance / 10; // ？不用返回也不应该返回时间
-						result[4][1] = calculatePrice(weight, robotDistance, false, length, width, height, false) * 1.1;
+						result[4][1] = calculatePrice(weight, robotDistance, false, length, width, height, false);
 						
 					  // 2 hours sends
 						result[5][0] = robotDistance / 10; // ？不用返回也不应该返回时间
-						result[5][1] = calculatePrice(weight, robotDistance, false, length, width, height, false);
+						result[5][1] = calculatePrice(weight, robotDistance, false, length, width, height, false) - 5;
 			  }
 			
 
@@ -338,23 +338,23 @@ public class GoogMatrixRequest {
 	  else {
 		  
 		  if (max > 25.00) {
-			  return result; // warning dimension is to large. 
+			  return null; //? warning dimension is to large. 
 		  } else if (max <= 25) {
 			// mode = false robot
 			  double robotDistance = getBicyclingDistance(stationAddr, receiverAddr); // 显示function
 			  // 30 mins sends
 				result[0][0] = robotDistance / 10; //? time return
-				result[0][1] = calculatePrice(weight, robotDistance, false, length, width, height, fragile) * 1.2;
+				result[0][1] = calculatePrice(weight, robotDistance, false, length, width, height, fragile) + 10;
 			  //double droneDistance = getDirectDistance(stationAddr, receiverAddr);
 			  //result[0][0] = droneDistance / 50;
-				// need hardcord fastest, cheapest, <=30, <= 1 hour
+				//? need hardcord fastest, cheapest, <=30, <= 1 hour
 			  // 1 hour sends
 				result[1][0] = robotDistance / 10; // ？不用返回也不应该返回时间
-				result[1][1] = calculatePrice(weight, robotDistance, false, length, width, height, fragile) * 1.1;
+				result[1][1] = calculatePrice(weight, robotDistance, false, length, width, height, fragile);
 				
 			  // 2 hours sends
 				result[2][0] = robotDistance / 10; // ？不用返回也不应该返回时间
-				result[2][1] = calculatePrice(weight, robotDistance, false, length, width, height, fragile);
+				result[2][1] = calculatePrice(weight, robotDistance, false, length, width, height, fragile) - 5;
 		  }
 		 
 		  
@@ -369,6 +369,35 @@ public class GoogMatrixRequest {
 	  return result;
   }
    
+  // price = base fare (surcharge) + distance/speed as constant * price per minute + weight * price per lb
+  /* 一次多单
+   * time: distance/speed dummy data speed
+   * 
+   * location: dummy data location of three stations, only use the nearest station
+   * estmate time: nearest to sender address, compare distance among sender address, receiver address, 
+   * station nearest to sender - sender - receiver - station
+   * 
+   * weight: 1.4kg or not. 
+   * 
+   * size: length * width * height
+   * Wing's drones have a wingspan of about 3 feet and weigh approximately 11 pounds, and they can carry packages that weigh up to a little more than 3 pounds. They fly up to 400 feet above the ground.
+   * 
+   * fragile: robot (front end)
+   * 
+   * availabiliity 不check: urgent or not. 最晚希望送达时间。
+   * 
+   * latest expected 
+   * drone availability: management调配，两块: 1. available, 运送 2. 不available，调到这个station (空中飞的或者其它站点的顺道) => aws
+   * 配送站 routific api: 
+   * 
+   * distance: nearest station to destination
+   * 
+   * estimate time: preparation - start - start time - end time
+   * 
+   * 
+   * Wing said that its drones can currently make a round-trip flight of about 6 miles (9.7 km), traveling about 60 miles per hour (97 km per hour), and can carry around 3 lbs (1.4 kg) of payload.
+   */
+  
   public static double calculatePrice(double weight, double distance, boolean mode, double length, double width, double height, boolean fragile) {
 	  // from, to, weight, mode
 	  double cost = 0.0;
