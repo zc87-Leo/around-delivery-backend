@@ -544,5 +544,27 @@ public class MySQLConnection {
 		}
 		return false;
 	}
+
+	public String getOrderId(String trackingId) {
+		if (conn == null) {
+			System.err.println("DB connection failed");
+			return "";
+		}
+		String orderId = "";
+		try {
+			String sql = "SELECT order_id FROM orders WHERE tracking_id = ?";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setString(1,trackingId);
+			statement.executeUpdate();
+			ResultSet rs = statement.executeQuery();
+			while (rs.next()) {
+				orderId = rs.getString("order_id");
+				return orderId;
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return orderId;
+	}
 }
 
