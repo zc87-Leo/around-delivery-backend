@@ -1,4 +1,3 @@
-//testing
 package rpc;
 
 import java.io.IOException;
@@ -74,11 +73,11 @@ public class RecommendItem extends HttpServlet {
 		//senderAddr as stationAddr
 		String stationId= input.getString("address");
 		String stationAddr;
-		if (stationId == null) {
-			stationAddr = null;
-		} else if (stationId == "1") {
+		if (stationId.equals("")) { //默认0.00 price
+			stationAddr = "";
+		} else if (stationId.equals("1")) {
 			stationAddr = "Parkside, San Francisco, CA, USA";
-		} else if (stationId == "2") {
+		} else if (stationId.equals("2")) {
 			stationAddr = "Mission District, San Francisco, CA, USA";
 		} else {
 			stationAddr = "Excelsior, San Francisco, CA, USA";
