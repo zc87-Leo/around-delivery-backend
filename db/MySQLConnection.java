@@ -5,7 +5,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -344,14 +348,15 @@ public class MySQLConnection {
 		try {
 			// create the view with general information
 			String sql1 = "CREATE OR REPLACE VIEW G AS "
-					+ "(SELECT o.order_id, o.total_cost, m.machine_type, t.delivered_at, CONCAT(c.first_name, ' ', c.last_name) AS sender_name, "
-					+ "c.address AS sender_address, c.phone_number AS sender_phone, c.email_address AS sender_email, "
+					+ "(SELECT o.order_id, o.total_cost, m.machine_type, t.estimated_delivered_at, CONCAT(c.first_name, ' ', c.last_name) AS sender_name, "
+					+ "s.address AS sender_address, c.phone_number AS sender_phone, c.email_address AS sender_email, "
 					+ "o.package_weight, o.package_height, o.package_fragile, o.package_width, o.package_length "
-					+ "FROM orders o, contact c, machine m, tracking t "
+					+ "FROM orders o, contact c, machine m, tracking t, station s "
 					+ "WHERE o.order_id = ? " 
 					+	"AND o.sender_id = c.contact_id "
 					+ 	"AND o.machine_id = m.machine_id "
-					+ 	"AND o.tracking_id = t.tracking_id)";
+					+ 	"AND o.tracking_id = t.tracking_id "
+					+ 	"AND o.station_id = s.station_id)";
 			PreparedStatement statement1 = conn.prepareStatement(sql1);
 			statement1.setString(1, order_id);
 			statement1.executeUpdate();
@@ -377,7 +382,7 @@ public class MySQLConnection {
 				items.add(cost);
 				String machine_type = rs.getString("machine_type");
 				items.add(machine_type);
-				String delivered_at = rs.getString("delivered_at");
+				String delivered_at = rs.getString("estimated_delivered_at");
 				items.add(delivered_at);
 				String sender_name = rs.getString("sender_name");
 				items.add(sender_name);
@@ -412,7 +417,6 @@ public class MySQLConnection {
 		}
 		return items;
 	}
-<<<<<<< HEAD
 
 		// 閫氳繃station id,鏉ヨ幏鍙栬station杩�30鍒嗛挓鐘舵�佷负ordered鐨勮鍗曠殑list銆�
 	public List<Order> getStastionOrderList(int stationId) {
@@ -496,9 +500,6 @@ public class MySQLConnection {
 		}
 	}
 	
-}
-=======
-	
 	public boolean updateProfile(User user) {
 		// get independent parameters
 		String user_id = user.getUser_id();
@@ -544,4 +545,4 @@ public class MySQLConnection {
 		return false;
 	}
 }
->>>>>>> ee08fe11611f5eb1396ca6c3e73d297f59214a61
+

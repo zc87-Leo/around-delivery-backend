@@ -29,9 +29,6 @@ public class MySQLTableCreation {
 			sql = "DROP TABLE IF EXISTS station";
 			statement.executeUpdate(sql);
 			
-			sql = "DROP TABLE IF EXISTS address";
-			statement.executeUpdate(sql);
-			
 			sql = "DROP TABLE IF EXISTS tracking";
 			statement.executeUpdate(sql);
 			
@@ -72,13 +69,17 @@ public class MySQLTableCreation {
 					+ "package_weight FLOAT NOT NULL,"
 					+ "package_height FLOAT NOT NULL,"
 					+ "package_fragile BOOLEAN NOT NULL,"
+					+ "package_length FLOAT NOT NULL,"
+					+ "package_width FLOAT NOT NULL"
 					+ "total_cost FLOAT NOT NULL,"
+					+ "appointment_time VARCHAR(45) NOT NULL,"
 					+ "PRIMARY KEY (order_id),"
 					+ "FOREIGN KEY (user_id) REFERENCES users(user_id),"
 					+ "FOREIGN KEY (tracking_id) REFERENCES tracking(tracking_id),"
 					+ "FOREIGN KEY (station_id) REFERENCES station(station_id),"
 					+ "FOREIGN KEY (machine_id) REFERENCES machine(machine_id),"
 					+ "FOREIGN KEY (sender_id) REFERENCES contact(contact_id),"
+					+ "FOREIGN KEY (recipient_id) REFERENCES contact(contact_id),"
 					+ "FOREIGN KEY (recipient_id) REFERENCES contact(contact_id)"
 					+ ")";
 			statement.executeUpdate(sql);
@@ -87,22 +88,11 @@ public class MySQLTableCreation {
 					+ "tracking_id VARCHAR(255) NOT NULL,"
 					+ "status VARCHAR(255) NOT NULL,"
 					+ "created_at DATETIME NOT NULL,"
-					+ "delivered_at DATETIME NOT NULL,"
-					+ "last_update DATETIME NOT NULL,"
+					+ "estimated_delivered_at VARCHAR(255) NOT NULL,"
+					+ "delay BOOLEAN NOT NULL,"
+					+ "previous_destination VARCHAR(255) NOT NULL,"
+					+ "previous_destination_start_time VARCHAR(255) NOT NULL,"
 					+ "PRIMARY KEY (tracking_id)"
-					+ ")";
-			statement.executeUpdate(sql);
-			
-			sql = "CREATE TABLE address ("
-					+ "address_id INT NOT NULL,"
-					+ "street_address VARCHAR(255) NOT NULL,"
-					+ "unit VARCHAR(5),"
-					+ "city VARCHAR(10) NOT NULL,"
-					+ "state CHAR(2) NOT NULL,"
-					+ "zipcode VARCHAR(10) NOT NULL,"
-					+ "lat FLOAT NOT NULL,"
-					+ "lon FLOAT NOT NULL,"
-					+ "PRIMARY KEY (address_id)"
 					+ ")";
 			statement.executeUpdate(sql);
 			
@@ -110,9 +100,10 @@ public class MySQLTableCreation {
 					+ "station_id INT NOT NULL,"
 					+ "drone_num INT NOT NULL,"
 					+ "robot_num INT NOT NULL,"
-					+ "address_id INT NOT NULL,"
-					+ "PRIMARY KEY (station_id),"
-					+ "FOREIGN KEY (address_id) REFERENCES address(address_id)"
+					+ "address VARCHAR(1025) NOT NULL,"
+					+ "lon DOUBLE NOT NULL,"
+					+ "lat DOUBLE NOT NULL,"
+					+ "PRIMARY KEY (station_id)"
 					+ ")";
 			statement.executeUpdate(sql);
 			
@@ -136,9 +127,8 @@ public class MySQLTableCreation {
 					+ "last_name VARCHAR(255) NOT NULL,"
 					+ "phone_number VARCHAR(20),"
 					+ "email_address VARCHAR(255) NOT NULL,"
-					+ "address_id INT NOT NULL,"
-					+ "PRIMARY KEY (contact_id),"
-					+ "FOREIGN KEY (address_id) REFERENCES address(address_id)"
+					+ "address VARCHAR(1025),"
+					+ "PRIMARY KEY (contact_id)"
 					+ ")";
 			statement.executeUpdate(sql);
 			
