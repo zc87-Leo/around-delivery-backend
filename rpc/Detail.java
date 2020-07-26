@@ -50,7 +50,7 @@ public class Detail extends HttpServlet {
 		List<String> cols = new ArrayList<String>();
 		cols.add("total cost");
 		cols.add("machine_type");
-		cols.add("estimated_delivered_at");
+		cols.add("delivered_at");
 		cols.add("sender_name");
 		cols.add("sender_address");
 		cols.add("sender_phone");

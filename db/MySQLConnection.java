@@ -348,7 +348,7 @@ public class MySQLConnection {
 		try {
 			// create the view with general information
 			String sql1 = "CREATE OR REPLACE VIEW G AS "
-					+ "(SELECT o.order_id, o.total_cost, m.machine_type, t.estimated_delivered_at, CONCAT(c.first_name, ' ', c.last_name) AS sender_name, "
+					+ "(SELECT o.order_id, o.total_cost, m.machine_type, o.delivered_at, CONCAT(c.first_name, ' ', c.last_name) AS sender_name, "
 					+ "s.address AS sender_address, c.phone_number AS sender_phone, c.email_address AS sender_email, "
 					+ "o.package_weight, o.package_height, o.package_fragile, o.package_width, o.package_length "
 					+ "FROM orders o, contact c, machine m, tracking t, station s "
@@ -382,7 +382,7 @@ public class MySQLConnection {
 				items.add(cost);
 				String machine_type = rs.getString("machine_type");
 				items.add(machine_type);
-				String delivered_at = rs.getString("estimated_delivered_at");
+				String delivered_at = rs.getString("delivered_at");
 				items.add(delivered_at);
 				String sender_name = rs.getString("sender_name");
 				items.add(sender_name);
