@@ -106,6 +106,7 @@ public class RecommendItem extends HttpServlet {
 //		obj.put("Robot Price (cheapest)", "$" + String.format("%.2f", result[1][1]));
 //		RpcHelper.writeJsonObject(response, obj);
 
+<<<<<<< HEAD
 		// response words in the front end? time (2种标准即可), carrier, price, + words
 		JSONArray array = new JSONArray();
 		array.put(new JSONObject().put("carrier", "drone").put("time", String.format("%.2f", result[0][0]))
@@ -113,5 +114,57 @@ public class RecommendItem extends HttpServlet {
 		array.put(new JSONObject().put("carrier", "robot").put("time", String.format("%.2f", result[1][0]))
 				.put("price", String.format("%.2f", result[1][1])));
 		RpcHelper.writeJsonArray(response, array);
+=======
+		double max = length >= width ? length : width;
+		  max = height >= max ? height : max;
+		
+		// response words in the front end? time (3种标准即可), carrier, price, + words
+		JSONArray array = new JSONArray();
+		
+		 if (weight > 50) {
+			  //neither, warning weight, no need to check dimension, no need to check fragile. ?
+			 array.put(new JSONObject().put("Deliverable", "No"));
+		  } 
+		 
+		  else if (weight > 0 && weight <= 5) {
+			  if (max > 25.00) {
+				  // neither, warning dimension, no need to check fragile?
+				  array.put(new JSONObject().put("Deliverable", "No"));
+			  } else if (max > 13 && max <= 25) { 
+				  array.put(new JSONObject().put("carrier", "walking robot").put("time", String.format("%.2f", result[0][0]))
+							.put("price", String.format("%.2f", result[0][1])));
+					array.put(new JSONObject().put("carrier", "walking robot").put("time", String.format("%.2f", result[1][0]))
+							.put("price", String.format("%.2f", result[1][1])));
+					array.put(new JSONObject().put("carrier", "walking robot").put("time", String.format("%.2f", result[2][0]))
+							.put("price", String.format("%.2f", result[2][1])));
+			  } else {
+					// method 1 drone
+				  if (fragile) {
+					  array.put(new JSONObject().put("carrier", "drone").put("time", String.format("%.2f", result[0][0]))
+								.put("price", String.format("%.2f", result[0][1])));
+						array.put(new JSONObject().put("carrier", "drone").put("time", String.format("%.2f", result[1][0]))
+								.put("price", String.format("%.2f", result[1][1])));
+						array.put(new JSONObject().put("carrier", "drone").put("time", String.format("%.2f", result[2][0]))
+								.put("price", String.format("%.2f", result[2][1])));
+				  } else {
+					  array.put(new JSONObject().put("carrier", "drone").put("time", String.format("%.2f", result[0][0]))
+								.put("price", String.format("%.2f", result[0][1])));
+						array.put(new JSONObject().put("carrier", "drone").put("time", String.format("%.2f", result[1][0]))
+								.put("price", String.format("%.2f", result[1][1])));
+						array.put(new JSONObject().put("carrier", "drone").put("time", String.format("%.2f", result[2][0]))
+								.put("price", String.format("%.2f", result[2][1])));
+					  array.put(new JSONObject().put("carrier", "walking robot").put("time", String.format("%.2f", result[3][0]))
+								.put("price", String.format("%.2f", result[3][1])));
+						array.put(new JSONObject().put("carrier", "walking robot").put("time", String.format("%.2f", result[4][0]))
+								.put("price", String.format("%.2f", result[4][1])));
+						array.put(new JSONObject().put("carrier", "walking robot").put("time", String.format("%.2f", result[5][0]))
+								.put("price", String.format("%.2f", result[5][1])));
+				  }
+			  }
+		 
+		  }
+		
+		RpcHelper.writeJsonArray(response, array); //? 统一
+>>>>>>> parent of 9c1dd60... Merge pull request #31 from angieniu/master
 	}
 }
