@@ -1,4 +1,3 @@
-//testing
 package rpc;
 
 import java.io.IOException;
@@ -72,8 +71,18 @@ public class RecommendItem extends HttpServlet {
 		// TODO Auto-generated method stub
 		JSONObject input = RpcHelper.readJSONObject(request);
 		//senderAddr as stationAddr
-		//line 77
-		String stationAddr = input.getString("address");
+		String stationId= input.getString("address");
+		String stationAddr;
+		if (stationId.equals("")) { //默认0.00 price
+			stationAddr = "";
+		} else if (stationId.equals("1")) {
+			stationAddr = "Parkside, San Francisco, CA, USA";
+		} else if (stationId.equals("2")) {
+			stationAddr = "Mission District, San Francisco, CA, USA";
+		} else {
+			stationAddr = "Excelsior, San Francisco, CA, USA";
+		}
+		//String stationAddr = input.getString("address");
 		String receiverAddr = input.getString("receiverAddr");
 		double weight = input.getDouble("weight");
 		// change to one decimal

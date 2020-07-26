@@ -75,9 +75,9 @@ public class GoogMatrixRequest {
 	  return distApart;
   }
   
-  public static double getDirectDistance (String senderAddr, String receiverAddr) throws ApiException, InterruptedException, IOException {
+  public static double getDirectDistance (String stationAddr, String receiverAddr) throws ApiException, InterruptedException, IOException {
 	  
-	  GeocodingResult[] resultOrigin = GeocodingApi.geocode(distCalcer, senderAddr).await();
+	  GeocodingResult[] resultOrigin = GeocodingApi.geocode(distCalcer, stationAddr).await();
 	  GeocodingResult[] resultDestination = GeocodingApi.geocode(distCalcer, receiverAddr).await();
 	  double lat1 = resultOrigin[0].geometry.location.lat;
 	  double lng1 = resultOrigin[0].geometry.location.lng;
@@ -129,9 +129,9 @@ public class GoogMatrixRequest {
 	}
 	
 	/**
-	 * Calculate the current location based on the complete ratio of the total distance from sender and receiver. 
+	 * Calculate the current location based on the complete ratio of the total distance from station and receiver. 
 	 * 
-	 * @param senderAddr
+	 * @param stationAddr
 	 * @param receiverAddr
 	 * @param ratio 		
 	 * @return
@@ -139,10 +139,10 @@ public class GoogMatrixRequest {
 	 * @throws InterruptedException
 	 * @throws IOException
 	 */
-	public static double[] getNewLocation(String senderAddr, String receiverAddr, double ratio)
+	public static double[] getNewLocation(String stationAddr, String receiverAddr, double ratio)
 			throws ApiException, InterruptedException, IOException {
 		double[] newLatLng = new double[2];
-		GeocodingResult[] resultOrigin = GeocodingApi.geocode(distCalcer, senderAddr).await();
+		GeocodingResult[] resultOrigin = GeocodingApi.geocode(distCalcer, stationAddr).await();
 		GeocodingResult[] resultDestination = GeocodingApi.geocode(distCalcer, receiverAddr).await();
 		double lat1 = resultOrigin[0].geometry.location.lat;
 		double lng1 = resultOrigin[0].geometry.location.lng;
@@ -369,35 +369,6 @@ public class GoogMatrixRequest {
 	  return result;
   }
    
-  // price = base fare (surcharge) + distance/speed as constant * price per minute + weight * price per lb
-  /* 一次多单
-   * time: distance/speed dummy data speed
-   * 
-   * location: dummy data location of three stations, only use the nearest station
-   * estmate time: nearest to sender address, compare distance among sender address, receiver address, 
-   * station nearest to sender - sender - receiver - station
-   * 
-   * weight: 1.4kg or not. 
-   * 
-   * size: length * width * height
-   * Wing's drones have a wingspan of about 3 feet and weigh approximately 11 pounds, and they can carry packages that weigh up to a little more than 3 pounds. They fly up to 400 feet above the ground.
-   * 
-   * fragile: robot (front end)
-   * 
-   * availabiliity 不check: urgent or not. 最晚希望送达时间。
-   * 
-   * latest expected 
-   * drone availability: management调配，两块: 1. available, 运送 2. 不available，调到这个station (空中飞的或者其它站点的顺道) => aws
-   * 配送站 routific api: 
-   * 
-   * distance: nearest station to destination
-   * 
-   * estimate time: preparation - start - start time - end time
-   * 
-   * 
-   * Wing said that its drones can currently make a round-trip flight of about 6 miles (9.7 km), traveling about 60 miles per hour (97 km per hour), and can carry around 3 lbs (1.4 kg) of payload.
-   */
-  
   public static double calculatePrice(double weight, double distance, boolean mode, double length, double width, double height, boolean fragile) {
 	  // from, to, weight, mode
 	  double cost = 0.0;
