@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
 import entity.Order;
 import entity.User;
 
@@ -20,7 +21,7 @@ public class MySQLConnection {
 	private Connection conn;
 
 	public MySQLConnection() {
-		try {
+		try { //鏉╃偞甯撮弫鐗堝祦鎼达拷
 			Class.forName("com.mysql.cj.jdbc.Driver").getConstructor().newInstance();
 			conn = DriverManager.getConnection(MySQLDBUtil.URL);
 		} catch (Exception e) {
@@ -78,8 +79,7 @@ public class MySQLConnection {
 		return false;
 	}
 
-	public boolean addUser(String userId, String password, String firstname, String lastname, String emailAddress,
-			String phoneNumber) {
+	public boolean addUser(String userId, String password, String firstname, String lastname,String emailAddress, String phoneNumber) {
 		if (conn == null) {
 			System.err.println("DB connection failed");
 			return false;
@@ -102,7 +102,7 @@ public class MySQLConnection {
 		return false;
 	}
 
-	public List<String> getUserProfiles(String userId) {
+	public List<String> getUserProfiles(String userId){
 		if (conn == null) {
 			System.err.println("DB connection failed");
 			return new ArrayList<>();
@@ -111,21 +111,21 @@ public class MySQLConnection {
 		try {
 			String sql = "SELECT email_address,phone_number FROM dispatch.users WHERE user_id = ?;";
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, userId);
+			statement.setString(1,userId);
 			ResultSet rs = statement.executeQuery();
-			while (rs.next()) {
+			while(rs.next()) {
 				String emailAddress = rs.getString("email_address");
 				user.add(emailAddress);
 				String phoneNumber = rs.getString("phone_number");
 				user.add(phoneNumber);
 			}
-		} catch (SQLException e) {
+		}catch(SQLException e) {
 			e.printStackTrace();
 		}
 		return user;
 	}
 
-	public List<String> getTimes(String trackingId) {
+	public List<String> getTimes(String trackingId){
 		if (conn == null) {
 			System.err.println("DB connection failed");
 			return new ArrayList<>();
@@ -134,19 +134,21 @@ public class MySQLConnection {
 		try {
 			String sql = "SELECT created_at,delivered_at FROM tracking WHERE tracking_id = ?";
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, trackingId);
+			statement.setString(1,trackingId);
 			ResultSet rs = statement.executeQuery();
-			while (rs.next()) {
+			while(rs.next()) {
 				String createdTime = rs.getString("created_at");
 				times.add(createdTime);
 				String deliveredTime = rs.getString("delivered_at");
 				times.add(deliveredTime);
 			}
-		} catch (SQLException e) {
+		}catch(SQLException e) {
 			e.printStackTrace();
 		}
 		return times;
 	}
+
+
 
 	public boolean addTrackingInfo(String trackingId, String created_at, String delievered_at) {
 		if (conn == null) {
@@ -167,8 +169,7 @@ public class MySQLConnection {
 		return false;
 	}
 
-	public boolean addContact(String firstName, String lastName, String emailAddress, String phoneNumber,
-			String address) {
+	public boolean addContact(String firstName, String lastName,String emailAddress, String phoneNumber, String address) {
 		if (conn == null) {
 			System.err.println("DB connection failed");
 			return false;
@@ -188,9 +189,7 @@ public class MySQLConnection {
 		}
 		return false;
 	}
-
-	public int getContactId(String firstName, String lastName, String emailAddress, String phoneNumber,
-			String address) {
+	public int getContactId(String firstName, String lastName,String emailAddress, String phoneNumber, String address) {
 		if (conn == null) {
 			System.err.println("DB connection failed");
 			return -1;
@@ -205,10 +204,10 @@ public class MySQLConnection {
 			statement.setString(4, emailAddress);
 			statement.setString(5, address);
 			ResultSet rs = statement.executeQuery();
-			while (rs.next()) {
+			while(rs.next()) {
 				id = rs.getInt("contact_id");
 			}
-		} catch (SQLException e) {
+		}catch(SQLException e) {
 			e.printStackTrace();
 		}
 		return id;
@@ -221,16 +220,17 @@ public class MySQLConnection {
 			return false;
 		}
 
+
 		try {
 			String sql = "INSERT IGNORE INTO tracking(tracking_id,created_at,status) VALUES (?, ?, ?)";
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setString(1, order.getTrackingId());
 			statement.setString(2, order.getOrderCreateTime());
-			String status = (order.getActive() == true) ? "ordered" : "overdue";
+			String status = (order.getActive() == true) ? "active":"overdue";
 			statement.setString(3, status);
 			int b1 = statement.executeUpdate();
 
-			String sql2 = "INSERT IGNORE INTO orders(order_id,user_id,tracking_id,active,sender_id,recipient_id,package_weight,package_height,package_fragile,total_cost,package_width,package_length,carrier,delivery_time,appointment_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			String sql2 = "INSERT IGNORE INTO orders(order_id,user_id,tracking_id,active,sender_id,recipient_id,package_weight,package_height,package_fragile,total_cost,package_width,package_length,carrier,delivery_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			statement = conn.prepareStatement(sql2);
 			statement.setString(1, order.getOrderId());
 			statement.setString(2, order.getUserId());
@@ -246,15 +246,15 @@ public class MySQLConnection {
 			statement.setFloat(12, order.getPackageLength());
 			statement.setString(13, order.getCarrier());
 			statement.setString(14, order.getDeliveryTime());
-			statement.setString(15, order.getAppointmentTime());
 //		statement.setString(11, order.getOrderCreateTime());
 			int b2 = statement.executeUpdate();
-			return b1 == 1 && b2 == 1;
+			return b1 == 1 && b2 ==1;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return false;
 	}
+
 
 	public List<String> getHistory(String user_id) {
 		if (conn == null) {
@@ -264,9 +264,12 @@ public class MySQLConnection {
 		List<String> items = new ArrayList<String>();
 		try {
 			String sql = "SELECT o.order_id, o.tracking_id, c.first_name, c.last_name, c.address, t.status, "
-					+ "t.created_at, t.delivered_at " + "FROM users u, orders o, contact c, tracking t "
-					+ "WHERE u.user_id = ? " + "AND u.user_id = o.user_id " + "AND o.recipient_id = c.contact_id "
-					+ "AND o.tracking_id = t.tracking_id";
+					+ "t.created_at, t.delivered_at "
+					+ "FROM users u, orders o, contact c, tracking t "
+					+ "WHERE u.user_id = ? "
+					+ 	"AND u.user_id = o.user_id "
+					+	"AND o.recipient_id = c.contact_id "
+					+ 	"AND o.tracking_id = t.tracking_id";
 			System.out.println(sql);
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setString(1, user_id);
@@ -287,12 +290,13 @@ public class MySQLConnection {
 				String tracking_id = rs.getString("tracking_id");
 				items.add(tracking_id);
 			}
-		} catch (SQLException e) {
+		}
+		catch (SQLException e){
 			e.printStackTrace();
 		}
 		return items;
 	}
-
+	
 	public List<String> getActive(String user_id) {
 		if (conn == null) {
 			System.err.println("DB connection failed");
@@ -301,9 +305,13 @@ public class MySQLConnection {
 		List<String> items = new ArrayList<String>();
 		try {
 			String sql = "SELECT o.order_id, o.tracking_id, c.first_name, c.last_name, c.address, t.status, "
-					+ "t.created_at, t.delivered_at " + "FROM users u, orders o, contact c, tracking t "
-					+ "WHERE u.user_id = ? " + "AND t.status = 'active' " + "AND u.user_id = o.user_id "
-					+ "AND o.recipient_id = c.contact_id " + "AND o.tracking_id = t.tracking_id";
+					+ "t.created_at, t.delivered_at "
+					+ "FROM users u, orders o, contact c, tracking t "
+					+ "WHERE u.user_id = ? "
+					+ 	"AND t.status = 'active' "
+					+ 	"AND u.user_id = o.user_id " 
+					+	"AND o.recipient_id = c.contact_id "
+					+ 	"AND o.tracking_id = t.tracking_id";
 			System.out.println(sql);
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setString(1, user_id);
@@ -324,12 +332,13 @@ public class MySQLConnection {
 				String tracking_id = rs.getString("tracking_id");
 				items.add(tracking_id);
 			}
-		} catch (SQLException e) {
+		}
+		catch (SQLException e){
 			e.printStackTrace();
 		}
 		return items;
 	}
-
+	
 	public List<String> getDetail(String order_id) {
 		if (conn == null) {
 			System.err.println("DB connection failed");
@@ -339,30 +348,35 @@ public class MySQLConnection {
 		try {
 			// create the view with general information
 			String sql1 = "CREATE OR REPLACE VIEW G AS "
-					+ "(SELECT o.order_id, o.total_cost, m.machine_type, t.delivered_at, CONCAT(c.first_name, ' ', c.last_name) AS sender_name, "
-					+ "c.address AS sender_address, c.phone_number AS sender_phone, c.email_address AS sender_email, "
+					+ "(SELECT o.order_id, o.total_cost, m.machine_type, t.estimated_delivered_at AS delivered_at, CONCAT(c.first_name, ' ', c.last_name) AS sender_name, "
+					+ "s.address AS sender_address, c.phone_number AS sender_phone, c.email_address AS sender_email, "
 					+ "o.package_weight, o.package_height, o.package_fragile, o.package_width, o.package_length "
-					+ "FROM orders o, contact c, machine m, tracking t " + "WHERE o.order_id = ? "
-					+ "AND o.sender_id = c.contact_id " + "AND o.machine_id = m.machine_id "
-					+ "AND o.tracking_id = t.tracking_id)";
+					+ "FROM orders o, contact c, machine m, tracking t, station s "
+					+ "WHERE o.order_id = ? " 
+					+	"AND o.sender_id = c.contact_id "
+					+ 	"AND o.machine_id = m.machine_id "
+					+ 	"AND o.tracking_id = t.tracking_id "
+					+ 	"AND o.station_id = s.station_id)";
 			PreparedStatement statement1 = conn.prepareStatement(sql1);
 			statement1.setString(1, order_id);
 			statement1.executeUpdate();
-
+			
 			// create view with recipient information
 			String sql2 = "CREATE OR REPLACE VIEW R AS "
 					+ "(SELECT o.order_id, CONCAT(c.first_name, ' ', c.last_name) AS recipient_name, c.address AS recipient_address, "
 					+ "c.phone_number AS recipient_phone, c.email_address AS recipient_email "
-					+ "FROM orders o, contact c " + "WHERE o.order_id = ? " + "AND o.recipient_id = c.contact_id)";
+					+ "FROM orders o, contact c "
+					+ "WHERE o.order_id = ? "
+					+ "AND o.recipient_id = c.contact_id)";
 			PreparedStatement statement2 = conn.prepareStatement(sql2);
 			statement2.setString(1, order_id);
 			statement2.executeUpdate();
-
+			
 			// join two views
 			String sql3 = "SELECT * FROM G LEFT JOIN R ON G.order_id = R.order_id";
 			PreparedStatement statement3 = conn.prepareStatement(sql3);
 			ResultSet rs = statement3.executeQuery();
-
+			
 			while (rs.next()) {
 				String cost = rs.getString("total_cost");
 				items.add(cost);
@@ -397,75 +411,25 @@ public class MySQLConnection {
 				String width = rs.getString("package_width");
 				items.add(width);
 			}
-		} catch (SQLException e) {
+		}
+		catch (SQLException e){
 			e.printStackTrace();
 		}
 		return items;
 	}
 
-	
-
-	/**
-	 * Store the latest update time into the tacking table
-	 * 
-	 * @param trackingIdpublic List<Order> getStastionOrderList(int stationId) { if
-	 *                         (conn == null) { System.err.println("DB connection
-	 *                         failed"); return new ArrayList<>(); } List<Order>
-	 *                         stationOrders = new ArrayList<>(); try { String sql =
-	 *                         "select
-	 *                         o.order_id,o.tracking_id,o.package_weight,o.total_cost,c.address,m.machine_type,t.created_at
-	 *                         from dispatch.orders o, dispatch.contact c,
-	 *                         dispatch.machine m, dispatch.tracking t where
-	 *                         o.tracking_id = t.tracking_id and o.recipient_id =
-	 *                         c.contact_id and o.machine_id = m.machine_id and
-	 *                         t.status = ? and m.station_id = ?;";
-	 *                         PreparedStatement statement =
-	 *                         conn.prepareStatement(sql); statement.setString(1,
-	 *                         "ordered"); statement.setInt(2, stationId); ResultSet
-	 *                         rs = statement.executeQuery(); DateFormat df = new
-	 *                         SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); Date cT =
-	 *                         new Date(); String cT1 = df.format(cT); Date
-	 *                         currentTime = null; try { currentTime =
-	 *                         df.parse(cT1); } catch (ParseException e1) { // TODO
-	 *                         Auto-generated catch block e1.printStackTrace(); }
-	 *                         long currentTimeInMS = currentTime.getTime(); while
-	 *                         (rs.next()) { String crT =
-	 *                         rs.getString("created_at"); Date createdTime = null;
-	 *                         try { createdTime = df.parse(crT); } catch
-	 *                         (ParseException e) { // TODO Auto-generated catch
-	 *                         block e.printStackTrace(); } long createdTimeInMS =
-	 *                         createdTime.getTime(); if (currentTimeInMS -
-	 *                         createdTimeInMS <= 30 * 60000) { String orderId =
-	 *                         rs.getString("order_id"); String trackingId =
-	 *                         rs.getString("tracking_id"); Float packageWeight =
-	 *                         rs.getFloat("package_weight"); Float totalCost =
-	 *                         rs.getFloat("total_cost"); String destinationAddress
-	 *                         = rs.getString("address"); String machineType =
-	 *                         rs.getString("machine_type"); Order order = new
-	 *                         Order(); order.setOrderId(orderId);
-	 *                         order.setTrackingId(trackingId);
-	 *                         order.setPackageWeight(packageWeight);
-	 *                         order.setTotalCost(totalCost);
-	 *                         order.setRecipientAddress(destinationAddress);
-	 *                         order.setCarrier(machineType);
-	 *                         stationOrders.add(order); } } } catch (SQLException
-	 *                         e) { e.printStackTrace(); } return stationOrders;
-	 * @param deliverStatus
-	 * @param updateTime
-	 */
-	// 通过station id,来获取该station近30分钟状态为ordered的订单的list。
-	public List<Order> getStastionOrderList(int stationId, String carrier) {
+		// 闁俺绻僺tation id,閺夈儴骞忛崣鏍嚉station鏉╋拷30閸掑棝鎸撻悩鑸碉拷浣疯礋ordered閻ㄥ嫯顓归崡鏇犳畱list閵嗭拷
+	public List<Order> getStastionOrderList(int stationId) {
 		if (conn == null) {
 			System.err.println("DB connection failed");
 			return new ArrayList<>();
 		}
 		List<Order> stationOrders = new ArrayList<>();
 		try {
-			String sql = "select o.order_id,o.tracking_id,o.package_weight,o.total_cost,c.address,o.appointment_time from dispatch.orders o, dispatch.contact c, dispatch.tracking t where o.tracking_id = t.tracking_id and o.recipient_id = c.contact_id and t.status = ? and o.station_id = ? and o.carrier = ?;";
+			String sql = "select o.order_id,o.tracking_id,o.package_weight,o.total_cost,c.address,m.machine_type,t.created_at from dispatch.orders o, dispatch.contact c, dispatch.machine m, dispatch.tracking t where o.tracking_id = t.tracking_id and o.recipient_id = c.contact_id and o.machine_id = m.machine_id and t.status = ? and m.station_id = ?;";
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setString(1, "ordered");
 			statement.setInt(2, stationId);
-			statement.setString(3, carrier);
 			ResultSet rs = statement.executeQuery();
 			DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			Date cT = new Date();
@@ -479,28 +443,29 @@ public class MySQLConnection {
 			}
 			long currentTimeInMS = currentTime.getTime();
 			while (rs.next()) {
-				String apT = rs.getString("appointment_time");
-				Date appointmentTime = null;
+				String crT = rs.getString("created_at");
+				Date createdTime = null;
 				try {
-					appointmentTime = df.parse(apT);
+					createdTime = df.parse(crT);
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				long appointmentTimeInMS = appointmentTime.getTime();
-				if (appointmentTimeInMS - currentTimeInMS <= 30 * 60000) { // check是否是30分钟以内的订单
+				long createdTimeInMS = createdTime.getTime();
+				if (currentTimeInMS - createdTimeInMS <= 30 * 60000) { // check閺勵垰鎯侀弰锟�30閸掑棝鎸撴禒銉ュ敶閻ㄥ嫯顓归崡锟�
 					String orderId = rs.getString("order_id");
 					String trackingId = rs.getString("tracking_id");
 					Float packageWeight = rs.getFloat("package_weight");
 					Float totalCost = rs.getFloat("total_cost");
 					String destinationAddress = rs.getString("address");
+					String machineType = rs.getString("machine_type");
 					Order order = new Order();
 					order.setOrderId(orderId);
 					order.setTrackingId(trackingId);
 					order.setPackageWeight(packageWeight);
 					order.setTotalCost(totalCost);
 					order.setRecipientAddress(destinationAddress);
-					order.setAppointmentTime(apT);
+					order.setCarrier(machineType);
 					stationOrders.add(order);
 				}
 			}
@@ -509,28 +474,32 @@ public class MySQLConnection {
 		}
 		return stationOrders;
 	}
-
-	public void updateTimes(String trackingId, String deliverStatus, String updateTime) {
+	
+	/**
+	 * Store the latest update time into the tacking table 
+	 * @param trackingId
+	 * @param deliverStatus
+	 * @param updateTime
+	 */
+	public void updateTimes(String trackingId, String deliverStatus, String updateTime){
 		if (conn == null) {
 			System.err.println("DB connection failed");
 			return;
 		}
-
+		
 		try {
 			String sql = "UPDATE tracking SET status = ?, last_update = ? WHERE tracking_id = ?";
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, deliverStatus);
-			statement.setString(2, updateTime);
-			statement.setString(3, trackingId);
+			statement.setString(1,deliverStatus);
+			statement.setString(2,updateTime);
+			statement.setString(3,trackingId);
 			statement.executeUpdate();
-
-		} catch (SQLException e) {
+			
+		}catch(SQLException e) {
 			e.printStackTrace();
 		}
 	}
-
-
-
+	
 	public boolean updateProfile(User user) {
 		// get independent parameters
 		String user_id = user.getUser_id();
@@ -539,35 +508,63 @@ public class MySQLConnection {
 		String email_address = user.getEmail();
 		String phone_number = user.getPhone();
 		String address = user.getAddress();
-
+		
 		if (conn == null) {
 			System.err.println("DB Connection Failed");
 			return false;
 		}
-
+		
 		try {
 			String close_safe_update = "SET SQL_SAFE_UPDATES = 0";
 			PreparedStatement statement1 = conn.prepareStatement(close_safe_update);
 			statement1.executeQuery();
-
-			String update = "UPDATE dispatch.users " + "SET first_name = ?, " + "	 last_name = ?, "
-					+ "	 email_address = ?, " + "	 phone_number = ?" + "WHERE user_id = ?";
+			
+			String update = "UPDATE dispatch.users " + 
+					"SET first_name = ?, " + 
+					"	 last_name = ?, " + 
+					"	 email_address = ?, " + 
+					"	 phone_number = ?" + 
+					"WHERE user_id = ?";
 			PreparedStatement statement2 = conn.prepareStatement(update);
 			statement2.setString(1, first_name);
-			statement2.setString(2, last_name);
-			statement2.setString(3, email_address);
+			statement2.setString(2,  last_name);
+			statement2.setString(3,  email_address);
 			statement2.setString(4, phone_number);
 			statement2.setString(5, user_id);
 			int rs = statement2.executeUpdate();
-
+			
 			String open_safe_update = "SET SQL_SAFE_UPDATES = 1";
 			PreparedStatement statement3 = conn.prepareStatement(open_safe_update);
 			statement3.executeQuery();
-
+			
 			return rs == 1;
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 		}
 		return false;
 	}
+
+	public String getOrderId(String trackingId) {
+		if (conn == null) {
+			System.err.println("DB connection failed");
+			return "";
+		}
+		String orderId = "";
+		try {
+			String sql = "SELECT order_id FROM orders WHERE tracking_id = ?";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setString(1,trackingId);
+			statement.executeUpdate();
+			ResultSet rs = statement.executeQuery();
+			while (rs.next()) {
+				orderId = rs.getString("order_id");
+				return orderId;
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return orderId;
+	}
 }
+
