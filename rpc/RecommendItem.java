@@ -120,7 +120,7 @@ public class RecommendItem extends HttpServlet {
 		// response words in the front end. time (3种标准即可), carrier, price, + words // add time feature name; and add fastest/cheapest
 		JSONArray array = new JSONArray();
 		
-		 if (weight > 50) {
+		 if (weight > 20) {
 			  //neither, warning weight, no need to check dimension, no need to check fragile.
 			 array.put(new JSONObject().put("Deliverable", "No"));
 		  } 
@@ -132,22 +132,22 @@ public class RecommendItem extends HttpServlet {
 			  } else if (max > 13 && max <= 25) { 
 				  // array.put(new JSONObject().put("dispatch within: ", "30 mins").put("carrier", "robot").put("time", String.format("%.2f", result[0][0]))
 					//.put("price", String.format("%.2f", result[0][1])));
-				  array.put(new JSONObject().put("dispatch within: ", "30 mins").put("carrier", "robot").put("price", String.format("%.2f", result[0][1])));
-					array.put(new JSONObject().put("dispatch within: ", "1 hour").put("carrier", "robot").put("price", String.format("%.2f", result[1][1])));
-					array.put(new JSONObject().put("dispatch within: ", "2 hours").put("carrier", "robot").put("price", String.format("%.2f", result[2][1])));
+				  array.put(new JSONObject().put("dispatch within: ", "30 mins").put("carrier", "robot").put("price", String.format("%.1f", result[0][1])));
+					array.put(new JSONObject().put("dispatch within: ", "1 hour").put("carrier", "robot").put("price", String.format("%.1f", result[1][1])));
+					array.put(new JSONObject().put("dispatch within: ", "2 hours").put("carrier", "robot").put("price", String.format("%.1f", result[2][1])));
 			  } else {
 					// method 1 drone
 				  if (fragile) {
-					  array.put(new JSONObject().put("dispatch within: ", "30 mins").put("carrier", "robot").put("price", String.format("%.2f", result[0][1])));
-						array.put(new JSONObject().put("dispatch within: ", "1 hour").put("carrier", "robot").put("price", String.format("%.2f", result[1][1])));
-						array.put(new JSONObject().put("dispatch within: ", "2 hours").put("carrier", "robot").put("price", String.format("%.2f", result[2][1])));
+					  array.put(new JSONObject().put("dispatch within: ", "30 mins").put("carrier", "robot").put("price", String.format("%.1f", result[0][1])));
+						array.put(new JSONObject().put("dispatch within: ", "1 hour").put("carrier", "robot").put("price", String.format("%.1f", result[1][1])));
+						array.put(new JSONObject().put("dispatch within: ", "2 hours").put("carrier", "robot").put("price", String.format("%.1f", result[2][1])));
 				  } else {
-					  array.put(new JSONObject().put("dispatch within: ", "30 mins").put("carrier", "drone").put("price", String.format("%.2f", result[0][1])));
-						array.put(new JSONObject().put("dispatch within: ", "1 hour").put("carrier", "drone").put("price", String.format("%.2f", result[1][1])));
-						array.put(new JSONObject().put("dispatch within: ", "2 hours").put("carrier", "drone").put("price", String.format("%.2f", result[2][1])));
-					  array.put(new JSONObject().put("dispatch within: ", "30 mins").put("carrier", "robot").put("price", String.format("%.2f", result[3][1])));
-						array.put(new JSONObject().put("dispatch within: ", "1 hour").put("carrier", "robot").put("price", String.format("%.2f", result[4][1])));
-						array.put(new JSONObject().put("dispatch within: ", "2 hours").put("carrier", "robot").put("price", String.format("%.2f", result[5][1])));
+					  array.put(new JSONObject().put("dispatch within: ", "30 mins").put("carrier", "drone").put("price", String.format("%.1f", result[0][1])));
+						array.put(new JSONObject().put("dispatch within: ", "1 hour").put("carrier", "drone").put("price", String.format("%.1f", result[1][1])));
+						array.put(new JSONObject().put("dispatch within: ", "2 hours").put("carrier", "drone").put("price", String.format("%.1f", result[2][1])));
+					  array.put(new JSONObject().put("dispatch within: ", "30 mins").put("carrier", "robot").put("price", String.format("%.1f", result[3][1])));
+						array.put(new JSONObject().put("dispatch within: ", "1 hour").put("carrier", "robot").put("price", String.format("%.1f", result[4][1])));
+						array.put(new JSONObject().put("dispatch within: ", "2 hours").put("carrier", "robot").put("price", String.format("%.1f", result[5][1])));
 				  }
 			  }
 		 

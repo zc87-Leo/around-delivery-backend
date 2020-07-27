@@ -234,7 +234,7 @@ public class GoogMatrixRequest {
 	  
 	  boolean mode = true; // true as drone; false as robot
 	  double[][] result = new double[6][2]; //空出
-	  if (weight > 50) {
+	  if (weight > 20) {
 		  //neither, warning weight, no need to check dimension, no need to check fragile.
 		  return result;
 	  } 
@@ -330,7 +330,7 @@ public class GoogMatrixRequest {
 	  }
 
 		 /* case 3. 
-		   * 5 < weight <= 50, only robot.
+		   * 5 < weight <= 25, only robot.
 		   * then, 1) dimension max > 25.00, warning dimension is to large. should not exceed 25.00. personalized suggestion. 
 		   * 	   2) dimension max <= 25, robot, fragile or not 都是: recommend robot, option a. fastest <=30 mins, shipping cost + $10;  option b.  <= 1 hour, shipping cost
 		   * 											c. cheapest <= 2 hours, shipping cost - 5
