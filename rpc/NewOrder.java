@@ -163,6 +163,7 @@ public class NewOrder extends HttpServlet {
             stationId = orderInfo.getInt("stationId");
         }
 
+
         // Get current time in milliseconds
 //        double dTDouble = Double.parseDouble(deliveryTime.substring(0,deliveryTime.length()-2));
 //        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

@@ -256,6 +256,7 @@ public class MySQLConnection {
 		return false;
 	}
 
+
 	public List<String> getHistory(String user_id) {
 		if (conn == null) {
 			System.err.println("DB connection failed");
