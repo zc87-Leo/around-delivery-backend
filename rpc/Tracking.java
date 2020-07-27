@@ -19,6 +19,7 @@ import com.google.maps.model.LatLng;
 
 import db.MySQLConnection;
 import entity.DateUtil;
+import entity.TrackingInfo;
 import external.GoogMatrixRequest;
 
 /**
@@ -41,127 +42,77 @@ public class Tracking extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		JSONObject input = RpcHelper.readJSONObject(request);
+		JSONObject obj = new JSONObject();
 		String trackingId = input.getString("tracking_id");
-		
+
 		MySQLConnection connection = new MySQLConnection();
 		String orderId = connection.getOrderId(trackingId);
-		List<String> times = connection.getTimes(trackingId);
 
-//		String machineId = connection.getMachineId(orderId);
-
+		TrackingInfo trackingInfo = connection.getTrackingInfo(trackingId);
 		List<String> orderDetails = connection.getDetail(orderId);
-		if (orderDetails == null) {
-			throw new IllegalStateException("No order information found.");
-		}
-		String machineType = orderDetails.get(1);
-		String senderAddr = orderDetails.get(4);
-		String receiverAddr = orderDetails.get(8);
-		LatLng senderLatLng = null;
-		try {
-			senderLatLng = GoogMatrixRequest.getLatLng(senderAddr);
-		} catch (ApiException | InterruptedException | IOException e1) {
-			e1.printStackTrace();
-		}
+
+		String deliverStatus = "";
+		String deliveredTime = "";
+		String transitTime = "";
+		String senderAddr = "";
+		String receiverAddr = "";
+		boolean delay = false;
+		String machineType = "";
+		
+//		LatLng senderLatLng = null;
 		LatLng receiverLatLng = null;
+		LatLng currLocation = null;
+
+		if (trackingInfo != null && orderDetails != null) {
+			
+			deliverStatus = trackingInfo.getStatus();
+			delay = trackingInfo.isDelay();
+			deliveredTime = trackingInfo.getDeliveredAt();
+			transitTime = trackingInfo.getTransitStart();
+			senderAddr = trackingInfo.getDestination();
+
+			receiverAddr = orderDetails.get(8);
+			machineType = orderDetails.get(1);
+		}
+
+//		try {
+//			senderLatLng = GoogMatrixRequest.getLatLng(senderAddr);
+//		} catch (ApiException | InterruptedException | IOException e1) {
+//			e1.printStackTrace();
+//		}
+//		
 		try {
 			receiverLatLng = GoogMatrixRequest.getLatLng(receiverAddr);
 		} catch (ApiException | InterruptedException | IOException e1) {
 			e1.printStackTrace();
 		}
 
-//		String createTime = "2018-07-28 14:42:32";
-//		String deliveredTime = "2018-07-29 12:26:32";
-		JSONObject obj = new JSONObject();
-//		DateUtil du = new DateUtil();
-		if (times.size() == 0) {
-			obj.put("alert", "Invalid tracking id!");
-		} else {
-			try {
-				DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				String currentTime = df.format(new Date());
-				String createdTime = times.get(0);
-				String deliveredTime = times.get(1);
-//				int pickAfter;
-//				if (machineType.equals("drone")) {;
-//					pickAfter = (int)GoogMatrixRequest.getDirectDistance(stationAddr, enderAddr) / 50;
-//				} else {
-//					pickAfter = (int)GoogMatrixRequest.getBicyclingDistance(stationAddr, enderAddr) / 10;
-//				}
-				
-				long pickedUpTime = DateUtil.addMins(createdTime, 30);// 创建订单后30分钟上门取货
-				long transmitTime = pickedUpTime + 5 * 60000; // 取货后5分钟开始送货
-				obj.put("pick up time", df.format(pickedUpTime));
-				obj.put("pick up time", deliveredTime);
-				String deliverStatus;
-				if (DateUtil.getDistanceTime(deliveredTime, currentTime)) {
-					deliverStatus = "Order delivered";
-				} else if (DateUtil.getDistanceTime2(currentTime, transmitTime)) {
-					deliverStatus = "Order out for delivery";
-				} else if (DateUtil.getDistanceTime2(currentTime, pickedUpTime)) {
-					deliverStatus = "Order picked up";
-				} else {
-					deliverStatus = "Order created";
-				}
-				obj.put("status", deliverStatus);
-				connection.updateTimes(trackingId, deliverStatus, currentTime);
-
-				try {
-					double distRatio;
-//					long start = df.parse(createdTime).getTime();
-					long curr = df.parse(currentTime).getTime();
-					long dest = df.parse(deliveredTime).getTime();
-
-					long delivered = dest + 5 * 60000; // 到货后5分钟显示在目的地
-
-					// don't consider 
-//					if (curr < pickedUpTime) {
-//						distRatio = (curr - start) / (pickedUpTime - start);
-//						
-//					}  
-					if (pickedUpTime <= curr && curr <= transmitTime) {
-						// show the location of the sender address for 5 minutes
-						obj.put("currLocation", senderLatLng);
-					} else if (curr < dest) {
-						// show the location between sender and receiver
-						distRatio = (float) (curr - transmitTime) / (float) (dest - transmitTime);
-						if (machineType.equals("drone")) {
-							obj.put("currLocation",
-									GoogMatrixRequest.getNewLocation(senderAddr, receiverAddr, distRatio));
-						} else {
-							try {
-								// test a near point
-//								double[] a = { 37.4775252, -122.1460077 };
-
-								// RoadApi
-								// double [][] route = GoogMatrixRequest.getRoutePoints(senderLatLng,
-								// receiverLatLng);
-
-								// testing address
-//								String add1 = "2310-2354 Folsom St, San Francisco, CA 94110";
-//								String add2 = "1691 John F Kennedy Dr, San Francisco, CA 94121";
-
-								List<LatLng> points = GoogMatrixRequest.getDirectionPoints(senderAddr, receiverAddr);
-//								obj.put("currLocation1", senderLatLng);
-//								obj.put("currLocation2", receiverLatLng);
-								int currIndex = (int) (distRatio * points.size()) - 1;
-								obj.put("currLocation", points.get(currIndex));
-//							obj.put("index", currIndex);
-							} catch (NullPointerException e) {
-								obj.put("currLocation", "error");
-							}
-						}
-					} else if (curr <= delivered) {
-						// show the location of the recipient address for 5 minutes
-						obj.put("currLocation", receiverLatLng);
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String currentTime = df.format(new Date());
+		
+		try {
+			double distRatio;
+			if (deliverStatus.contentEquals("in transit")) {
+				long curr = df.parse(currentTime).getTime();
+				long start = df.parse(transitTime).getTime();
+				long dest = df.parse(deliveredTime).getTime();
+				if (curr >= start && curr <= dest) {
+					distRatio = (float) (curr - start) / (float) (dest - start);
+					if (machineType.equals("drone")) {
+						currLocation = GoogMatrixRequest.getNewLocation(senderAddr, receiverAddr, distRatio);
+					} else {
+						try {
+							List<LatLng> points = GoogMatrixRequest.getDirectionPoints(senderAddr, receiverAddr);
+							int currIndex = (int) (distRatio * points.size()) - 1;
+							currLocation = points.get(currIndex);
+						} catch (NullPointerException e) {}
 					}
-				} catch (ParseException e) {
-					e.printStackTrace();
 				}
-
-			} catch (Exception e) {
-				e.printStackTrace();
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		obj.put("status", deliverStatus).put("delay", delay).put("estimated delivered time", deliveredTime).put("destination", receiverLatLng).put("current location", currLocation);
 		connection.close();
 		RpcHelper.writeJsonObject(response, obj);
 	}

@@ -15,6 +15,7 @@ import java.util.List;
 
 import entity.Order;
 import entity.User;
+import entity.TrackingInfo;
 
 public class MySQLConnection {
 
@@ -555,16 +556,47 @@ public class MySQLConnection {
 			String sql = "SELECT order_id FROM orders WHERE tracking_id = ?";
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setString(1,trackingId);
-			statement.executeUpdate();
+//			statement.executeUpdate();
 			ResultSet rs = statement.executeQuery();
 			while (rs.next()) {
 				orderId = rs.getString("order_id");
-				return orderId;
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
 		return orderId;
 	}
+	
+	public TrackingInfo getTrackingInfo(String trackingId) {
+		if (conn == null) {
+			System.err.println("DB connection failed");
+			return null;
+		}
+		TrackingInfo trackingInfo = new TrackingInfo();
+		try {
+			String sql = "SELECT * FROM tracking WHERE tracking_id = ?";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setString(1, trackingId);
+//			statement.executeUpdate();
+			ResultSet rs = statement.executeQuery();
+			while (rs.next()) {
+				String status = rs.getString("status");
+				trackingInfo.setStatus(status);
+				String createdAt = rs.getString("created_at");
+				trackingInfo.setCreatedAt(createdAt);
+				String deliveredAt = rs.getString("estimated_delivered_at");
+				trackingInfo.setDeliveredAt(deliveredAt);
+				boolean delay = rs.getBoolean("delay");
+				trackingInfo.setDelay(delay);
+				String destination = rs.getString("previous_destination");
+				trackingInfo.setDestination(destination);
+				String transitStart = rs.getString("previous_destination_start_time");
+				trackingInfo.setTransitStart(transitStart);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return trackingInfo;
+	}
+	
 }
-
