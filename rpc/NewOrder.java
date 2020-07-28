@@ -159,11 +159,9 @@ public class NewOrder extends HttpServlet {
             Timestamp aT = new Timestamp(appointmentTimeInMs);
             appointmentTime = df.format(aT);
         }
-
-		if(orderInfo.getInt("stationId") >= 1 && orderInfo.getInt("stationId") <= 3) {
-        stationId = orderInfo.getInt("stationId");
-		}
-
+        if(orderInfo.getInt("stationId") >= 1 && orderInfo.getInt("stationId") <= 3) {
+            stationId = orderInfo.getInt("stationId");
+        }
 
         // Get current time in milliseconds
 //        double dTDouble = Double.parseDouble(deliveryTime.substring(0,deliveryTime.length()-2));
@@ -210,7 +208,7 @@ public class NewOrder extends HttpServlet {
             senderId = connection.getContactId(senderFirstName, senderLastName, senderEmail, senderPhoneNumber,
                     senderAddress);
         }
-        obj.put("sender id", senderId);
+//		obj.put("sender id", senderId);
         int recipientId = -1;
         connection.addContact(recipientFirstName, recipientLastName, recipientEmail, recipientPhoneNumber,
                 recipientAddress);
@@ -219,7 +217,7 @@ public class NewOrder extends HttpServlet {
             recipientId = connection.getContactId(recipientFirstName, recipientLastName, recipientEmail,
                     recipientPhoneNumber, recipientAddress);
         }
-        obj.put("recipient id", recipientId);
+//		obj.put("recipient id", recipientId);
         Order newOrder = new Order();
         newOrder.setOrderId(orderId);
         newOrder.setTrackingId(trackingId);

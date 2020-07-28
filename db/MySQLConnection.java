@@ -40,19 +40,20 @@ public class MySQLConnection {
 		}
 	}
 
-	public String getFullname(String userId) {
+	public List<String> getFullname(String userId) {
 		if (conn == null) {
 			System.err.println("DB connection failed");
-			return "";
+			return new ArrayList<>();
 		}
-		String name = "";
+		List<String> name = new ArrayList<>();
 		String sql = "SELECT first_name, last_name FROM users WHERE user_id = ? ";
 		try {
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setString(1, userId);
 			ResultSet rs = statement.executeQuery();
 			if (rs.next()) {
-				name = rs.getString("first_name") + " " + rs.getString("last_name");
+				name.add(rs.getString("first_name"));
+				name.add(rs.getString("last_name"));
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
