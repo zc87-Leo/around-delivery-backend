@@ -270,13 +270,12 @@ public class MySQLConnection {
 		List<String> items = new ArrayList<String>();
 		try {
 			String sql = "SELECT o.order_id, o.tracking_id, c.first_name, c.last_name, c.address, t.status, "
-					+ "t.created_at, t.delivered_at "
+					+ "t.created_at, t.estimated_delivered_at "
 					+ "FROM users u, orders o, contact c, tracking t "
 					+ "WHERE u.user_id = ? "
 					+ 	"AND u.user_id = o.user_id "
 					+	"AND o.recipient_id = c.contact_id "
 					+ 	"AND o.tracking_id = t.tracking_id";
-			System.out.println(sql);
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setString(1, user_id);
 			ResultSet rs = statement.executeQuery();
@@ -289,7 +288,7 @@ public class MySQLConnection {
 				items.add(name);
 				String address = rs.getString("address");
 				items.add(address);
-				String delivered_at = rs.getString("delivered_at");
+				String delivered_at = rs.getString("estimated_delivered_at");
 				items.add(delivered_at);
 				String created_at = rs.getString("created_at");
 				items.add(created_at);
@@ -311,10 +310,10 @@ public class MySQLConnection {
 		List<String> items = new ArrayList<String>();
 		try {
 			String sql = "SELECT o.order_id, o.tracking_id, c.first_name, c.last_name, c.address, t.status, "
-					+ "t.created_at, t.delivered_at "
+					+ "t.created_at, t.estimated_delivered_at "
 					+ "FROM users u, orders o, contact c, tracking t "
 					+ "WHERE u.user_id = ? "
-					+ 	"AND t.status = 'active' "
+					+ 	"AND t.status != 'delivered' "
 					+ 	"AND u.user_id = o.user_id " 
 					+	"AND o.recipient_id = c.contact_id "
 					+ 	"AND o.tracking_id = t.tracking_id";
@@ -331,7 +330,7 @@ public class MySQLConnection {
 				items.add(name);
 				String address = rs.getString("address");
 				items.add(address);
-				String delivered_at = rs.getString("delivered_at");
+				String delivered_at = rs.getString("estimated_delivered_at");
 				items.add(delivered_at);
 				String created_at = rs.getString("created_at");
 				items.add(created_at);
@@ -529,14 +528,16 @@ public class MySQLConnection {
 					"SET first_name = ?, " + 
 					"	 last_name = ?, " + 
 					"	 email_address = ?, " + 
-					"	 phone_number = ?" + 
+					"	 phone_number = ?, "
+					+ 	"address = ? " + 
 					"WHERE user_id = ?";
 			PreparedStatement statement2 = conn.prepareStatement(update);
 			statement2.setString(1, first_name);
 			statement2.setString(2,  last_name);
 			statement2.setString(3,  email_address);
 			statement2.setString(4, phone_number);
-			statement2.setString(5, user_id);
+			statement2.setString(5,  address);
+			statement2.setString(6, user_id);
 			int rs = statement2.executeUpdate();
 			
 			String open_safe_update = "SET SQL_SAFE_UPDATES = 1";
