@@ -103,24 +103,26 @@ public class MySQLConnection {
 		return false;
 	}
 
-	public List<String> getUserProfiles(String userId){
+	public List<String> getUserProfiles(String userId) {
 		if (conn == null) {
 			System.err.println("DB connection failed");
 			return new ArrayList<>();
 		}
 		List<String> user = new ArrayList<>();
 		try {
-			String sql = "SELECT email_address,phone_number FROM dispatch.users WHERE user_id = ?;";
+			String sql = "SELECT email_address,phone_number,address FROM dispatch.users WHERE user_id = ?;";
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1,userId);
+			statement.setString(1, userId);
 			ResultSet rs = statement.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				String emailAddress = rs.getString("email_address");
 				user.add(emailAddress);
 				String phoneNumber = rs.getString("phone_number");
 				user.add(phoneNumber);
+				String address = rs.getString("address");
+				user.add(address);
 			}
-		}catch(SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return user;

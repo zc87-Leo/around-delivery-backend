@@ -95,9 +95,9 @@ public class NewOrder extends HttpServlet {
         if (orderInfo.getString("senderEmail") != null) {
             senderEmail = orderInfo.getString("senderEmail");
         }
-        if (orderInfo.getString("senderAddress") != null) {
-            senderAddress = orderInfo.getString("senderAddress");
-        }
+//		if (orderInfo.getString("senderAddress") != null) {
+//			senderAddress = orderInfo.getString("senderAddress");
+//		}
         if (orderInfo.getString("recipientFirstName") != null) {
             recipientFirstName = orderInfo.getString("recipientFirstName");
         }
@@ -159,9 +159,11 @@ public class NewOrder extends HttpServlet {
             Timestamp aT = new Timestamp(appointmentTimeInMs);
             appointmentTime = df.format(aT);
         }
-        if(orderInfo.getInt("stationId") >= 1 && orderInfo.getInt("stationId") <= 3) {
-            stationId = orderInfo.getInt("stationId");
-        }
+
+		if(orderInfo.getInt("stationId") >= 1 && orderInfo.getInt("stationId") <= 3) {
+        stationId = orderInfo.getInt("stationId");
+		}
+
 
         // Get current time in milliseconds
 //        double dTDouble = Double.parseDouble(deliveryTime.substring(0,deliveryTime.length()-2));
