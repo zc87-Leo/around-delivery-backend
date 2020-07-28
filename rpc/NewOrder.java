@@ -75,6 +75,7 @@ public class NewOrder extends HttpServlet {
         String carrier = "";
         String deliveryTime = "";
         String appointmentTime ="";
+        int stationId = 0;
 
         // get order info from JSON object via HTTP request
         JSONObject orderInfo = RpcHelper.readJSONObject(request);
@@ -94,9 +95,9 @@ public class NewOrder extends HttpServlet {
         if (orderInfo.getString("senderEmail") != null) {
             senderEmail = orderInfo.getString("senderEmail");
         }
-        if (orderInfo.getString("senderAddress") != null) {
-            senderAddress = orderInfo.getString("senderAddress");
-        }
+//		if (orderInfo.getString("senderAddress") != null) {
+//			senderAddress = orderInfo.getString("senderAddress");
+//		}
         if (orderInfo.getString("recipientFirstName") != null) {
             recipientFirstName = orderInfo.getString("recipientFirstName");
         }
@@ -134,10 +135,11 @@ public class NewOrder extends HttpServlet {
         if (orderInfo.getString("carrier") != null) {
             carrier = orderInfo.getString("carrier");
         }
-        if (orderInfo.getString("deliveryTime") != null) {
-            String dT = orderInfo.getString("deliveryTime");
-            deliveryTime = dT.substring(0, dT.length() - 2);
-        }
+
+//		if (orderInfo.getString("deliveryTime") != null) {
+//			String dT = orderInfo.getString("deliveryTime");
+//			deliveryTime = dT.substring(0, dT.length() - 2);
+//		}
 
         if (orderInfo.getDouble("totalCost") >= 0) {
             totalCost = (float) orderInfo.getDouble("totalCost");
@@ -157,6 +159,9 @@ public class NewOrder extends HttpServlet {
             Timestamp aT = new Timestamp(appointmentTimeInMs);
             appointmentTime = df.format(aT);
         }
+//		if(orderInfo.getInt("stationId") >= 1 && orderInfo.getInt("stationId") <= 3) {
+        stationId = orderInfo.getInt("stationId");
+//		}
 
         // Get current time in milliseconds
 //        double dTDouble = Double.parseDouble(deliveryTime.substring(0,deliveryTime.length()-2));
@@ -230,6 +235,7 @@ public class NewOrder extends HttpServlet {
         newOrder.setPackageLength(packageLength);
         newOrder.setPackageWidth(packageWidth);
         newOrder.setAppointmentTime(appointmentTime);
+        newOrder.setStationId(stationId);
 
 //        Order order = newOrder.build(); // will be stored in DB
 //

@@ -54,6 +54,7 @@ public class Login extends HttpServlet {
 			if (user != null & user.size() > 0) {
 				obj.put("email_address", user.get(0));
 				obj.put("phone_number", user.get(1));
+				obj.put("primary_address", user.get(2));
 			}
 		} else {
 			obj.put("status", "User Doesn't Exist");
