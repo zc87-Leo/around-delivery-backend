@@ -98,13 +98,15 @@ public class Tracking extends HttpServlet {
 				long dest = df.parse(deliveredTime).getTime();
 				if (curr >= start && curr <= dest) {
 					distRatio = (float) (curr - start) / (float) (dest - start);
+					System.out.println(distRatio);
 					if (machineType.equals("drone")) {
 						currLocation = GoogMatrixRequest.getNewLocation(senderAddr, receiverAddr, distRatio);
 					} else {
 						try {
 							List<LatLng> points = GoogMatrixRequest.getDirectionPoints(senderAddr, receiverAddr);
-							int currIndex = (int) (distRatio * points.size()) - 1;
+							int currIndex = Math.max(0,(int) (distRatio * points.size()) - 1);
 							currLocation = points.get(currIndex);
+							System.out.println(points.size());
 						} catch (NullPointerException e) {}
 					}
 				}
@@ -112,7 +114,15 @@ public class Tracking extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		obj.put("status", deliverStatus).put("delay", delay).put("estimated delivered time", deliveredTime).put("destination", receiverLatLng).put("current location", currLocation);
+		obj.put("status", deliverStatus).put("delay", delay).put("estimated delivered time", deliveredTime).put("destination", receiverLatLng);
+		if (currLocation == null) {
+			obj.put("current location", org.json.JSONObject.NULL);
+		}
+		else {
+			obj.put("current location", currLocation);
+		}
+		
+		
 		connection.close();
 		RpcHelper.writeJsonObject(response, obj);
 	}
