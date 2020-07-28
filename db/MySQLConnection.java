@@ -479,6 +479,169 @@ public class MySQLConnection {
 		return stationOrders;
 	}
 	
+	public List<Integer> getAvailableMachine(int stationId, String carrier) {
+		if (conn == null) {
+			System.err.println("DB connection failed");
+			return new ArrayList<>();
+		}
+		List<Integer> machines = new ArrayList<>();
+		try {
+			String sql = "select m.machine_id from dispatch.machine m where m.station_id = ? and m.machine_type = ? and m.available = ?;";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setInt(1, stationId);
+			statement.setString(2, carrier);
+			//statement.setBoolean(3, true);
+			statement.setInt(3, 1);
+			ResultSet rs = statement.executeQuery();
+			
+			while (rs.next()) {
+				int machineId = rs.getInt("machine_id");
+				machines.add(machineId);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return machines;
+	}
+	
+	public void flipMachineAvailability(int machineId) {
+		if (conn == null) {
+			System.err.println("DB connection failed");
+			return;
+		}
+		try {
+			String sql = "UPDATE machine SET available = !available WHERE machine_id = ?";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setInt(1, machineId);
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void updateStationIdInMachine(int machineId, int stationId) {
+		if (conn == null) {
+			System.err.println("DB connection failed");
+			return;
+		}
+		try {
+			String sql = "UPDATE machine SET station_id = ? WHERE machine_id = ?";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setInt(1, stationId);
+			statement.setInt(2, machineId);
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public int getStationIdInMachine(int machineId) {
+		if (conn == null) {
+			System.err.println("DB connection failed");
+			return 0;
+		}
+		int stationId = 0;
+		try {
+			String sql = "SELECT station_id FROM dispatch.machine WHERE machine_id = ?";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setInt(1, machineId);
+			ResultSet rs = statement.executeQuery();
+			if (rs.next()) {
+				stationId = rs.getInt("station_id");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return stationId;
+	}
+	
+	public int getMachineIdInOrder(String orderId) {
+		if (conn == null) {
+			System.err.println("DB connection failed");
+			return 0;
+		}
+		int machineId = 0;
+		try {
+			String sql = "SELECT machine_id FROM dispatch.order WHERE order_id = ?";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setString(1, orderId);
+			ResultSet rs = statement.executeQuery();
+			if (rs.next()) {
+				machineId = rs.getInt("machine_id");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return machineId;
+	}
+	
+	public void updateMachineIdInOrder(int machineId, String orderId) {
+		if (conn == null) {
+			System.err.println("DB connection failed");
+			return;
+		}
+		try {
+			String sql = "UPDATE orders SET machine_id = ? WHERE order_id = ?";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setInt(1, machineId);
+			statement.setString(2, orderId);
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void updateDelayedInTracking(String trackingId) {
+		if (conn == null) {
+			System.err.println("DB connection failed");
+			return;
+		}
+		try {
+			String sql = "update dispatch.tracking SET tracking.delay = true where tracking_id = ?";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setString(1, trackingId);
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void updateStatusInTracking(String status, String trackingId) {
+		if (conn == null) {
+			System.err.println("DB connection failed");
+			return;
+		}
+		try {
+			String sql = "update dispatch.tracking SET tracking.status = ? where tracking_id = ?";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setString(1, status);
+			statement.setString(2, trackingId);
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void updateTrackingAfterDispatch(String status, String previousAddress, String prevDestiStartTime, String estimatedDeliveredTime, String trackingId) {
+		if (conn == null) {
+			System.err.println("DB connection failed");
+			return;
+		}
+
+		try {
+			String sql = "UPDATE dispatch.tracking SET status = ?, previous_destination = ?, previous_destination_start_time = ?, estimated_delivered_at = ? WHERE tracking_id = ?";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setString(1, status);
+			statement.setString(2, previousAddress);
+			statement.setString(3, prevDestiStartTime);
+			statement.setString(4, estimatedDeliveredTime);
+			statement.setString(5, trackingId);
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * Store the latest update time into the tacking table 
 	 * @param trackingId
@@ -486,6 +649,7 @@ public class MySQLConnection {
 	 * @param updateTime
 	 */
 	public void updateTimes(String trackingId, String deliverStatus, String updateTime){
+
 		if (conn == null) {
 			System.err.println("DB connection failed");
 			return;
