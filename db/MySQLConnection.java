@@ -216,7 +216,7 @@ public class MySQLConnection {
 		return id;
 
 	}
-
+	
 	public boolean createOrder(Order order, int senderId, int recipientId) {
 		if (conn == null) {
 			System.err.println("DB connection failed");
