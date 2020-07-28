@@ -43,9 +43,8 @@ public class UserProfile extends HttpServlet {
 		// decouple the body to individual elements
 		String user_id = userInfo.getString("user_id");
 		String email = userInfo.getString("email");
-		String[] name = userInfo.getString("name").split(" ");
-		String first_name = name[0];
-		String last_name = name[1];
+		String first_name = userInfo.getString("first_name");
+		String last_name = userInfo.getString("first_name");
 		String phone = userInfo.getString("phoneNumber");
 		String address = userInfo.getString("primaryAddress") + " " + userInfo.getString("zipCode");
 		

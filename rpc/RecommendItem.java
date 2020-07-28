@@ -1,5 +1,3 @@
-//testing
-
 package rpc;
 
 import java.io.IOException;
@@ -73,8 +71,18 @@ public class RecommendItem extends HttpServlet {
 		// TODO Auto-generated method stub
 		JSONObject input = RpcHelper.readJSONObject(request);
 		//senderAddr as stationAddr
-		//? line 77
-		String stationAddr = input.getString("address");
+		String stationId= input.getString("address");
+		String stationAddr;
+		if (stationId.equals("")) { //默认0.00 price
+			stationAddr = "";
+		} else if (stationId.equals("1")) {
+			stationAddr = "Parkside, San Francisco, CA, USA";
+		} else if (stationId.equals("2")) {
+			stationAddr = "Mission District, San Francisco, CA, USA";
+		} else {
+			stationAddr = "Excelsior, San Francisco, CA, USA";
+		}
+		//String stationAddr = input.getString("address");
 		String receiverAddr = input.getString("receiverAddr");
 		double weight = input.getDouble("weight");
 		// change to one decimal
@@ -109,52 +117,42 @@ public class RecommendItem extends HttpServlet {
 		double max = length >= width ? length : width;
 		  max = height >= max ? height : max;
 		
-		// response words in the front end? time (3种标准即可), carrier, price, + words
+		// response words in the front end. time (3种标准即可), carrier, price, + words // add time feature name; and add fastest/cheapest
 		JSONArray array = new JSONArray();
 		
-		 if (weight > 50) {
-			  //neither, warning weight, no need to check dimension, no need to check fragile. ?
+		 if (weight > 20) {
+			  //neither, warning weight, no need to check dimension, no need to check fragile.
 			 array.put(new JSONObject().put("Deliverable", "No"));
 		  } 
 		 
 		  else if (weight > 0 && weight <= 5) {
 			  if (max > 25.00) {
-				  // neither, warning dimension, no need to check fragile?
+				  // neither, warning dimension, no need to check fragile
 				  array.put(new JSONObject().put("Deliverable", "No"));
 			  } else if (max > 13 && max <= 25) { 
-				  array.put(new JSONObject().put("carrier", "walking robot").put("time", String.format("%.2f", result[0][0]))
-							.put("price", String.format("%.2f", result[0][1])));
-					array.put(new JSONObject().put("carrier", "walking robot").put("time", String.format("%.2f", result[1][0]))
-							.put("price", String.format("%.2f", result[1][1])));
-					array.put(new JSONObject().put("carrier", "walking robot").put("time", String.format("%.2f", result[2][0]))
-							.put("price", String.format("%.2f", result[2][1])));
+				  // array.put(new JSONObject().put("dispatch within: ", "30 mins").put("carrier", "robot").put("time", String.format("%.2f", result[0][0]))
+					//.put("price", String.format("%.2f", result[0][1])));
+				  array.put(new JSONObject().put("dispatch within: ", "30 mins").put("carrier", "robot").put("price", String.format("%.1f", result[0][1])));
+					array.put(new JSONObject().put("dispatch within: ", "1 hour").put("carrier", "robot").put("price", String.format("%.1f", result[1][1])));
+					array.put(new JSONObject().put("dispatch within: ", "2 hours").put("carrier", "robot").put("price", String.format("%.1f", result[2][1])));
 			  } else {
 					// method 1 drone
 				  if (fragile) {
-					  array.put(new JSONObject().put("carrier", "drone").put("time", String.format("%.2f", result[0][0]))
-								.put("price", String.format("%.2f", result[0][1])));
-						array.put(new JSONObject().put("carrier", "drone").put("time", String.format("%.2f", result[1][0]))
-								.put("price", String.format("%.2f", result[1][1])));
-						array.put(new JSONObject().put("carrier", "drone").put("time", String.format("%.2f", result[2][0]))
-								.put("price", String.format("%.2f", result[2][1])));
+					  array.put(new JSONObject().put("dispatch within: ", "30 mins").put("carrier", "robot").put("price", String.format("%.1f", result[0][1])));
+						array.put(new JSONObject().put("dispatch within: ", "1 hour").put("carrier", "robot").put("price", String.format("%.1f", result[1][1])));
+						array.put(new JSONObject().put("dispatch within: ", "2 hours").put("carrier", "robot").put("price", String.format("%.1f", result[2][1])));
 				  } else {
-					  array.put(new JSONObject().put("carrier", "drone").put("time", String.format("%.2f", result[0][0]))
-								.put("price", String.format("%.2f", result[0][1])));
-						array.put(new JSONObject().put("carrier", "drone").put("time", String.format("%.2f", result[1][0]))
-								.put("price", String.format("%.2f", result[1][1])));
-						array.put(new JSONObject().put("carrier", "drone").put("time", String.format("%.2f", result[2][0]))
-								.put("price", String.format("%.2f", result[2][1])));
-					  array.put(new JSONObject().put("carrier", "walking robot").put("time", String.format("%.2f", result[3][0]))
-								.put("price", String.format("%.2f", result[3][1])));
-						array.put(new JSONObject().put("carrier", "walking robot").put("time", String.format("%.2f", result[4][0]))
-								.put("price", String.format("%.2f", result[4][1])));
-						array.put(new JSONObject().put("carrier", "walking robot").put("time", String.format("%.2f", result[5][0]))
-								.put("price", String.format("%.2f", result[5][1])));
+					  array.put(new JSONObject().put("dispatch within: ", "30 mins").put("carrier", "drone").put("price", String.format("%.1f", result[0][1])));
+						array.put(new JSONObject().put("dispatch within: ", "1 hour").put("carrier", "drone").put("price", String.format("%.1f", result[1][1])));
+						array.put(new JSONObject().put("dispatch within: ", "2 hours").put("carrier", "drone").put("price", String.format("%.1f", result[2][1])));
+					  array.put(new JSONObject().put("dispatch within: ", "30 mins").put("carrier", "robot").put("price", String.format("%.1f", result[3][1])));
+						array.put(new JSONObject().put("dispatch within: ", "1 hour").put("carrier", "robot").put("price", String.format("%.1f", result[4][1])));
+						array.put(new JSONObject().put("dispatch within: ", "2 hours").put("carrier", "robot").put("price", String.format("%.1f", result[5][1])));
 				  }
 			  }
 		 
 		  }
 		
-		RpcHelper.writeJsonArray(response, array); //? 统一
+		RpcHelper.writeJsonArray(response, array); //统一
 	}
 }
