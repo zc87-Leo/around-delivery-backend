@@ -11,10 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import org.json.JSONObject;
+
 import db.MySQLConnection;
 import entity.DateUtil;
+import entity.Mail;
+import entity.MailUtil;
 import entity.Order;
 import entity.UuidUtil;
+
 
 /**
  * Servlet implementation class NewOrder
@@ -259,6 +263,20 @@ public class NewOrder extends HttpServlet {
             obj.put("status", "Order Created Unsuccessfully!");
         }
         connection.close();
+        Mail mail = new Mail();
+        mail.setHost("smtp.gmail.com");
+        mail.setPortNumber("465");
+        mail.setSender("dronbotdev@gmail.com");
+        mail.setReceiver(senderEmail);
+        mail.setUsername("dronbotdev@gmail.com");
+        mail.setPassword("12321Abcba!");
+        mail.setSubject("(do-not-reply) 🎉 Congratulations! You successfully placed an order!");
+        mail.setMessage("<p>Dear " + senderFirstName + ":</p>" +"Thank you for using Dronebot. The tracking id of your latest order is: " + "<strong style=\"color:red;\">" +trackingId + "</strong>" + ". " + "You could view the real-time information of your order by visiting " +  "<a href=\"http://18.221.255.187/delivery/tracking\">our tracking page</a>" + ". 😊" + "<p>Best,</p>" + "<p>Dronbot Development Team</p>");
+        if (new MailUtil().send(mail)) {
+            obj.put("email", "send successfully!");
+        } else {
+            obj.put("email", "send unsuccessfully!");
+        }
         RpcHelper.writeJsonObject(response, obj);
     }
 }
