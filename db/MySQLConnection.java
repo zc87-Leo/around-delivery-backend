@@ -22,7 +22,7 @@ public class MySQLConnection {
 	private Connection conn;
 
 	public MySQLConnection() {
-		try { //鏉╃偞甯撮弫鐗堝祦鎼达拷
+		try {
 			Class.forName("com.mysql.cj.jdbc.Driver").getConstructor().newInstance();
 			conn = DriverManager.getConnection(MySQLDBUtil.URL);
 		} catch (Exception e) {
@@ -80,13 +80,14 @@ public class MySQLConnection {
 		return false;
 	}
 
-	public boolean addUser(String userId, String password, String firstname, String lastname,String emailAddress, String phoneNumber) {
+	public boolean addUser(String userId, String password, String firstname, String lastname, String emailAddress,
+						   String phoneNumber, String address) {
 		if (conn == null) {
 			System.err.println("DB connection failed");
 			return false;
 		}
 
-		String sql = "INSERT IGNORE INTO users VALUES (?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT IGNORE INTO users VALUES (?,?,?,?,?,?,?)";
 		try {
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setString(1, userId);
@@ -95,6 +96,7 @@ public class MySQLConnection {
 			statement.setString(4, lastname);
 			statement.setString(5, emailAddress);
 			statement.setString(6, phoneNumber);
+			statement.setString(7, address);
 
 			return statement.executeUpdate() == 1;
 		} catch (SQLException e) {
