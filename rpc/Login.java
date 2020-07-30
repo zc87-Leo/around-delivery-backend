@@ -49,11 +49,13 @@ public class Login extends HttpServlet {
 		MySQLConnection connection = new MySQLConnection();
 		JSONObject obj = new JSONObject();
 		if (connection.verifyLogin(userId, password)) {
-			obj.put("status", "OK").put("user_id", userId).put("name", connection.getFullname(userId));
+			List<String> name= connection.getFullname(userId);
+			obj.put("status", "OK").put("user_id", userId).put("first_name", name.get(0)).put("last_name", name.get(1));
 			List<String> user = connection.getUserProfiles(userId);
 			if (user != null & user.size() > 0) {
 				obj.put("email_address", user.get(0));
 				obj.put("phone_number", user.get(1));
+				obj.put("primary_address", user.get(2));
 			}
 		} else {
 			obj.put("status", "User Doesn't Exist");
