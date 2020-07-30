@@ -562,7 +562,7 @@ public class MySQLConnection {
 		}
 		int machineId = 0;
 		try {
-			String sql = "SELECT machine_id FROM dispatch.order WHERE order_id = ?";
+			String sql = "SELECT machine_id FROM dispatch.orders WHERE order_id = ?";
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setString(1, orderId);
 			ResultSet rs = statement.executeQuery();
