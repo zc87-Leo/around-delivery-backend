@@ -135,7 +135,8 @@ public class RecommendItem extends HttpServlet {
 				  array.put(new JSONObject().put("dispatch within: ", "30 mins").put("carrier", "robot").put("price", String.format("%.1f", result[0][1])));
 					array.put(new JSONObject().put("dispatch within: ", "1 hour").put("carrier", "robot").put("price", String.format("%.1f", result[1][1])));
 					array.put(new JSONObject().put("dispatch within: ", "2 hours").put("carrier", "robot").put("price", String.format("%.1f", result[2][1])));
-			  } else {
+			  } 
+		  }else {
 					// method 1 drone
 				  if (fragile) {
 					  array.put(new JSONObject().put("dispatch within: ", "30 mins").put("carrier", "robot").put("price", String.format("%.1f", result[0][1])));
@@ -151,7 +152,7 @@ public class RecommendItem extends HttpServlet {
 				  }
 			  }
 		 
-		  }
+		  
 		
 		RpcHelper.writeJsonArray(response, array); //统一
 	}
