@@ -51,6 +51,7 @@ public class Tracking extends HttpServlet {
 		TrackingInfo trackingInfo = connection.getTrackingInfo(trackingId);
 		List<String> orderDetails = connection.getDetail(orderId);
 
+		String createdTime = "";
 		String deliverStatus = "";
 		String deliveredTime = "";
 		String transitTime = "";
