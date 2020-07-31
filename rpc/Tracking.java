@@ -64,7 +64,8 @@ public class Tracking extends HttpServlet {
 		LatLng currLocation = null;
 
 		if (trackingInfo != null && orderDetails != null) {
-			
+
+			createdTime = trackingInfo.getCreatedAt();
 			deliverStatus = trackingInfo.getStatus();
 			delay = trackingInfo.isDelay();
 			deliveredTime = trackingInfo.getDeliveredAt();
@@ -74,6 +75,7 @@ public class Tracking extends HttpServlet {
 			receiverAddr = orderDetails.get(8);
 			machineType = orderDetails.get(1);
 		}
+		obj.put("created time", createdTime);
 
 //		try {
 //			senderLatLng = GoogMatrixRequest.getLatLng(senderAddr);
