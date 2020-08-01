@@ -47,9 +47,9 @@ public class Tracking extends HttpServlet {
 
 		MySQLConnection connection = new MySQLConnection();
 		String orderId = connection.getOrderId(trackingId);
-
 		TrackingInfo trackingInfo = connection.getTrackingInfo(trackingId);
 		List<String> orderDetails = connection.getDetail(orderId);
+		StationAndMachineInfo smi = connection.getStationAndMachineInfo;
 
 		String createdTime = "";
 		String deliverStatus = "";
@@ -64,6 +64,25 @@ public class Tracking extends HttpServlet {
 		LatLng receiverLatLng = null;
 		LatLng currLocation = null;
 
+		String machineType = "";
+		int stationId = -1;
+		String stationAddress = "";
+		double lon = 0.0;
+		double lat = 0.0;
+
+		if(smi != null){
+			stationId = smi.getStationId();
+			obj.put("station id", stationId);
+			machineType = smi.getMachineType();
+			obj.put("machine type", machineType);
+			stationAddress = smi.getStationAddress();
+			obj.put("stationAdress",stationAddress);
+			lon = smi.getLon();
+			obj.put("lon",lon);
+			lat = smi.getLat();
+			obj.put("lat",lat);
+		}
+
 		if (trackingInfo != null && orderDetails != null) {
 
 			createdTime = trackingInfo.getCreatedAt();
@@ -77,7 +96,6 @@ public class Tracking extends HttpServlet {
 			machineType = orderDetails.get(1);
 		}
 		obj.put("created time", createdTime);
-
 //		try {
 //			senderLatLng = GoogMatrixRequest.getLatLng(senderAddr);
 //		} catch (ApiException | InterruptedException | IOException e1) {
