@@ -769,4 +769,32 @@ public class MySQLConnection {
 		return trackingInfo;
 	}
 	
+	public StationAndMachineInfo getStationAndMachineInfo(String trackingId) {
+		if (conn == null) {
+			System.err.println("DB connection failed");
+			return null;
+		}
+		StationAndMachineInfo smi = new StationAndMachineInfo();
+		try {
+			String sql = "select o.station_id, o.carrier, s.address, s.lon, s.lat from dispatch.orders o, dispatch.station s where o.tracking_id = ? and o.station_id = s.station_id";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setString(1, trackingId);
+			ResultSet rs = statement.executeQuery();
+			while (rs.next()) {
+				int stationId = rs.getInt("station_id");
+				String machineType = rs.getString("carrier");
+				String address = rs.getString("address");
+				double lon = rs.getDouble("lon");
+				double lat = rs.getDouble("lat");
+				smi.setStationId(stationId);
+				smi.setMachineType(machineType);
+				smi.setStationAddress(address);
+				smi.setLon(lon);
+				smi.setLat(lat);
+			}}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return smi;
+	}
+	
 }
